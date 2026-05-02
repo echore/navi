@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import NavBar from '../components/NavBar.astro';
 import PostGrid from '../components/PostGrid.astro';
 import QuoteBand from '../components/QuoteBand.astro';
 import PlatformCard from '../components/PlatformCard.astro';
@@ -48,7 +49,9 @@ const platforms = [
 ---
 
 <Layout title="Navi — Use AI like an expert">
-  <Hero />
+  <Hero>
+    <NavBar slot="nav" />
+  </Hero>
 
   <PostGrid />
 
