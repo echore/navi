@@ -81,6 +81,34 @@ describe('extractSubsection', () => {
   });
 });
 
+describe('slug collision detection', () => {
+  it('two titles that differ only in punctuation produce the same slug', () => {
+    expect(slugify('How I Learn')).toBe(slugify('How I Learn!!'));
+  });
+
+  it('Map-based dedup skips the second entry with identical slug', () => {
+    const usedSlugs = new Map<string, string>();
+    const slugA = slugify('How I Learn');
+    const slugB = slugify('How I Learn!!');
+
+    usedSlugs.set(slugA, 'notion-id-A');
+    const conflict = usedSlugs.has(slugB);
+    expect(conflict).toBe(true);
+  });
+});
+
+describe('enBody empty guard', () => {
+  it('extractSubsection returns empty string when Body in English marker is absent', () => {
+    const section = `## Title in English\n\nMy Title`;
+    expect(extractSubsection(section, 'Body in English')).toBe('');
+  });
+
+  it('extractSubsection returns empty string when body section exists but has no content', () => {
+    const section = `## Title in English\n\nMy Title\n\n## Body in English\n\n`;
+    expect(extractSubsection(section, 'Body in English')).toBe('');
+  });
+});
+
 describe('full page markdown splitting', () => {
   it('parses template with ## markers and dividers', () => {
     const fullMd = [

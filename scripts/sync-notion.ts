@@ -129,6 +129,11 @@ async function parsePage(pageId: string, tags: string[]): Promise<ParsedPost | n
     return null;
   }
 
+  if (!enBody) {
+    console.warn(`[skip] Page ${pageId}: EN body is empty — add content under "## ${MARKERS.enBody}" in Notion`);
+    return null;
+  }
+
   return { titleEn, titleCn, tags, enBody, cnBody, notionId: pageId };
 }
 
