@@ -10,25 +10,25 @@ interface Props {
 
 const { titleEn, titleCn, tags, date, readTime, slug } = Astro.props;
 
-const primaryTag = tags[0] ?? 'Notes';
-const tagColor = primaryTag === 'AI' ? 'var(--terra)' : 'var(--sage)';
-const tagLabelEn = primaryTag;
-const tagLabelCn = primaryTag === 'AI' ? 'AI' : '随笔';
+const PALETTE = ['var(--terra)', 'var(--sage)'];
+function getTagColor(tag: string): string {
+  let hash = 0;
+  for (const c of tag) hash = (hash * 31 + c.charCodeAt(0)) & 0xffff;
+  return PALETTE[hash % PALETTE.length];
+}
 
+const barColor = tags.length > 0 ? getTagColor(tags[0]) : 'var(--sage)';
 const dateEn = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 const dateCn = `${date.getFullYear()}年${date.getMonth() + 1}月`;
 ---
 
-<a class="post-card" href={`/posts/${slug}`}>
-  <div
-    class="post-card-tag"
-    style={`color: ${tagColor}`}
-    data-en={tagLabelEn}
-    data-cn={tagLabelCn}
-  >
-    {tagLabelEn}
+<a class="post-card" href={`/posts/${slug}`} data-tags={tags.join(',')}>
+  <div class="post-card-tags">
+    {tags.map(tag => (
+      <span class="post-card-tag" style={`color: ${getTagColor(tag)}`}>{tag}</span>
+    ))}
   </div>
-  <div class="post-card-bar" style={`background: ${tagColor}`}></div>
+  <div class="post-card-bar" style={`background: ${barColor}`}></div>
   <div
     class="post-card-title"
     data-en={titleEn}
@@ -63,12 +63,18 @@ const dateCn = `${date.getFullYear()}年${date.getMonth() + 1}月`;
     background: var(--linen);
   }
 
+  .post-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
   .post-card-tag {
     font-size: 10px;
     font-weight: 500;
     letter-spacing: 0.07em;
     text-transform: uppercase;
-    margin-bottom: 8px;
   }
 
   .post-card-bar {

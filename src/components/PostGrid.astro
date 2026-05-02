@@ -6,13 +6,23 @@ const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts.sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
+
+const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
 ---
 
 <section class="posts-section" id="posts">
   <div class="section-row">
     <span class="section-heading" id="lbl-latest">Latest posts</span>
   </div>
-  <div class="post-grid">
+  {allTags.length > 0 && (
+    <div class="tag-filter" id="tag-filter">
+      <button class="tag-btn active" data-tag="all" data-en="All" data-cn="全部">All</button>
+      {allTags.map(tag => (
+        <button class="tag-btn" data-tag={tag}>{tag}</button>
+      ))}
+    </div>
+  )}
+  <div class="post-grid" id="post-grid">
     {posts.map((post) => (
       <PostCard
         titleEn={post.data.titleEn}
@@ -68,4 +78,60 @@ const posts = allPosts.sort(
       grid-template-columns: 1fr;
     }
   }
+
+  .tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .tag-btn {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--sand);
+    background: transparent;
+    color: var(--warm-gray);
+    cursor: pointer;
+    transition: border-color 150ms, color 150ms, background 150ms;
+  }
+
+  .tag-btn:hover {
+    border-color: var(--terra);
+    color: var(--terra);
+  }
+
+  .tag-btn.active {
+    background: var(--terra);
+    border-color: var(--terra);
+    color: var(--cream);
+  }
 </style>
+
+<script>
+  const filterEl = document.getElementById('tag-filter');
+  if (filterEl) {
+    filterEl.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLElement>('.tag-btn');
+      if (!btn) return;
+
+      const tag = btn.dataset.tag ?? 'all';
+
+      filterEl.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.querySelectorAll<HTMLElement>('.post-card').forEach(card => {
+        if (tag === 'all') {
+          card.style.display = '';
+        } else {
+          const cardTags = (card.dataset.tags ?? '').split(',');
+          card.style.display = cardTags.includes(tag) ? '' : 'none';
+        }
+      });
+    });
+  }
+</script>
