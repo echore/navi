@@ -1,12 +1,5 @@
-// Tag → color mapping for the Navi design system.
-// Known tags are pinned explicitly so their colors never drift when the palette grows.
-// Unknown tags fall back to hash-based assignment over the extra colors (dust/slate/moss).
-
-const FIXED: Record<string, number> = {
-  AI: 0,
-  Notes: 1,
-};
-
+// Palette order is fixed — only append to the end, never reorder.
+// Reordering would change every tag's color assignment.
 const PALETTE = [
   { color: 'var(--terra)', light: 'var(--terra-lt)' },
   { color: 'var(--sage)',  light: 'var(--sage-lt)'  },
@@ -15,19 +8,10 @@ const PALETTE = [
   { color: 'var(--moss)',  light: 'var(--moss-lt)'  },
 ];
 
-// Extra palette entries (indices 2+) used for unknown tags.
-const EXTRA_START = 2;
-
-function hashTag(tag: string): number {
+function getIndex(tag: string): number {
   let h = 0;
   for (const c of tag) h = (h * 31 + c.charCodeAt(0)) & 0xffff;
-  return h;
-}
-
-function getIndex(tag: string): number {
-  if (tag in FIXED) return FIXED[tag];
-  const extraCount = PALETTE.length - EXTRA_START;
-  return EXTRA_START + (hashTag(tag) % extraCount);
+  return h % PALETTE.length;
 }
 
 export function getTagColor(tag: string): string {
