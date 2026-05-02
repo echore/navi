@@ -27,6 +27,17 @@ describe('build smoke test', () => {
     expect(html).not.toContain('找到我');
   });
 
+  it('intro overlay uses 55px font size', () => {
+    const src = readFileSync(
+      join(process.cwd(), 'src/components/Hero.astro'),
+      'utf-8'
+    );
+    const il1Match = src.match(/\.il1\s*\{[^}]*font-size:\s*(\d+px)/);
+    const il2Match = src.match(/\.il2\s*\{[^}]*font-size:\s*(\d+px)/);
+    expect(il1Match?.[1]).toBe('55px');
+    expect(il2Match?.[1]).toBe('55px');
+  });
+
   it('post pages include copy button script', () => {
     const html = readFileSync(
       join(dist, 'posts/conversation-to-note-skill/index.html'),
