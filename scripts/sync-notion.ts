@@ -19,7 +19,7 @@
 
 import 'dotenv/config';
 import { Client } from '@notionhq/client';
-import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
+import { writeFileSync, readFileSync, existsSync, mkdirSync, readdirSync, unlinkSync } from 'fs';
 import { join } from 'path';
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN;
@@ -165,22 +165,44 @@ ${post.cnBody}
 async function sync(): Promise<void> {
   const publishedDates = loadPublishedDates();
 
-  // v5 API: dataSources.query instead of databases.query
-  const response = await notion.dataSources.query({
-    data_source_id: NOTION_DATABASE_ID!,
-    filter: {
-      property: 'Status',
-      status: { equals: 'Publish' },
-    },
-  });
+  // v5 API: paginate through all results (Notion returns max 100 per request)
+  const allResults: Awaited<ReturnType<typeof notion.dataSources.query>>['results'] = [];
+  let cursor: string | undefined;
 
-  console.log(`Found ${response.results.length} published page(s)`);
+  do {
+    const firstResponse = await notion.dataSources.query({
+      data_source_id: NOTION_DATABASE_ID!,
+      filter: {
+        property: 'Status',
+        status: { equals: 'Publish' },
+      },
+      ...(cursor ? { start_cursor: cursor } : {}),
+    });
+    allResults.push(...firstResponse.results);
+    cursor = firstResponse.has_more ? (firstResponse.next_cursor ?? undefined) : undefined;
+  } while (cursor);
+
+  console.log(`Found ${allResults.length} published page(s)`);
 
   mkdirSync(POSTS_DIR, { recursive: true });
 
+  // Remove .md files whose notionId is no longer in the Published set
+  const publishedIds = new Set(allResults.filter(p => p.object === 'page').map(p => p.id));
+  for (const file of readdirSync(POSTS_DIR).filter(f => f.endsWith('.md'))) {
+    const content = readFileSync(join(POSTS_DIR, file), 'utf-8');
+    const match = content.match(/^notionId:\s*"([^"]+)"/m);
+    if (!match) continue; // hand-written post without notionId — skip
+    const notionId = match[1];
+    if (!publishedIds.has(notionId)) {
+      unlinkSync(join(POSTS_DIR, file));
+      delete publishedDates[notionId];
+      console.log(`[removed] ${file} (unpublished in Notion)`);
+    }
+  }
+
   let synced = 0;
 
-  for (const page of response.results) {
+  for (const page of allResults) {
     if (page.object !== 'page') continue;
 
     const props = (page as any).properties;
