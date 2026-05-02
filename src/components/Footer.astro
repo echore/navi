@@ -1,0 +1,85 @@
+---
+---
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="/assets/logo-icon.png" alt="Navi" class="footer-brand-icon" />
+      <span class="footer-brand-name">Navi</span>
+    </div>
+    <div class="footer-links" id="footer-links">
+      <a href="#" class="footer-link">小红书</a>
+      <a href="#" class="footer-link">LinkedIn</a>
+      <a href="#" class="footer-link">Twitter</a>
+      <a href="#" class="footer-link">Newsletter</a>
+    </div>
+    <span class="footer-tagline" id="footer-tagline">Navigate the gap · © 2026 Navi</span>
+  </div>
+</footer>
+
+<style>
+  footer {
+    border-top: 1px solid var(--sand);
+    background: var(--canvas);
+  }
+
+  .footer-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 36px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .footer-brand-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+
+  .footer-brand-name {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--deep);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-link {
+    font-size: 12px;
+    color: var(--warm-gray);
+    text-decoration: none;
+    transition: color 150ms;
+  }
+
+  .footer-link:hover {
+    color: var(--deep);
+  }
+
+  .footer-tagline {
+    font-size: 11px;
+    color: var(--faint);
+  }
+
+  @media (max-width: 768px) {
+    .footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+  }
+</style>

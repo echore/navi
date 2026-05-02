@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import PostCard from './PostCard.astro';
+
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const posts = allPosts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<section class="posts-section" id="posts">
+  <div class="section-row">
+    <span class="section-heading" id="lbl-latest">Latest posts</span>
+  </div>
+  <div class="post-grid">
+    {posts.map((post) => (
+      <PostCard
+        titleEn={post.data.titleEn}
+        titleCn={post.data.titleCn}
+        tag={post.data.tag}
+        date={post.data.date}
+        readTime={post.data.readTime}
+        slug={post.data.slug}
+      />
+    ))}
+  </div>
+</section>
+
+<style>
+  .posts-section {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 72px 40px;
+  }
+
+  .section-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 28px;
+  }
+
+  .section-heading {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+  }
+
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .posts-section {
+      padding: 48px 20px;
+    }
+    .post-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

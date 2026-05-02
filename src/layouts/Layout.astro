@@ -1,0 +1,149 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Navi — Use AI like an expert',
+  description = 'Helping non-technical people use genuinely powerful AI tools — without a coding background.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+
+    <!-- Fonts (preconnect first for performance) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Noto+Serif+SC:wght@400;500&family=Noto+Sans+SC:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" type="image/png" href="/assets/logo-icon.png" />
+  </head>
+  <body>
+    <slot />
+
+    <!-- Language toggle: runs on every page, persisted in localStorage -->
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem('navi-lang') || 'en';
+        applyLang(saved);
+
+        window.setLang = function (lang) {
+          localStorage.setItem('navi-lang', lang);
+          applyLang(lang);
+        };
+
+        function applyLang(lang) {
+          document.body.classList.toggle('lang-cn', lang === 'cn');
+          document.documentElement.lang = lang === 'cn' ? 'zh' : 'en';
+
+          const btnEn = document.getElementById('btn-en');
+          const btnCn = document.getElementById('btn-cn');
+          if (btnEn) btnEn.classList.toggle('active', lang === 'en');
+          if (btnCn) btnCn.classList.toggle('active', lang === 'cn');
+
+          // Swap all data-en / data-cn elements
+          document.querySelectorAll('[data-en]').forEach(function (el) {
+            el.innerHTML = lang === 'cn' ? el.dataset.cn : el.dataset.en;
+          });
+
+          // Quote band (special characters)
+          var quoteEl = document.getElementById('quote-text');
+          if (quoteEl) {
+            quoteEl.innerHTML =
+              lang === 'cn'
+                ? '不是用 AI 做我不会做的事，<br>而是用 AI 做我会做但觉得不值得花时间的事。'
+                : '"AI isn\'t for doing what you can\'t.<br>It\'s for skipping what isn\'t worth your time."';
+          }
+
+          // UI string map
+          var T = {
+            en: {
+              navPosts: 'Posts',
+              navFind: 'Find me',
+              navNl: 'Newsletter',
+              navCta: 'Find my socials',
+              eyebrow: 'Build in Public',
+              heroCta: 'Find my socials',
+              latest: 'Latest posts',
+              viewAll: 'View all →',
+              findme: 'Find me on',
+              nlEyebrow: 'Newsletter',
+              nlTitle: 'One workflow,<br>once a week.',
+              nlBody: 'Real tools. Plain language. No hype.',
+              nlBtn: 'Subscribe free →',
+              nlNote: 'No spam. Unsubscribe anytime.',
+              footerLinks: ['小红书', 'LinkedIn', 'Twitter', 'Newsletter'],
+              footerNote: 'Navigate the gap · © 2026 Navi',
+            },
+            cn: {
+              navPosts: '文章',
+              navFind: '找到我',
+              navNl: '订阅',
+              navCta: '关注我',
+              eyebrow: '公开构建',
+              heroCta: '关注我',
+              latest: '最新文章',
+              viewAll: '查看全部 →',
+              findme: '找到我',
+              nlEyebrow: '订阅',
+              nlTitle: '每周一个<br>实际跑通的工作流。',
+              nlBody: '第一期即将发出。真实工具，不夸大，不注水。',
+              nlBtn: '免费订阅 →',
+              nlNote: '不发垃圾邮件，随时可退订。',
+              footerLinks: ['小红书', '领英', 'Twitter', '订阅'],
+              footerNote: '导航 · 帮你找路 · © 2026 Navi',
+            },
+          };
+          var t = T[lang] || T['en'];
+
+          function s(id, html) {
+            var el = document.getElementById(id);
+            if (el) el.innerHTML = html;
+          }
+          s('nav-posts', t.navPosts);
+          s('nav-find', t.navFind);
+          s('nav-nl', t.navNl);
+          s('nav-cta', t.navCta);
+          s('hero-eyebrow', t.eyebrow);
+          s('hero-cta', t.heroCta);
+          s('lbl-latest', t.latest);
+          s('lbl-viewall', t.viewAll);
+          s('lbl-findme', t.findme);
+          s('lbl-nl-eyebrow', t.nlEyebrow);
+          s('lbl-nl-title', t.nlTitle);
+          s('lbl-nl-body', t.nlBody);
+          s('nl-btn', t.nlBtn);
+          s('nl-note', t.nlNote);
+          s('footer-tagline', t.footerNote);
+
+          var fl = document.getElementById('footer-links');
+          if (fl)
+            fl.innerHTML = t.footerLinks
+              .map(function (l) {
+                return '<a href="#" class="footer-link">' + l + '</a>';
+              })
+              .join('');
+        }
+      })();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

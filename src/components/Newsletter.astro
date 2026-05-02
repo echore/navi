@@ -1,0 +1,183 @@
+---
+---
+
+<section class="nl-section" id="newsletter">
+  <div class="nl-inner">
+    <div>
+      <div class="nl-eyebrow" id="lbl-nl-eyebrow">Newsletter</div>
+      <h2 class="nl-title" id="lbl-nl-title">One workflow,<br />once a week.</h2>
+      <p class="nl-body" id="lbl-nl-body">Real tools. Plain language. No hype.</p>
+    </div>
+    <div>
+      <div class="nl-form" id="nl-form">
+        <input
+          class="nl-input"
+          id="nl-email"
+          type="email"
+          placeholder="your@email.com"
+        />
+        <button class="nl-submit" id="nl-btn" onclick="handleSubscribe()">
+          Subscribe free →
+        </button>
+        <p class="nl-note" id="nl-note">No spam. Unsubscribe anytime.</p>
+      </div>
+      <div class="nl-success" id="nl-success" style="display:none"></div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  function handleSubscribe() {
+    var emailEl = document.getElementById('nl-email');
+    var email = emailEl ? emailEl.value : '';
+    if (!email || !email.includes('@')) {
+      if (emailEl) emailEl.style.borderColor = '#C17E5A';
+      return;
+    }
+    var formEl = document.getElementById('nl-form');
+    var successEl = document.getElementById('nl-success');
+    if (formEl) formEl.style.display = 'none';
+    if (successEl) {
+      successEl.style.display = 'block';
+      var lang = localStorage.getItem('navi-lang') || 'en';
+      successEl.innerHTML =
+        lang === 'cn'
+          ? "✓ 订阅成功，谢谢！<br><span style='font-size:13px;color:#A09D97;font-weight:300'>第一期即将发出。</span>"
+          : "✓ You're in — thank you!<br><span style='font-size:13px;color:#A09D97;font-weight:300'>First issue coming soon.</span>";
+    }
+  }
+</script>
+
+<style>
+  .nl-section {
+    background: var(--cream);
+    border-top: 1px solid var(--sand);
+  }
+
+  .nl-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 72px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .nl-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nl-eyebrow::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--terra);
+    border-radius: 2px;
+  }
+
+  .nl-title {
+    font-family: var(--font-display);
+    font-size: 36px;
+    line-height: 1.15;
+    color: var(--deep);
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  :global(.lang-cn) .nl-title {
+    font-family: var(--font-cn-display);
+    font-size: 30px;
+    letter-spacing: 0;
+  }
+
+  .nl-body {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--dim);
+    line-height: 1.75;
+  }
+
+  :global(.lang-cn) .nl-body {
+    font-family: var(--font-cn-body);
+    line-height: 2;
+  }
+
+  .nl-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nl-input {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 300;
+    padding: 12px 20px;
+    border: 1px solid var(--sand);
+    border-radius: 999px;
+    background: var(--canvas);
+    color: var(--espresso);
+    outline: none;
+    width: 100%;
+    transition: border-color 150ms;
+  }
+
+  .nl-input:focus {
+    border-color: var(--terra);
+  }
+
+  .nl-input::placeholder {
+    color: var(--faint);
+  }
+
+  .nl-submit {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    background: var(--terra);
+    color: #FAF9F6;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 32px;
+    cursor: pointer;
+    transition: background 150ms, transform 100ms;
+    align-self: flex-start;
+  }
+
+  .nl-submit:hover {
+    background: var(--terra-dk);
+    transform: translateY(-1px);
+  }
+
+  .nl-note {
+    font-size: 11px;
+    color: var(--faint);
+    margin-top: 4px;
+  }
+
+  .nl-success {
+    font-size: 15px;
+    color: var(--sage-dk);
+    font-weight: 400;
+    padding: 20px 0;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 768px) {
+    .nl-inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 48px 20px;
+    }
+  }
+</style>

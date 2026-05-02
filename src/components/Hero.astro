@@ -1,0 +1,386 @@
+---
+---
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+
+<!-- Stage: intro + animated canvas + hero -->
+<div id="stage">
+  <canvas id="bg"></canvas>
+
+  <!-- Intro overlay -->
+  <div id="intro">
+    <div class="il1" id="l1">Use AI like an expert.</div>
+    <div class="il2" id="l2">No coding needed.</div>
+  </div>
+
+  <!-- Main UI (fades in after intro) -->
+  <div id="main">
+    <slot name="nav" />
+
+    <div class="hero">
+      <div class="fade-up eyebrow" id="e1">
+        <div class="ey-dash"></div>
+        <span class="ey-txt" id="hero-eyebrow">Build in Public</span>
+      </div>
+      <div
+        class="fade-up hero-h1"
+        id="e2"
+        data-en="Powerful AI"
+        data-cn="不会写代码,"
+      >
+        Powerful AI
+      </div>
+      <div
+        class="fade-up hero-h1i"
+        id="e3"
+        data-en="not just for people who code."
+        data-cn="也能用好AI."
+      >
+        not just for people who code.
+      </div>
+      <p
+        class="fade-up hero-desc"
+        id="e4"
+        data-en="Helping non-technical people use genuinely powerful AI tools — without a coding background."
+        data-cn="帮技术小白用上真正强大的 AI 工具<br>不需要任何开发背景。全程公开记录。"
+      >
+        Helping non-technical people use genuinely powerful AI tools — without a coding background.
+      </p>
+      <div class="fade-up hero-btns" id="e5">
+        <button
+          class="btn-p"
+          id="hero-cta"
+          onclick="document.getElementById('platforms')?.scrollIntoView({behavior:'smooth'})"
+        >
+          Find my socials
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <button id="replay">↺ Replay</button>
+</div>
+
+<style>
+  #stage {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 620px;
+    background: var(--canvas);
+    cursor: none;
+  }
+
+  canvas#bg {
+    position: absolute;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #cursor {
+    position: fixed;
+    width: 9px; height: 9px;
+    background: rgba(193, 126, 90, 0.55);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    transition: opacity 200ms;
+  }
+
+  /* Intro overlay */
+  #intro {
+    position: absolute; inset: 0; z-index: 20;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    transition: opacity 0.7s ease;
+  }
+
+  .il1 {
+    font-family: var(--font-display);
+    font-size: 36px; font-weight: 400; color: var(--deep);
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    letter-spacing: -0.015em;
+  }
+
+  .il2 {
+    font-family: var(--font-display);
+    font-size: 36px; font-weight: 400; font-style: italic; color: var(--terra);
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    margin-top: 6px; letter-spacing: -0.015em;
+  }
+
+  .il1.on, .il2.on { opacity: 1; transform: translateY(0); }
+
+  /* Main content */
+  #main {
+    position: absolute; inset: 0; z-index: 10;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.8s ease;
+    display: flex; flex-direction: column;
+  }
+
+  #main.on { opacity: 1; pointer-events: auto; }
+
+  /* Hero */
+  .hero {
+    flex: 1;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 40px 40px;
+  }
+
+  .fade-up {
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .fade-up.on { opacity: 1; transform: translateY(0); }
+
+  .eyebrow {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+  }
+
+  .ey-dash {
+    width: 22px; height: 1.5px;
+    background: var(--terra); flex-shrink: 0;
+  }
+
+  .ey-txt {
+    font-size: 11px; letter-spacing: 0.1em;
+    color: var(--warm-gray); font-weight: 500; text-transform: uppercase;
+  }
+
+  .hero-h1 {
+    font-family: var(--font-display);
+    font-size: 50px; font-weight: 400;
+    color: var(--deep); line-height: 1.08; letter-spacing: -0.025em;
+  }
+
+  .hero-h1i {
+    font-family: var(--font-display);
+    font-size: 45px; font-weight: 400; font-style: italic; color: var(--terra);
+    line-height: 1.08; letter-spacing: -0.025em; margin-bottom: 22px;
+  }
+
+  :global(.lang-cn) .hero-h1,
+  :global(.lang-cn) .hero-h1i {
+    font-family: var(--font-cn-display);
+    font-size: 42px;
+  }
+
+  .hero-desc {
+    font-size: 15px; line-height: 1.75; color: var(--dim);
+    font-weight: 300; max-width: 440px; margin-bottom: 32px;
+    text-wrap: pretty;
+  }
+
+  :global(.lang-cn) .hero-desc {
+    font-family: var(--font-cn-body);
+    line-height: 2;
+  }
+
+  .hero-btns { display: flex; gap: 12px; }
+
+  .btn-p {
+    font-family: var(--font-body);
+    font-size: 13px; font-weight: 500;
+    background: var(--terra); color: #FAF9F6;
+    border: none; border-radius: 999px;
+    padding: 11px 26px; cursor: pointer;
+    transition: background 150ms, transform 100ms;
+  }
+
+  .btn-p:hover { background: var(--terra-dk); transform: translateY(-1px); }
+
+  /* Replay */
+  #replay {
+    position: absolute; bottom: 16px; right: 16px; z-index: 30;
+    background: rgba(44, 40, 32, 0.07);
+    border: 0.5px solid rgba(44, 40, 32, 0.12);
+    border-radius: 20px; padding: 6px 14px;
+    font-size: 11px; color: var(--warm-gray);
+    font-family: var(--font-body); cursor: pointer;
+    opacity: 0; transition: opacity 0.4s ease;
+  }
+
+  @media (max-width: 768px) {
+    .hero-h1 { font-size: 36px; }
+    .hero-h1i { font-size: 32px; }
+    .hero { padding: 0 20px 32px; }
+  }
+</style>
+
+<script>
+/* ════════════════════════════════════════════
+   CANVAS: free-roaming circles + mouse parallax
+   ════════════════════════════════════════════ */
+const canvas = document.getElementById('bg') as HTMLCanvasElement;
+const ctx    = canvas.getContext('2d')!;
+const stage  = document.getElementById('stage')!;
+const cursorEl = document.getElementById('cursor')!;
+
+function resize() {
+  canvas.width  = stage.offsetWidth;
+  canvas.height = stage.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+let mouse = { x: 0.5, y: 0.5 };
+let sm    = { x: 0.5, y: 0.5 };
+
+document.addEventListener('mousemove', e => {
+  const r = stage.getBoundingClientRect();
+  mouse.x = (e.clientX - r.left) / r.width;
+  mouse.y = (e.clientY - r.top)  / r.height;
+  cursorEl.style.left = e.clientX + 'px';
+  cursorEl.style.top  = e.clientY + 'px';
+});
+
+interface Circle {
+  x: number; y: number;
+  vx: number; vy: number;
+  r: number; depth: number; color: string;
+}
+
+function makeCircles(): Circle[] {
+  const W = canvas.width, H = canvas.height;
+  const defs = [
+    { r:110, depth:0.03,  color:'rgba(193,126,90,0.08)',  spd:0.28 },
+    { r: 85, depth:0.045, color:'rgba(193,126,90,0.06)',  spd:0.22 },
+    { r: 95, depth:0.032, color:'rgba(44,40,32,0.05)',    spd:0.19 },
+    { r: 70, depth:0.055, color:'rgba(193,126,90,0.07)',  spd:0.35 },
+    { r: 50, depth:0.065, color:'rgba(44,40,32,0.04)',    spd:0.42 },
+    { r: 65, depth:0.038, color:'rgba(193,126,90,0.05)',  spd:0.30 },
+    { r: 80, depth:0.035, color:'rgba(44,40,32,0.045)',   spd:0.25 },
+    { r: 55, depth:0.05,  color:'rgba(143,168,156,0.07)', spd:0.38 },
+  ];
+  return defs.map(d => {
+    const angle = Math.random() * Math.PI * 2;
+    return {
+      x: d.r + Math.random() * (W - d.r * 2),
+      y: d.r + Math.random() * (H - d.r * 2),
+      vx: Math.cos(angle) * d.spd,
+      vy: Math.sin(angle) * d.spd,
+      r: d.r,
+      depth: d.depth,
+      color: d.color,
+    };
+  });
+}
+
+let circles = makeCircles();
+window.addEventListener('resize', () => { circles = makeCircles(); });
+
+function draw() {
+  sm.x += (mouse.x - sm.x) * 0.04;
+  sm.y += (mouse.y - sm.y) * 0.04;
+
+  const W = canvas.width, H = canvas.height;
+  const cx = W * 0.5, cy = H * 0.5;
+  ctx.clearRect(0, 0, W, H);
+
+  const DAMPING      = 0.985;
+  const MAX_SPD      = 0.5;
+  const EDGE_MARGIN  = 0.18;
+  const EDGE_STEER   = 0.008;
+  const CENTER_K     = 0.00008;
+  const REPULSE_MULT = 2.5;
+  const REPULSE_STR  = 0.18;
+
+  for (let i = 0; i < circles.length; i++) {
+    for (let j = i + 1; j < circles.length; j++) {
+      const a = circles[i], b = circles[j];
+      const dx = b.x - a.x, dy = b.y - a.y;
+      const dist = Math.hypot(dx, dy) || 0.001;
+      const threshold = (a.r + b.r) * REPULSE_MULT;
+      if (dist < threshold) {
+        const t = 1 - dist / threshold;
+        const force = REPULSE_STR * t * t / dist;
+        const fx = dx * force, fy = dy * force;
+        a.vx -= fx; a.vy -= fy;
+        b.vx += fx; b.vy += fy;
+      }
+    }
+  }
+
+  circles.forEach(c => {
+    const mX = W * EDGE_MARGIN, mY = H * EDGE_MARGIN;
+    if (c.x < mX)     c.vx += EDGE_STEER * (1 - c.x / mX);
+    if (c.x > W - mX) c.vx -= EDGE_STEER * (1 - (W - c.x) / mX);
+    if (c.y < mY)     c.vy += EDGE_STEER * (1 - c.y / mY);
+    if (c.y > H - mY) c.vy -= EDGE_STEER * (1 - (H - c.y) / mY);
+
+    c.vx += (cx - c.x) * CENTER_K;
+    c.vy += (cy - c.y) * CENTER_K;
+    c.vx *= DAMPING;
+    c.vy *= DAMPING;
+
+    const spd = Math.hypot(c.vx, c.vy);
+    if (spd > MAX_SPD) { c.vx = c.vx / spd * MAX_SPD; c.vy = c.vy / spd * MAX_SPD; }
+
+    c.x += c.vx;
+    c.y += c.vy;
+
+    const ox = (sm.x - 0.5) * c.depth * W;
+    const oy = (sm.y - 0.5) * c.depth * H;
+
+    ctx.beginPath();
+    ctx.arc(c.x + ox, c.y + oy, c.r, 0, Math.PI * 2);
+    ctx.fillStyle = c.color;
+    ctx.fill();
+  });
+
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* ════════════════════════════════════════════
+   INTRO SEQUENCE
+   ════════════════════════════════════════════ */
+const FADE_IDS = ['e1', 'e2', 'e3', 'e4', 'e5'];
+
+function runIntro() {
+  const intro  = document.getElementById('intro')!;
+  const main   = document.getElementById('main')!;
+  const replay = document.getElementById('replay')!;
+  const l1 = document.getElementById('l1')!;
+  const l2 = document.getElementById('l2')!;
+
+  intro.style.opacity = '1';
+  intro.style.display = 'flex';
+  main.classList.remove('on');
+  replay.style.opacity = '0';
+  l1.classList.remove('on');
+  l2.classList.remove('on');
+  FADE_IDS.forEach(id => document.getElementById(id)?.classList.remove('on'));
+
+  setTimeout(() => l1.classList.add('on'), 200);
+  setTimeout(() => l2.classList.add('on'), 750);
+  setTimeout(() => {
+    intro.style.opacity = '0';
+    setTimeout(() => {
+      intro.style.display = 'none';
+      main.classList.add('on');
+      FADE_IDS.forEach((id, i) =>
+        setTimeout(() => document.getElementById(id)?.classList.add('on'), i * 100)
+      );
+      replay.style.opacity = '1';
+
+      // Re-apply language after hero appears
+      const lang = localStorage.getItem('navi-lang') || 'en';
+      if (typeof (window as any).setLang === 'function') {
+        (window as any).setLang(lang);
+      }
+    }, 700);
+  }, 2000);
+}
+
+runIntro();
+document.getElementById('replay')!.addEventListener('click', runIntro);
+</script>

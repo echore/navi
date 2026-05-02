@@ -1,0 +1,108 @@
+---
+interface Props {
+  titleEn: string;
+  titleCn: string;
+  tag: 'AI' | 'Notes';
+  date: Date;
+  readTime: number;
+  slug: string;
+}
+
+const { titleEn, titleCn, tag, date, readTime, slug } = Astro.props;
+
+const tagColor = tag === 'AI' ? 'var(--terra)' : 'var(--sage)';
+const tagLabelEn = tag;
+const tagLabelCn = tag === 'AI' ? 'AI' : '随笔';
+
+const dateEn = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+const dateCn = `${date.getFullYear()}年${date.getMonth() + 1}月`;
+---
+
+<a class="post-card" href={`/posts/${slug}`}>
+  <div
+    class="post-card-tag"
+    style={`color: ${tagColor}`}
+    data-en={tagLabelEn}
+    data-cn={tagLabelCn}
+  >
+    {tagLabelEn}
+  </div>
+  <div class="post-card-bar" style={`background: ${tagColor}`}></div>
+  <div
+    class="post-card-title"
+    data-en={titleEn}
+    data-cn={titleCn}
+  >
+    {titleEn}
+  </div>
+  <div class="post-card-meta">
+    <span data-en={`${readTime} min read`} data-cn={`${readTime} 分钟`}>{readTime} min read</span>
+    <span class="meta-dot">·</span>
+    <span data-en={dateEn} data-cn={dateCn}>{dateEn}</span>
+  </div>
+</a>
+
+<style>
+  .post-card {
+    background: var(--cream);
+    border: 1px solid var(--sand);
+    border-radius: 10px;
+    padding: 22px 22px 18px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 200ms, transform 200ms, background 200ms;
+  }
+
+  .post-card:hover {
+    box-shadow: 0 6px 24px rgba(45, 43, 40, 0.10);
+    transform: translateY(-2px);
+    background: var(--linen);
+  }
+
+  .post-card-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .post-card-bar {
+    width: 28px;
+    height: 2.5px;
+    border-radius: 2px;
+    margin-bottom: 12px;
+  }
+
+  .post-card-title {
+    font-family: var(--font-display);
+    font-size: 17px;
+    line-height: 1.3;
+    color: var(--deep);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+    flex: 1;
+  }
+
+  :global(.lang-cn) .post-card-title {
+    font-family: var(--font-cn-display);
+    font-size: 16px;
+    letter-spacing: 0;
+  }
+
+  .post-card-meta {
+    font-size: 11px;
+    color: var(--faint);
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-top: auto;
+  }
+
+  .meta-dot {
+    color: #E0DBD2;
+  }
+</style>
