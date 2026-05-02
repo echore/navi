@@ -138,6 +138,8 @@ const {
                 return '<a href="#" class="footer-link">' + l + '</a>';
               })
               .join('');
+
+          document.dispatchEvent(new CustomEvent('langchange'));
         }
       })();
     </script>
