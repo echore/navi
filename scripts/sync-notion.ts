@@ -69,6 +69,14 @@ function today(): string {
 
 // ── Notion page parsing ───────────────────────────────────────────────────────
 
+// Must match the ## headings in your Notion template exactly
+const MARKERS = {
+  enTitle: 'Title in English',
+  enBody:  'Body in English',
+  cnTitle: '中文标题',
+  cnBody:  '中文正文',
+} as const;
+
 interface ParsedPost {
   titleEn: string;
   titleCn: string;
@@ -78,36 +86,44 @@ interface ParsedPost {
   notionId: string;
 }
 
+/**
+ * Extracts the content under a ## heading marker, up to the next ## heading or end of string.
+ * Returns empty string if the marker is not found.
+ */
+function extractSubsection(section: string, marker: string): string {
+  const parts = section.trim().split(/\n(?=## )/);
+  for (const part of parts) {
+    const newlineIdx = part.indexOf('\n');
+    if (newlineIdx === -1) continue;
+    const heading = part.slice(0, newlineIdx).replace(/^##\s+/, '').trim();
+    if (heading === marker) return part.slice(newlineIdx).trim();
+  }
+  return '';
+}
+
 async function parsePage(pageId: string, tags: string[]): Promise<ParsedPost | null> {
-  // Get full page markdown via notion-to-md
   const mdBlocks = await n2m.pageToMarkdown(pageId);
   const fullMd = n2m.toMarkdownString(mdBlocks).parent;
 
-  // Split into sections by divider (--- on its own line)
+  // Split by divider: section[0]=EN, section[1]=CN, section[2+]=ignored
   const sections = fullMd.split(/\n---+\n/);
 
   if (sections.length < 2) {
-    console.warn(`[skip] Page ${pageId}: needs at least one divider separating EN and CN sections`);
+    console.warn(`[skip] Page ${pageId}: needs at least one divider between EN and CN sections`);
     return null;
   }
 
   const [enSection, cnSection] = sections;
 
-  // Extract title (first # heading) and body from each section
-  const titleEnMatch = enSection.match(/^#\s+(.+)$/m);
-  const titleCnMatch = cnSection.match(/^#\s+(.+)$/m);
+  const titleEn = extractSubsection(enSection, MARKERS.enTitle);
+  const enBody  = extractSubsection(enSection, MARKERS.enBody);
+  const titleCn = extractSubsection(cnSection, MARKERS.cnTitle);
+  const cnBody  = extractSubsection(cnSection, MARKERS.cnBody);
 
-  if (!titleEnMatch || !titleCnMatch) {
-    console.warn(`[skip] Page ${pageId}: missing # heading in EN or CN section`);
+  if (!titleEn || !titleCn) {
+    console.warn(`[skip] Page ${pageId}: missing title marker ("${MARKERS.enTitle}" or "${MARKERS.cnTitle}")`);
     return null;
   }
-
-  const titleEn = titleEnMatch[1].trim();
-  const titleCn = titleCnMatch[1].trim();
-
-  // Body = section content minus the first # heading line
-  const enBody = enSection.replace(/^#\s+.+\n?/m, '').trim();
-  const cnBody = cnSection.replace(/^#\s+.+\n?/m, '').trim();
 
   return { titleEn, titleCn, tags, enBody, cnBody, notionId: pageId };
 }

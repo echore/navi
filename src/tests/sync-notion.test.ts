@@ -21,12 +21,15 @@ function calcReadTime(enMarkdown: string): number {
   return Math.max(1, Math.ceil(countWords(enMarkdown) / 200));
 }
 
-function parseSection(section: string): { title: string; body: string } | null {
-  const titleMatch = section.match(/^#\s+(.+)$/m);
-  if (!titleMatch) return null;
-  const title = titleMatch[1].trim();
-  const body = section.replace(/^#\s+.+\n?/m, '').trim();
-  return { title, body };
+function extractSubsection(section: string, marker: string): string {
+  const parts = section.trim().split(/\n(?=## )/);
+  for (const part of parts) {
+    const newlineIdx = part.indexOf('\n');
+    if (newlineIdx === -1) continue;
+    const heading = part.slice(0, newlineIdx).replace(/^##\s+/, '').trim();
+    if (heading === marker) return part.slice(newlineIdx).trim();
+  }
+  return '';
 }
 
 describe('slugify', () => {
@@ -59,39 +62,59 @@ describe('calcReadTime', () => {
   });
 });
 
-describe('parseSection', () => {
-  it('extracts title and body from section', () => {
-    const section = `# My Article Title\n\nFirst paragraph.\n\nSecond paragraph.`;
-    const result = parseSection(section);
-    expect(result?.title).toBe('My Article Title');
-    expect(result?.body).toBe('First paragraph.\n\nSecond paragraph.');
+describe('extractSubsection', () => {
+  it('extracts content under a ## marker heading', () => {
+    const section = `## Title in English\n\nMy Article Title\n\n## Body in English\n\nFirst paragraph.\n\nSecond paragraph.`;
+    expect(extractSubsection(section, 'Title in English')).toBe('My Article Title');
+    expect(extractSubsection(section, 'Body in English')).toBe('First paragraph.\n\nSecond paragraph.');
   });
 
-  it('returns null when no # heading', () => {
-    const section = `Just some text without a heading.`;
-    expect(parseSection(section)).toBeNull();
+  it('returns empty string when marker not found', () => {
+    const section = `## Some Other Heading\n\nContent.`;
+    expect(extractSubsection(section, 'Title in English')).toBe('');
   });
 
-  it('works with Chinese title', () => {
-    const section = `# 这是中文标题\n\n正文内容。`;
-    const result = parseSection(section);
-    expect(result?.title).toBe('这是中文标题');
-    expect(result?.body).toBe('正文内容。');
+  it('works with Chinese markers', () => {
+    const section = `## 中文标题\n\n这是标题\n\n## 中文正文\n\n这是正文内容。`;
+    expect(extractSubsection(section, '中文标题')).toBe('这是标题');
+    expect(extractSubsection(section, '中文正文')).toBe('这是正文内容。');
   });
 });
 
 describe('full page markdown splitting', () => {
-  it('splits by divider into EN and CN sections', () => {
-    const fullMd = `# EN Title\n\nEN body.\n\n---\n\n# CN 标题\n\nCN body.\n\n---\n\n## 草稿\n\nIgnored.`;
+  it('parses template with ## markers and dividers', () => {
+    const fullMd = [
+      '## Title in English',
+      '',
+      "Don't start with AI tutorials",
+      '',
+      '## Body in English',
+      '',
+      'EN body content here.',
+      '',
+      '---',
+      '',
+      '## 中文标题',
+      '',
+      '不要从 AI 教程开始',
+      '',
+      '## 中文正文',
+      '',
+      '中文正文内容。',
+      '',
+      '---',
+      '',
+      '## 其余一切:',
+      '',
+      'Draft notes ignored.',
+    ].join('\n');
+
     const sections = fullMd.split(/\n---+\n/);
     expect(sections.length).toBe(3);
 
-    const enResult = parseSection(sections[0]);
-    expect(enResult?.title).toBe('EN Title');
-    expect(enResult?.body).toBe('EN body.');
-
-    const cnResult = parseSection(sections[1]);
-    expect(cnResult?.title).toBe('CN 标题');
-    expect(cnResult?.body).toBe('CN body.');
+    expect(extractSubsection(sections[0], 'Title in English')).toBe("Don't start with AI tutorials");
+    expect(extractSubsection(sections[0], 'Body in English')).toBe('EN body content here.');
+    expect(extractSubsection(sections[1], '中文标题')).toBe('不要从 AI 教程开始');
+    expect(extractSubsection(sections[1], '中文正文')).toBe('中文正文内容。');
   });
 });
