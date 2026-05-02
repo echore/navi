@@ -19,8 +19,18 @@
       <button class="lang-btn" id="btn-cn" onclick="setLang('cn')">中文</button>
     </div>
     <a href="/#platforms" class="nav-cta" id="nav-cta">Find my socials</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- Mobile dropdown menu -->
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <a href="/#posts" class="mobile-link" id="m-posts">Posts</a>
+  <a href="/#platforms" class="mobile-link" id="m-find">Find me</a>
+  <a href="/#newsletter" class="mobile-link" id="m-nl">Newsletter</a>
+</div>
 
 <style>
   nav {
@@ -32,6 +42,8 @@
     border-bottom: 0.5px solid rgba(44, 40, 32, 0.10);
     background: transparent;
     flex-shrink: 0;
+    position: relative;
+    z-index: 100;
   }
 
   .nav-logo {
@@ -125,6 +137,66 @@
     background: var(--terra-dk);
   }
 
+  /* Hamburger button — hidden on desktop/tablet */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background: var(--deep);
+    border-radius: 2px;
+    transition: transform 200ms, opacity 200ms;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* Mobile dropdown */
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: var(--canvas);
+    border-bottom: 0.5px solid rgba(44, 40, 32, 0.10);
+    padding: 8px 20px 16px;
+    position: relative;
+    z-index: 99;
+  }
+
+  .mobile-menu.open {
+    display: flex;
+  }
+
+  .mobile-link {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--espresso);
+    text-decoration: none;
+    padding: 10px 0;
+    border-bottom: 0.5px solid rgba(44, 40, 32, 0.06);
+    transition: color 150ms;
+  }
+
+  .mobile-link:last-child {
+    border-bottom: none;
+  }
+
+  .mobile-link:hover {
+    color: var(--terra);
+  }
+
   @media (max-width: 639px) {
     nav {
       padding: 0 20px;
@@ -132,5 +204,36 @@
     .nav-links {
       display: none;
     }
+    .nav-cta {
+      display: none;
+    }
+    .hamburger {
+      display: flex;
+    }
   }
 </style>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('hamburger');
+    var menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+
+    btn.addEventListener('click', function () {
+      var open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+    });
+
+    // Close menu when a link is tapped
+    menu.querySelectorAll('.mobile-link').forEach(function (link) {
+      link.addEventListener('click', function () {
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
+      });
+    });
+  })();
+</script>
