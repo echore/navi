@@ -130,8 +130,9 @@
   /* Hero */
   .hero {
     flex: 1;
-    display: flex; flex-direction: column; justify-content: center;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
     padding: 0 40px 40px;
+    text-align: center;
   }
 
   .fade-up {
@@ -142,7 +143,7 @@
   .fade-up.on { opacity: 1; transform: translateY(0); }
 
   .eyebrow {
-    display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+    display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 18px;
   }
 
   .ey-dash {
@@ -176,7 +177,7 @@
   .hero-desc {
     font-size: 15px; line-height: 1.75; color: var(--dim);
     font-weight: 300; max-width: 440px; margin-bottom: 32px;
-    text-wrap: pretty;
+    text-wrap: pretty; text-align: center;
   }
 
   :global(.lang-cn) .hero-desc {
@@ -184,7 +185,7 @@
     line-height: 2;
   }
 
-  .hero-btns { display: flex; gap: 12px; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; }
 
   .btn-p {
     font-family: var(--font-body);
