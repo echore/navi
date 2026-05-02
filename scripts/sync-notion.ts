@@ -104,6 +104,29 @@ function extractSubsection(section: string, marker: string): string {
   return '';
 }
 
+function normalizeMarkdown(text: string): string {
+  const lines = text.split('\n');
+  const result: string[] = [];
+  let inCodeBlock = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const next = lines[i + 1];
+
+    if (line.startsWith('```')) inCodeBlock = !inCodeBlock;
+    if (line.trim() === '<empty-block/>') continue;
+
+    result.push(line);
+
+    // Add blank line between consecutive non-empty lines when outside code blocks
+    if (!inCodeBlock && line.trim() && next !== undefined && next.trim() && next.trim() !== '<empty-block/>') {
+      result.push('');
+    }
+  }
+
+  return result.join('\n').trim();
+}
+
 async function parsePage(pageId: string, tags: string[]): Promise<ParsedPost | null> {
   // Use Notion SDK v5 native Markdown conversion — no notion-to-md needed
   const result = await notion.pages.retrieveMarkdown({ page_id: pageId });
@@ -120,9 +143,9 @@ async function parsePage(pageId: string, tags: string[]): Promise<ParsedPost | n
   const [enSection, cnSection] = sections;
 
   const titleEn = extractSubsection(enSection, MARKERS.enTitle);
-  const enBody  = extractSubsection(enSection, MARKERS.enBody);
+  const enBody  = normalizeMarkdown(extractSubsection(enSection, MARKERS.enBody));
   const titleCn = extractSubsection(cnSection, MARKERS.cnTitle);
-  const cnBody  = extractSubsection(cnSection, MARKERS.cnBody);
+  const cnBody  = normalizeMarkdown(extractSubsection(cnSection, MARKERS.cnBody));
 
   if (!titleEn || !titleCn) {
     console.warn(`[skip] Page ${pageId}: missing title marker ("${MARKERS.enTitle}" or "${MARKERS.cnTitle}")`);
