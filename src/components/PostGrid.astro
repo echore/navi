@@ -54,7 +54,13 @@ const posts = allPosts.sort(
     gap: 20px;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1023px) {
+    .post-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 639px) {
     .posts-section {
       padding: 48px 20px;
     }

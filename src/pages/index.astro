@@ -121,12 +121,16 @@ const platforms = [
 
   .platforms-grid {
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 639px) {
     .platforms-section {
       padding: 48px 20px;
+    }
+    .platforms-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
