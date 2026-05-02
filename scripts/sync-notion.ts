@@ -2,24 +2,30 @@
  * Syncs published Notion pages to src/content/posts/*.md
  *
  * Notion page template expected structure:
- *   # English Title
- *   [EN body blocks]
+ *   ## Title in English
+ *   [EN title text]
+ *   ## Body in English
+ *   [EN body content]
  *   --- (divider)
- *   # 中文标题
- *   [CN body blocks]
+ *   ## 中文标题
+ *   [中文标题文字]
+ *   ## 中文正文
+ *   [中文正文内容]
  *   --- (divider)
- *   [draft notes — ignored]
+ *   ## 其余一切: (ignored)
  *
- * Run: npx tsx scripts/sync-notion.ts
+ * Run: npm run sync
  */
 
 import 'dotenv/config';
 import { Client } from '@notionhq/client';
-import { NotionToMarkdown } from 'notion-to-md';
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN;
+// This should be the Data Source ID (collection UUID), not the database page ID.
+// Find it in the Notion MCP or from collection:// URL in your workspace.
+// Current value: 188942e6-a592-801b-86b4-000b03cdf1bb
 const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID;
 
 if (!NOTION_TOKEN || !NOTION_DATABASE_ID) {
@@ -27,7 +33,6 @@ if (!NOTION_TOKEN || !NOTION_DATABASE_ID) {
 }
 
 const notion = new Client({ auth: NOTION_TOKEN });
-const n2m = new NotionToMarkdown({ notionClient: notion });
 
 const POSTS_DIR = join(process.cwd(), 'src/content/posts');
 const DATES_FILE = join(process.cwd(), 'scripts/published-dates.json');
@@ -53,7 +58,6 @@ function slugify(text: string): string {
 }
 
 function countWords(markdown: string): number {
-  // Count EN words (non-CJK) + CJK characters (each ~1 word)
   const cjkCount = (markdown.match(/[一-鿿぀-ヿ]/g) ?? []).length;
   const enWords = markdown.replace(/[一-鿿぀-ヿ]/g, ' ').split(/\s+/).filter(Boolean).length;
   return enWords + cjkCount;
@@ -88,7 +92,6 @@ interface ParsedPost {
 
 /**
  * Extracts the content under a ## heading marker, up to the next ## heading or end of string.
- * Returns empty string if the marker is not found.
  */
 function extractSubsection(section: string, marker: string): string {
   const parts = section.trim().split(/\n(?=## )/);
@@ -102,8 +105,9 @@ function extractSubsection(section: string, marker: string): string {
 }
 
 async function parsePage(pageId: string, tags: string[]): Promise<ParsedPost | null> {
-  const mdBlocks = await n2m.pageToMarkdown(pageId);
-  const fullMd = n2m.toMarkdownString(mdBlocks).parent;
+  // Use Notion SDK v5 native Markdown conversion — no notion-to-md needed
+  const result = await notion.pages.retrieveMarkdown({ page_id: pageId });
+  const fullMd = result.markdown;
 
   // Split by divider: section[0]=EN, section[1]=CN, section[2+]=ignored
   const sections = fullMd.split(/\n---+\n/);
@@ -131,12 +135,10 @@ async function parsePage(pageId: string, tags: string[]): Promise<ParsedPost | n
 // ── Markdown file generation ──────────────────────────────────────────────────
 
 function buildMarkdown(post: ParsedPost, date: string, readTime: number, slug: string): string {
-  const tagsYaml = JSON.stringify(post.tags);
-
   return `---
 titleEn: ${JSON.stringify(post.titleEn)}
 titleCn: ${JSON.stringify(post.titleCn)}
-tags: ${tagsYaml}
+tags: ${JSON.stringify(post.tags)}
 date: ${date}
 readTime: ${readTime}
 slug: ${slug}
@@ -163,9 +165,9 @@ ${post.cnBody}
 async function sync(): Promise<void> {
   const publishedDates = loadPublishedDates();
 
-  // Query all Published pages
-  const response = await notion.databases.query({
-    database_id: NOTION_DATABASE_ID!,
+  // v5 API: dataSources.query instead of databases.query
+  const response = await notion.dataSources.query({
+    data_source_id: NOTION_DATABASE_ID!,
     filter: {
       property: 'Status',
       status: { equals: 'Publish' },
@@ -182,8 +184,6 @@ async function sync(): Promise<void> {
     if (page.object !== 'page') continue;
 
     const props = (page as any).properties;
-
-    // Extract tags from multi-select
     const tags: string[] = (props.Tag?.multi_select ?? []).map((o: any) => o.name as string);
 
     const post = await parsePage(page.id, tags);
@@ -192,15 +192,13 @@ async function sync(): Promise<void> {
     const slug = slugify(post.titleEn);
     const readTime = calcReadTime(post.enBody);
 
-    // Record publish date the first time this page goes live
     if (!publishedDates[page.id]) {
       publishedDates[page.id] = today();
     }
     const date = publishedDates[page.id];
 
     const markdown = buildMarkdown(post, date, readTime, slug);
-    const outPath = join(POSTS_DIR, `${slug}.md`);
-    writeFileSync(outPath, markdown);
+    writeFileSync(join(POSTS_DIR, `${slug}.md`), markdown);
 
     console.log(`[synced] ${slug}.md`);
     synced++;
