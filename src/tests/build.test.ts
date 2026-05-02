@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 const dist = join(process.cwd(), 'dist');
@@ -19,5 +19,11 @@ describe('build smoke test', () => {
     expect(
       existsSync(join(dist, 'posts/conversation-to-note-skill/index.html'))
     ).toBe(true);
+  });
+
+  it('CN nav uses 社交媒体, not 找到我', () => {
+    const html = readFileSync(join(dist, 'index.html'), 'utf-8');
+    expect(html).toContain('社交媒体');
+    expect(html).not.toContain('找到我');
   });
 });
