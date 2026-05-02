@@ -54,6 +54,52 @@ const tagColor = tag === 'AI' ? 'var(--terra)' : 'var(--sage)';
   <Footer />
 </Layout>
 
+<script is:inline>
+  (function () {
+    function btnLabel(lang) {
+      return lang === 'cn' ? '复制' : 'Copy';
+    }
+
+    function initCopyButtons() {
+      var lang = localStorage.getItem('navi-lang') || 'en';
+      document.querySelectorAll('.prose pre').forEach(function (pre) {
+        if (pre.querySelector('.copy-btn')) return;
+        var btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.textContent = btnLabel(lang);
+        btn.setAttribute('aria-label', 'Copy code');
+        btn.addEventListener('click', function () {
+          var code = pre.querySelector('code');
+          var text = code ? code.textContent : pre.textContent;
+          navigator.clipboard.writeText(text || '').then(function () {
+            var currentLang = localStorage.getItem('navi-lang') || 'en';
+            btn.textContent = currentLang === 'cn' ? '已复制 ✓' : 'Copied ✓';
+            btn.classList.add('copied');
+            setTimeout(function () {
+              btn.textContent = btnLabel(localStorage.getItem('navi-lang') || 'en');
+              btn.classList.remove('copied');
+            }, 1500);
+          });
+        });
+        pre.appendChild(btn);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCopyButtons);
+    } else {
+      initCopyButtons();
+    }
+
+    document.addEventListener('langchange', function () {
+      var lang = localStorage.getItem('navi-lang') || 'en';
+      document.querySelectorAll('.copy-btn:not(.copied)').forEach(function (btn) {
+        btn.textContent = btnLabel(lang);
+      });
+    });
+  })();
+</script>
+
 <style>
   .post-main {
     max-width: 680px;

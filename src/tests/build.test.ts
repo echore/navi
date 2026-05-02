@@ -26,4 +26,13 @@ describe('build smoke test', () => {
     expect(html).toContain('社交媒体');
     expect(html).not.toContain('找到我');
   });
+
+  it('post pages include copy button script', () => {
+    const html = readFileSync(
+      join(dist, 'posts/conversation-to-note-skill/index.html'),
+      'utf-8'
+    );
+    expect(html).toContain('copy-btn');
+    expect(html).toContain('navigator.clipboard');
+  });
 });
