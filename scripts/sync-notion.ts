@@ -170,10 +170,7 @@ async function parsePage(pageId: string, tags: string[]): Promise<ParsedPost | n
 
 // ── Markdown file generation ──────────────────────────────────────────────────
 
-function buildMarkdown(post: ParsedPost, date: string, readTime: number, slug: string): string {
-  const enHtml = String(marked(post.enBody));
-  const cnHtml = String(marked(post.cnBody));
-
+function buildMarkdown(post: ParsedPost, date: string, readTime: number, slug: string, enHtml: string, cnHtml: string): string {
   return `---
 titleEn: ${JSON.stringify(post.titleEn)}
 titleCn: ${JSON.stringify(post.titleCn)}
@@ -193,6 +190,58 @@ ${enHtml}
 ${cnHtml}
 </div>
 `;
+}
+
+// ── Media processing ──────────────────────────────────────────────────────────
+
+function embedYouTube(html: string): string {
+  function getVideoId(url: string): string | null {
+    const m = url.match(/(?:youtube\.com\/watch\?(?:[^&]*&)*v=|youtu\.be\/)([\w-]+)/);
+    return m ? m[1] : null;
+  }
+  // Match <p> containing only a YouTube URL, with or without <a> wrapper from marked autolink
+  return html.replace(
+    /<p>\s*(?:<a[^>]*>)?\s*(https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?[^\s<"]*|youtu\.be\/[\w-]+[^\s<"]*?))\s*(?:<\/a>)?\s*<\/p>/g,
+    (match, url) => {
+      const id = getVideoId(url);
+      if (!id) return match;
+      return `<div class="video-embed"><iframe src="https://www.youtube-nocookie.com/embed/${id}" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+    }
+  );
+}
+
+function extractFilename(url: string): string {
+  try {
+    const raw = new URL(url).pathname.split('/').pop() ?? '';
+    const decoded = decodeURIComponent(raw).replace(/[^a-zA-Z0-9._-]/g, '-');
+    return (decoded || `img-${Date.now()}`).slice(0, 80);
+  } catch {
+    return `img-${Date.now()}`;
+  }
+}
+
+async function processImages(html: string, slug: string): Promise<string> {
+  const notionImgRe = /src="(https:\/\/prod-files-secure\.s3[^"]+)"/g;
+  const matches = [...html.matchAll(notionImgRe)];
+  if (matches.length === 0) return html;
+
+  const imgDir = join(process.cwd(), 'public/assets/posts', slug);
+  mkdirSync(imgDir, { recursive: true });
+
+  let result = html;
+  for (const [, url] of matches) {
+    const filename = extractFilename(url);
+    try {
+      const res = await fetch(url);
+      if (!res.ok) { console.warn(`[warn] Image download failed (${res.status}): ${filename}`); continue; }
+      writeFileSync(join(imgDir, filename), Buffer.from(await res.arrayBuffer()));
+      result = result.replace(url, `/assets/posts/${slug}/${filename}`);
+      console.log(`[image] ${filename}`);
+    } catch (e) {
+      console.warn(`[warn] Image download error: ${e}`);
+    }
+  }
+  return result;
 }
 
 // ── Main ─────────────────────────────────────────────────────────────────────
@@ -264,7 +313,9 @@ async function sync(): Promise<void> {
     }
     const date = publishedDates[page.id];
 
-    const markdown = buildMarkdown(post, date, readTime, slug);
+    const enHtml = await processImages(embedYouTube(String(marked(post.enBody))), slug);
+    const cnHtml = await processImages(embedYouTube(String(marked(post.cnBody))), slug);
+    const markdown = buildMarkdown(post, date, readTime, slug, enHtml, cnHtml);
     writeFileSync(join(POSTS_DIR, `${slug}.md`), markdown);
 
     console.log(`[synced] ${slug}.md`);
