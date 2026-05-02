@@ -19,6 +19,7 @@
 
 import 'dotenv/config';
 import { Client } from '@notionhq/client';
+import { marked } from 'marked';
 import { writeFileSync, readFileSync, existsSync, mkdirSync, readdirSync, unlinkSync } from 'fs';
 import { join } from 'path';
 
@@ -114,7 +115,14 @@ function normalizeMarkdown(text: string): string {
     const next = lines[i + 1];
 
     if (line.startsWith('```')) inCodeBlock = !inCodeBlock;
-    if (line.trim() === '<empty-block/>') continue;
+
+    // Replace Notion empty blocks with a non-breaking space paragraph for extra spacing
+    if (line.trim() === '<empty-block/>') {
+      if (result.length > 0 && result[result.length - 1] !== '') result.push('');
+      result.push('&nbsp;');
+      result.push('');
+      continue;
+    }
 
     result.push(line);
 
@@ -163,6 +171,9 @@ async function parsePage(pageId: string, tags: string[]): Promise<ParsedPost | n
 // ── Markdown file generation ──────────────────────────────────────────────────
 
 function buildMarkdown(post: ParsedPost, date: string, readTime: number, slug: string): string {
+  const enHtml = String(marked(post.enBody));
+  const cnHtml = String(marked(post.cnBody));
+
   return `---
 titleEn: ${JSON.stringify(post.titleEn)}
 titleCn: ${JSON.stringify(post.titleCn)}
@@ -175,15 +186,11 @@ notionId: ${JSON.stringify(post.notionId)}
 ---
 
 <div class="lang-en">
-
-${post.enBody}
-
+${enHtml}
 </div>
 
 <div class="lang-zh">
-
-${post.cnBody}
-
+${cnHtml}
 </div>
 `;
 }

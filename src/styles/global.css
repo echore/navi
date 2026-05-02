@@ -112,8 +112,8 @@ a {
 
 /* ── Post reading body styles ── */
 .prose {
-  font-size: var(--text-base);
-  line-height: 1.75;
+  font-size: var(--text-md);
+  line-height: 1.85;
   color: var(--espresso);
 }
 .prose h1, .prose h2, .prose h3 {
