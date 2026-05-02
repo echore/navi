@@ -6,11 +6,12 @@ import { join } from 'path';
 const postSchema = z.object({
   titleEn: z.string(),
   titleCn: z.string(),
-  tag: z.enum(['AI', 'Notes']),
+  tags: z.array(z.string()),
   date: z.coerce.date(),
   readTime: z.number(),
   slug: z.string(),
   draft: z.boolean().default(false),
+  notionId: z.string().optional(),
 });
 
 function parseFrontmatter(content: string): Record<string, unknown> {
@@ -21,11 +22,17 @@ function parseFrontmatter(content: string): Record<string, unknown> {
     const colon = line.indexOf(':');
     if (colon === -1) continue;
     const key = line.slice(0, colon).trim();
-    const raw = line.slice(colon + 1).trim().replace(/^"|"$/g, '');
-    if (raw === 'true') fm[key] = true;
-    else if (raw === 'false') fm[key] = false;
-    else if (!isNaN(Number(raw)) && raw !== '') fm[key] = Number(raw);
-    else fm[key] = raw;
+    const raw = line.slice(colon + 1).trim();
+    if (raw.startsWith('[')) {
+      // JSON array like ["AI"] or ["Notes"]
+      try { fm[key] = JSON.parse(raw); } catch { fm[key] = raw; }
+    } else {
+      const val = raw.replace(/^"|"$/g, '');
+      if (val === 'true') fm[key] = true;
+      else if (val === 'false') fm[key] = false;
+      else if (!isNaN(Number(val)) && val !== '') fm[key] = Number(val);
+      else fm[key] = val;
+    }
   }
   return fm;
 }
@@ -39,7 +46,7 @@ describe('content schema', () => {
     const result = postSchema.safeParse(fm);
     expect(result.success, JSON.stringify(result)).toBe(true);
     if (result.success) {
-      expect(result.data.tag).toBe('Notes');
+      expect(result.data.tags).toContain('Notes');
       expect(result.data.draft).toBe(false);
       expect(result.data.readTime).toBe(3);
     }
@@ -51,7 +58,7 @@ describe('content schema', () => {
     const result = postSchema.safeParse(fm);
     expect(result.success, JSON.stringify(result)).toBe(true);
     if (result.success) {
-      expect(result.data.tag).toBe('AI');
+      expect(result.data.tags).toContain('AI');
       expect(result.data.draft).toBe(false);
       expect(result.data.readTime).toBe(5);
     }

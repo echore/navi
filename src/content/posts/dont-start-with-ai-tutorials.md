@@ -1,7 +1,7 @@
 ---
 titleEn: "Don't start with AI tutorials."
 titleCn: "不要从 AI 教程开始"
-tag: "Notes"
+tags: ["Notes"]
 date: 2026-05-01
 readTime: 3
 slug: dont-start-with-ai-tutorials

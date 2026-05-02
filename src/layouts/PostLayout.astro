@@ -6,16 +6,18 @@ import Footer from '../components/Footer.astro';
 interface Props {
   titleEn: string;
   titleCn: string;
-  tag: 'AI' | 'Notes';
+  tags: string[];
   date: Date;
   readTime: number;
 }
 
-const { titleEn, titleCn, tag, date, readTime } = Astro.props;
+const { titleEn, titleCn, tags, date, readTime } = Astro.props;
 
 const dateStr = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 const dateCnStr = `${date.getFullYear()}年${date.getMonth() + 1}月`;
-const tagColor = tag === 'AI' ? 'var(--terra)' : 'var(--sage)';
+const primaryTag = tags[0] ?? 'Notes';
+const tagColor = primaryTag === 'AI' ? 'var(--terra)' : 'var(--sage)';
+const tagLabelCn = primaryTag === 'AI' ? 'AI' : '随笔';
 ---
 
 <Layout title={`${titleEn} — Navi`} description={titleEn}>
@@ -24,7 +26,7 @@ const tagColor = tag === 'AI' ? 'var(--terra)' : 'var(--sage)';
   <main class="post-main">
     <article class="post-article">
       <header class="post-header">
-        <div class="post-tag" style={`color: ${tagColor}`}>{tag}</div>
+        <div class="post-tag" style={`color: ${tagColor}`} data-en={primaryTag} data-cn={tagLabelCn}>{primaryTag}</div>
         <div class="post-bar" style={`background: ${tagColor}`}></div>
 
         <h1

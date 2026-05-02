@@ -7,11 +7,12 @@ const posts = defineCollection({
   schema: z.object({
     titleEn: z.string(),
     titleCn: z.string(),
-    tag: z.enum(['AI', 'Notes']),
+    tags: z.array(z.string()),
     date: z.coerce.date(),
     readTime: z.number(),
     slug: z.string(),
     draft: z.boolean().default(false),
+    notionId: z.string().optional(),
   }),
 });
 

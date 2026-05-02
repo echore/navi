@@ -172,3 +172,8 @@ a {
   color: var(--warm-gray);
   font-style: italic;
 }
+
+/* Bilingual post content — show EN by default, CN in lang-cn mode */
+.prose .lang-zh { display: none; }
+.lang-cn .prose .lang-zh { display: block; }
+.lang-cn .prose .lang-en { display: none; }

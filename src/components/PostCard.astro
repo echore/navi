@@ -2,17 +2,18 @@
 interface Props {
   titleEn: string;
   titleCn: string;
-  tag: 'AI' | 'Notes';
+  tags: string[];
   date: Date;
   readTime: number;
   slug: string;
 }
 
-const { titleEn, titleCn, tag, date, readTime, slug } = Astro.props;
+const { titleEn, titleCn, tags, date, readTime, slug } = Astro.props;
 
-const tagColor = tag === 'AI' ? 'var(--terra)' : 'var(--sage)';
-const tagLabelEn = tag;
-const tagLabelCn = tag === 'AI' ? 'AI' : '随笔';
+const primaryTag = tags[0] ?? 'Notes';
+const tagColor = primaryTag === 'AI' ? 'var(--terra)' : 'var(--sage)';
+const tagLabelEn = primaryTag;
+const tagLabelCn = primaryTag === 'AI' ? 'AI' : '随笔';
 
 const dateEn = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 const dateCn = `${date.getFullYear()}年${date.getMonth() + 1}月`;
