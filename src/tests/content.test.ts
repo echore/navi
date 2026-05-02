@@ -46,9 +46,9 @@ describe('content schema', () => {
     const result = postSchema.safeParse(fm);
     expect(result.success, JSON.stringify(result)).toBe(true);
     if (result.success) {
-      expect(result.data.tags).toContain('Notes');
+      expect(result.data.tags).toContain('AI');
       expect(result.data.draft).toBe(false);
-      expect(result.data.readTime).toBe(3);
+      expect(result.data.readTime).toBe(2);
     }
   });
 

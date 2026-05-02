@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import PostCard from './PostCard.astro';
+import { getTagColor, getTagLightColor } from '../utils/tagColor';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts.sort(
@@ -16,9 +17,19 @@ const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
   </div>
   {allTags.length > 0 && (
     <div class="tag-filter" id="tag-filter">
-      <button class="tag-btn active" data-tag="all" data-en="All" data-cn="全部">All</button>
+      <button
+        class="tag-btn active"
+        data-tag="all"
+        data-en="All"
+        data-cn="全部"
+        style="--btn-color: var(--terra); --btn-color-lt: var(--terra-lt)"
+      >All</button>
       {allTags.map(tag => (
-        <button class="tag-btn" data-tag={tag}>{tag}</button>
+        <button
+          class="tag-btn"
+          data-tag={tag}
+          style={`--btn-color: ${getTagColor(tag)}; --btn-color-lt: ${getTagLightColor(tag)}`}
+        >{tag}</button>
       ))}
     </div>
   )}
@@ -101,14 +112,14 @@ const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
   }
 
   .tag-btn:hover {
-    border-color: var(--terra);
-    color: var(--terra);
+    border-color: var(--btn-color);
+    color: var(--btn-color);
   }
 
   .tag-btn.active {
-    background: var(--terra);
-    border-color: var(--terra);
-    color: var(--cream);
+    background: var(--btn-color-lt);
+    border-color: var(--btn-color);
+    color: var(--btn-color);
   }
 </style>
 

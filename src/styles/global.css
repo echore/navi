@@ -27,6 +27,12 @@
   --sage:        #8FA89C;
   --sage-dk:     #748E82;
   --sage-lt:     #D4E0DC;
+  --dust:        #A0907A;
+  --dust-lt:     #E0D8CE;
+  --slate:       #7A8FA0;
+  --slate-lt:    #CED8E0;
+  --moss:        #7A9A7A;
+  --moss-lt:     #D0E0D0;
 
   /* Semantic aliases */
   --color-bg:         var(--canvas);

@@ -8,14 +8,9 @@ interface Props {
   slug: string;
 }
 
-const { titleEn, titleCn, tags, date, readTime, slug } = Astro.props;
+import { getTagColor } from '../utils/tagColor';
 
-const PALETTE = ['var(--terra)', 'var(--sage)'];
-function getTagColor(tag: string): string {
-  let hash = 0;
-  for (const c of tag) hash = (hash * 31 + c.charCodeAt(0)) & 0xffff;
-  return PALETTE[hash % PALETTE.length];
-}
+const { titleEn, titleCn, tags, date, readTime, slug } = Astro.props;
 
 const barColor = tags.length > 0 ? getTagColor(tags[0]) : 'var(--sage)';
 const dateEn = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
