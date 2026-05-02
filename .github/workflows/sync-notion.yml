@@ -7,6 +7,10 @@ on:
   # Allow manual trigger from GitHub Actions tab
   workflow_dispatch:
 
+concurrency:
+  group: sync-notion
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
