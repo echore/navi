@@ -201,6 +201,7 @@ async function sync(): Promise<void> {
   }
 
   let synced = 0;
+  const usedSlugs = new Map<string, string>(); // slug → notionId
 
   for (const page of allResults) {
     if (page.object !== 'page') continue;
@@ -215,6 +216,12 @@ async function sync(): Promise<void> {
     if (!post) continue;
 
     const slug = slugify(post.titleEn);
+
+    if (usedSlugs.has(slug)) {
+      console.warn(`[skip] Page ${page.id}: slug "${slug}" already used by ${usedSlugs.get(slug)} — rename the EN title to avoid conflict`);
+      continue;
+    }
+    usedSlugs.set(slug, page.id);
     const readTime = calcReadTime(post.enBody);
 
     if (!publishedDates[page.id]) {
