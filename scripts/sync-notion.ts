@@ -206,7 +206,10 @@ async function sync(): Promise<void> {
     if (page.object !== 'page') continue;
 
     const props = (page as any).properties;
-    const tags: string[] = (props.Tag?.multi_select ?? []).map((o: any) => o.name as string);
+    if (!props?.Tag) {
+      console.warn(`[warn] Page ${page.id}: missing "Tag" property — check Notion field name`);
+    }
+    const tags: string[] = (props?.Tag?.multi_select ?? []).map((o: any) => o.name as string);
 
     const post = await parsePage(page.id, tags);
     if (!post) continue;
