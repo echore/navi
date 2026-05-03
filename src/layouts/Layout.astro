@@ -39,7 +39,8 @@ const {
     <!-- Language toggle: runs on every page, persisted in localStorage -->
     <script is:inline>
       (function () {
-        const saved = localStorage.getItem('navi-lang') || 'en';
+        const saved = localStorage.getItem('navi-lang') ||
+          (navigator.language && navigator.language.startsWith('zh') ? 'cn' : 'en');
         applyLang(saved);
 
         window.setLang = function (lang) {
