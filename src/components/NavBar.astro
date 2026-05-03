@@ -14,9 +14,13 @@
   </ul>
 
   <div class="nav-right">
-    <div class="lang-toggle">
+    <div class="lang-toggle" id="lang-toggle-wrap" style="position:relative">
       <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
       <button class="lang-btn" id="btn-cn" onclick="setLang('cn')">中文</button>
+      <div class="lang-hint" id="lang-hint">
+        <span class="lang-hint-arrow">👆</span>
+        点这里切换中文
+      </div>
     </div>
     <a href="/#platforms" class="nav-cta" id="nav-cta">Find my socials</a>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
@@ -99,6 +103,51 @@
     border-radius: 999px;
     padding: 3px;
     gap: 1px;
+    position: relative;
+  }
+
+  .lang-hint {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: var(--deep);
+    color: var(--canvas);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 400;
+    white-space: nowrap;
+    padding: 7px 13px;
+    border-radius: 10px;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 16px rgba(44, 40, 32, 0.18);
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 200;
+  }
+
+  /* The little triangle pointing up */
+  .lang-hint::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 18px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid var(--deep);
+  }
+
+  .lang-hint.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .lang-hint-arrow {
+    font-size: 14px;
+    line-height: 1;
   }
 
   .lang-btn {
@@ -214,6 +263,29 @@
 </style>
 
 <script is:inline>
+  (function () {
+    // --- Language hint bubble (demo: always show) ---
+    var hint = document.getElementById('lang-hint');
+    var toggle = document.getElementById('lang-toggle-wrap');
+
+    if (hint) {
+      // Show after a short delay so it doesn't flash on load
+      setTimeout(function () { hint.classList.add('visible'); }, 1200);
+
+      // Auto-hide after 4 seconds
+      setTimeout(function () {
+        hint.classList.remove('visible');
+      }, 5200);
+
+      // Also hide immediately when user clicks the toggle
+      if (toggle) {
+        toggle.addEventListener('click', function () {
+          hint.classList.remove('visible');
+        });
+      }
+    }
+  })();
+
   (function () {
     var btn = document.getElementById('hamburger');
     var menu = document.getElementById('mobile-menu');
