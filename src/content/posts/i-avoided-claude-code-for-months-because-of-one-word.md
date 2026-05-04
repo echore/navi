@@ -1,6 +1,6 @@
 ---
 titleEn: "I Avoided Claude Code for Months Because of One Word"
-titleCn: "**因为名字里有“Code”，我差点错过全网最强的AI神器**"
+titleCn: "因为名字里有“Code”，我差点错过全网最强的AI神器"
 tags: ["AI"]
 date: 2026-05-02
 readTime: 3
