@@ -105,6 +105,10 @@ function extractSubsection(section: string, marker: string): string {
   return '';
 }
 
+function fixUnconvertedBold(html: string): string {
+  return html.replace(/\*\*(.+?)\*\*/gs, '<strong>$1</strong>');
+}
+
 function normalizeMarkdown(text: string): string {
   const lines = text.split('\n');
   const result: string[] = [];
@@ -313,8 +317,8 @@ async function sync(): Promise<void> {
     }
     const date = publishedDates[page.id];
 
-    const enHtml = await processImages(embedYouTube(String(marked(post.enBody))), slug);
-    const cnHtml = await processImages(embedYouTube(String(marked(post.cnBody))), slug);
+    const enHtml = await processImages(fixUnconvertedBold(embedYouTube(String(marked(post.enBody)))), slug);
+    const cnHtml = await processImages(fixUnconvertedBold(embedYouTube(String(marked(post.cnBody)))), slug);
     const markdown = buildMarkdown(post, date, readTime, slug, enHtml, cnHtml);
     writeFileSync(join(POSTS_DIR, `${slug}.md`), markdown);
 
