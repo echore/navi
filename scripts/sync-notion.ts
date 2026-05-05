@@ -144,15 +144,18 @@ async function parsePage(pageId: string, tags: string[]): Promise<ParsedPost | n
   const result = await notion.pages.retrieveMarkdown({ page_id: pageId });
   const fullMd = result.markdown;
 
-  // Split by divider: section[0]=EN, section[1]=CN, section[2+]=ignored
-  const sections = fullMd.split(/\n---+\n/);
+  // Split at the CN title heading — more reliable than splitting on ---
+  // because --- is also used as a decorative divider inside the EN body.
+  const cnTitleMarker = `## ${MARKERS.cnTitle}`;
+  const cnSplit = fullMd.indexOf(cnTitleMarker);
 
-  if (sections.length < 2) {
+  if (cnSplit === -1) {
     console.warn(`[skip] Page ${pageId}: needs at least one divider between EN and CN sections`);
     return null;
   }
 
-  const [enSection, cnSection] = sections;
+  const enSection = fullMd.slice(0, cnSplit);
+  const cnSection = fullMd.slice(cnSplit);
 
   const titleEn = extractSubsection(enSection, MARKERS.enTitle);
   const enBody  = normalizeMarkdown(extractSubsection(enSection, MARKERS.enBody));
