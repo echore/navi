@@ -25,6 +25,8 @@ notionId: "354942e6-a592-8070-84e5-c39e69df87f0"
 <p>I know this is a pain point for people without a technical background, which is part of why I started putting this content out. Most tutorials today focus on setup, technical configuration rather than solving a specific, concrete problem, and most are aimed at developers. My core focus is AI for non-technical users: people who are complete beginners, no setup talk, just using tools to solve real problems. </p>
 <p>I also believe the shift from AI tools built for developers and enterprise users toward general audiences is already underway. I want to document that transition as it happens, and grow through it alongside everyone else.</p>
 <p>&nbsp;</p>
+<hr>
+<p>&nbsp;</p>
 
 </div>
 
@@ -42,5 +44,6 @@ notionId: "354942e6-a592-8070-84e5-c39e69df87f0"
 <p>如果你也因为一个工具的名字、或者「感觉太难了」而放弃过某个 AI 产品，可以回头看看。我也是在朋友强烈安利下开始使用然后就一发不可收拾。我也知道这对于非技术背景的人来说这是一个痛点，所以这也是开启这个账号输出的初衷。</p>
 <p>这个账号我会核心围绕 AI For Non-tech users 也就是非技术纯小白使用AI工具，不谈技术设置，专注利用工具解决现实问题。我也相信从AI 工具专门针对专业开发，企业用户一定会拓展到普罗大众，而这个转变正在发生，我希望可以记录这一切的发生，共同进步。</p>
 <p>&nbsp;</p>
+<hr>
 
 </div>
