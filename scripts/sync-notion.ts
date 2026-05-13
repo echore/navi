@@ -80,6 +80,7 @@ const MARKERS = {
   enBody:  'Body in English',
   cnTitle: '中文标题',
   cnBody:  '中文正文',
+  rest:    '其余一切',
 } as const;
 
 interface ParsedPost {
@@ -91,18 +92,34 @@ interface ParsedPost {
   notionId: string;
 }
 
+// Locates a line-anchored `## marker` heading. Tolerates an optional trailing
+// colon (e.g. `## 其余一切:`) and trailing whitespace.
+function findMarkerLine(text: string, marker: string): { start: number; afterHeading: number } | null {
+  const escaped = marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = new RegExp(`(^|\\n)## ${escaped}\\s*:?\\s*(?=\\n|$)`);
+  const m = re.exec(text);
+  if (!m) return null;
+  const start = m.index + (m[1] === '\n' ? 1 : 0);
+  const afterHeading = m.index + m[0].length;
+  return { start, afterHeading };
+}
+
 /**
- * Extracts the content under a ## heading marker, up to the next ## heading or end of string.
+ * Extracts content under `startMarker`, stopping at the first occurrence of
+ * any `stopMarkers` (or end of text). Sub-headings (`### foo`) and dividers
+ * (`---`) inside the section are preserved — only named template markers
+ * terminate a section.
  */
-function extractSubsection(section: string, marker: string): string {
-  const parts = section.trim().split(/\n(?=## )/);
-  for (const part of parts) {
-    const newlineIdx = part.indexOf('\n');
-    if (newlineIdx === -1) continue;
-    const heading = part.slice(0, newlineIdx).replace(/^##\s+/, '').trim();
-    if (heading === marker) return part.slice(newlineIdx).trim();
+function extractBetween(text: string, startMarker: string, stopMarkers: readonly string[]): string {
+  const start = findMarkerLine(text, startMarker);
+  if (!start) return '';
+  const after = text.slice(start.afterHeading);
+  let end = after.length;
+  for (const stop of stopMarkers) {
+    const found = findMarkerLine(after, stop);
+    if (found && found.start < end) end = found.start;
   }
-  return '';
+  return after.slice(0, end).trim();
 }
 
 function fixUnconvertedBold(html: string): string {
@@ -144,23 +161,12 @@ async function parsePage(pageId: string, tags: string[]): Promise<ParsedPost | n
   const result = await notion.pages.retrieveMarkdown({ page_id: pageId });
   const fullMd = result.markdown;
 
-  // Split at the CN title heading — more reliable than splitting on ---
-  // because --- is also used as a decorative divider inside the EN body.
-  const cnTitleMarker = `## ${MARKERS.cnTitle}`;
-  const cnSplit = fullMd.indexOf(cnTitleMarker);
-
-  if (cnSplit === -1) {
-    console.warn(`[skip] Page ${pageId}: needs at least one divider between EN and CN sections`);
-    return null;
-  }
-
-  const enSection = fullMd.slice(0, cnSplit);
-  const cnSection = fullMd.slice(cnSplit);
-
-  const titleEn = extractSubsection(enSection, MARKERS.enTitle);
-  const enBody  = normalizeMarkdown(extractSubsection(enSection, MARKERS.enBody));
-  const titleCn = extractSubsection(cnSection, MARKERS.cnTitle);
-  const cnBody  = normalizeMarkdown(extractSubsection(cnSection, MARKERS.cnBody));
+  // Each section runs from its marker to the next *named* template marker.
+  // Sub-headings and `---` dividers inside the section no longer truncate it.
+  const titleEn = extractBetween(fullMd, MARKERS.enTitle, [MARKERS.enBody, MARKERS.cnTitle, MARKERS.cnBody, MARKERS.rest]);
+  const enBody  = normalizeMarkdown(extractBetween(fullMd, MARKERS.enBody,  [MARKERS.cnTitle, MARKERS.cnBody, MARKERS.rest]));
+  const titleCn = extractBetween(fullMd, MARKERS.cnTitle, [MARKERS.cnBody, MARKERS.rest]);
+  const cnBody  = normalizeMarkdown(extractBetween(fullMd, MARKERS.cnBody,  [MARKERS.rest]));
 
   if (!titleEn || !titleCn) {
     console.warn(`[skip] Page ${pageId}: missing title marker ("${MARKERS.enTitle}" or "${MARKERS.cnTitle}")`);

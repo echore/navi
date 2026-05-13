@@ -21,15 +21,26 @@ function calcReadTime(enMarkdown: string): number {
   return Math.max(1, Math.ceil(countWords(enMarkdown) / 200));
 }
 
-function extractSubsection(section: string, marker: string): string {
-  const parts = section.trim().split(/\n(?=## )/);
-  for (const part of parts) {
-    const newlineIdx = part.indexOf('\n');
-    if (newlineIdx === -1) continue;
-    const heading = part.slice(0, newlineIdx).replace(/^##\s+/, '').trim();
-    if (heading === marker) return part.slice(newlineIdx).trim();
+function findMarkerLine(text: string, marker: string): { start: number; afterHeading: number } | null {
+  const escaped = marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = new RegExp(`(^|\\n)## ${escaped}\\s*:?\\s*(?=\\n|$)`);
+  const m = re.exec(text);
+  if (!m) return null;
+  const start = m.index + (m[1] === '\n' ? 1 : 0);
+  const afterHeading = m.index + m[0].length;
+  return { start, afterHeading };
+}
+
+function extractBetween(text: string, startMarker: string, stopMarkers: readonly string[]): string {
+  const start = findMarkerLine(text, startMarker);
+  if (!start) return '';
+  const after = text.slice(start.afterHeading);
+  let end = after.length;
+  for (const stop of stopMarkers) {
+    const found = findMarkerLine(after, stop);
+    if (found && found.start < end) end = found.start;
   }
-  return '';
+  return after.slice(0, end).trim();
 }
 
 describe('slugify', () => {
@@ -62,22 +73,61 @@ describe('calcReadTime', () => {
   });
 });
 
-describe('extractSubsection', () => {
-  it('extracts content under a ## marker heading', () => {
-    const section = `## Title in English\n\nMy Article Title\n\n## Body in English\n\nFirst paragraph.\n\nSecond paragraph.`;
-    expect(extractSubsection(section, 'Title in English')).toBe('My Article Title');
-    expect(extractSubsection(section, 'Body in English')).toBe('First paragraph.\n\nSecond paragraph.');
+describe('extractBetween', () => {
+  it('extracts content between named markers', () => {
+    const text = `## Title in English\n\nMy Article Title\n\n## Body in English\n\nFirst paragraph.\n\nSecond paragraph.`;
+    expect(extractBetween(text, 'Title in English', ['Body in English'])).toBe('My Article Title');
+    expect(extractBetween(text, 'Body in English', ['中文标题'])).toBe('First paragraph.\n\nSecond paragraph.');
   });
 
-  it('returns empty string when marker not found', () => {
-    const section = `## Some Other Heading\n\nContent.`;
-    expect(extractSubsection(section, 'Title in English')).toBe('');
+  it('returns empty string when start marker not found', () => {
+    const text = `## Some Other Heading\n\nContent.`;
+    expect(extractBetween(text, 'Title in English', ['Body in English'])).toBe('');
   });
 
   it('works with Chinese markers', () => {
-    const section = `## 中文标题\n\n这是标题\n\n## 中文正文\n\n这是正文内容。`;
-    expect(extractSubsection(section, '中文标题')).toBe('这是标题');
-    expect(extractSubsection(section, '中文正文')).toBe('这是正文内容。');
+    const text = `## 中文标题\n\n这是标题\n\n## 中文正文\n\n这是正文内容。`;
+    expect(extractBetween(text, '中文标题', ['中文正文'])).toBe('这是标题');
+    expect(extractBetween(text, '中文正文', ['其余一切'])).toBe('这是正文内容。');
+  });
+
+  it('reads to end of text when no stop marker is found', () => {
+    const text = `## 中文正文\n\n只有这一段，没有结束标记。`;
+    expect(extractBetween(text, '中文正文', ['其余一切'])).toBe('只有这一段，没有结束标记。');
+  });
+
+  it('tolerates trailing colon on stop marker (## 其余一切:)', () => {
+    const text = `## 中文正文\n\nbody.\n\n## 其余一切:\n\nignored.`;
+    expect(extractBetween(text, '中文正文', ['其余一切'])).toBe('body.');
+  });
+
+  // Regression: prior implementation split on any `## ` heading or treated
+  // `---` dividers as section breaks, which truncated bodies that contained
+  // sub-headings or decorative dividers. The new logic must read through them.
+  it('does NOT truncate the section at sub-headings (###) or dividers (---)', () => {
+    const text = [
+      '## 中文正文',
+      '',
+      '段落一。',
+      '',
+      '### 小标题',
+      '段落二，标题下面的内容。',
+      '',
+      '---',
+      '',
+      '段落三，横线后还应保留。',
+      '',
+      '## 其余一切:',
+      '',
+      '草稿（应被忽略）。',
+    ].join('\n');
+    const body = extractBetween(text, '中文正文', ['其余一切']);
+    expect(body).toContain('段落一');
+    expect(body).toContain('### 小标题');
+    expect(body).toContain('段落二');
+    expect(body).toContain('---');
+    expect(body).toContain('段落三，横线后还应保留');
+    expect(body).not.toContain('草稿');
   });
 });
 
@@ -98,14 +148,14 @@ describe('slug collision detection', () => {
 });
 
 describe('enBody empty guard', () => {
-  it('extractSubsection returns empty string when Body in English marker is absent', () => {
+  it('returns empty string when Body in English marker is absent', () => {
     const section = `## Title in English\n\nMy Title`;
-    expect(extractSubsection(section, 'Body in English')).toBe('');
+    expect(extractBetween(section, 'Body in English', ['中文标题'])).toBe('');
   });
 
-  it('extractSubsection returns empty string when body section exists but has no content', () => {
+  it('returns empty string when body section exists but has no content', () => {
     const section = `## Title in English\n\nMy Title\n\n## Body in English\n\n`;
-    expect(extractSubsection(section, 'Body in English')).toBe('');
+    expect(extractBetween(section, 'Body in English', ['中文标题'])).toBe('');
   });
 });
 
@@ -137,12 +187,9 @@ describe('full page markdown splitting', () => {
       'Draft notes ignored.',
     ].join('\n');
 
-    const sections = fullMd.split(/\n---+\n/);
-    expect(sections.length).toBe(3);
-
-    expect(extractSubsection(sections[0], 'Title in English')).toBe("Don't start with AI tutorials");
-    expect(extractSubsection(sections[0], 'Body in English')).toBe('EN body content here.');
-    expect(extractSubsection(sections[1], '中文标题')).toBe('不要从 AI 教程开始');
-    expect(extractSubsection(sections[1], '中文正文')).toBe('中文正文内容。');
+    expect(extractBetween(fullMd, 'Title in English', ['Body in English', '中文标题', '中文正文', '其余一切'])).toBe("Don't start with AI tutorials");
+    expect(extractBetween(fullMd, 'Body in English', ['中文标题', '中文正文', '其余一切'])).toBe('EN body content here.\n\n---');
+    expect(extractBetween(fullMd, '中文标题', ['中文正文', '其余一切'])).toBe('不要从 AI 教程开始');
+    expect(extractBetween(fullMd, '中文正文', ['其余一切'])).toBe('中文正文内容。\n\n---');
   });
 });
