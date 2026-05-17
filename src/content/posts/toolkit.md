@@ -19,7 +19,8 @@ notionId: "363942e6-a592-80c5-9f61-f81c66b4d353"
 
 <div class="lang-zh">
 <p>详见下面的Nition 数据库链接🔗：</p>
-<mention-page url="https://www.notion.so/363942e6a5928132a128f61deb2d9e1d"/> <p>&nbsp;</p>
+<p><a href="https://fifree.notion.site/AI-363942e6a5928132a128f61deb2d9e1d">https://fifree.notion.site/AI-363942e6a5928132a128f61deb2d9e1d</a></p>
+<p>&nbsp;</p>
 <hr>
 
 </div>
