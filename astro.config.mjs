@@ -4,6 +4,6 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   output: 'static',
   markdown: {
-    allowDangerousHtml: true,
+    remarkRehype: { allowDangerousHtml: true },
   },
 });
