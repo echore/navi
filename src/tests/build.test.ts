@@ -59,4 +59,10 @@ describe('build smoke test', () => {
       /<a[^>]*href="\/posts"[^>]*id="lbl-viewall"[^>]*>/.test(html);
     expect(hasViewAllLink).toBe(true);
   });
+
+  it('/posts page uses list layout, not card grid', () => {
+    const html = readFileSync(join(dist, 'posts/index.html'), 'utf-8');
+    expect(html).toContain('list-row');
+    expect(html).not.toContain('post-grid');
+  });
 });
