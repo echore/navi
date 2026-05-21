@@ -46,4 +46,17 @@ describe('build smoke test', () => {
     expect(html).toContain('copy-btn');
     expect(html).toContain('navigator.clipboard');
   });
+
+  it('dist/posts/index.html exists', () => {
+    expect(existsSync(join(dist, 'posts/index.html'))).toBe(true);
+  });
+
+  it('homepage contains view-all link to /posts', () => {
+    const html = readFileSync(join(dist, 'index.html'), 'utf-8');
+    // Match an <a> tag that has BOTH id="lbl-viewall" and href="/posts" (order-independent)
+    const hasViewAllLink =
+      /<a[^>]*id="lbl-viewall"[^>]*href="\/posts"[^>]*>/.test(html) ||
+      /<a[^>]*href="\/posts"[^>]*id="lbl-viewall"[^>]*>/.test(html);
+    expect(hasViewAllLink).toBe(true);
+  });
 });

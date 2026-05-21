@@ -3,17 +3,30 @@ import { getCollection } from 'astro:content';
 import PostCard from './PostCard.astro';
 import { getTagColor, getTagLightColor } from '../utils/tagColor';
 
+interface Props {
+  limit?: number;
+}
+
+const { limit } = Astro.props;
+
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
-const posts = allPosts.sort(
+const sorted = allPosts.sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
-
+const posts = limit ? sorted.slice(0, limit) : sorted;
 const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
 ---
 
 <section class="posts-section" id="posts">
   <div class="section-row">
-    <span class="section-heading" id="lbl-latest">Latest posts</span>
+    {limit ? (
+      <span class="section-heading" id="lbl-latest">Latest posts</span>
+    ) : (
+      <span class="section-heading" data-en="All Posts" data-cn="全部文章">All Posts</span>
+    )}
+    {limit && (
+      <a href="/posts" class="view-all-link" id="lbl-viewall">View all →</a>
+    )}
   </div>
   {allTags.length > 0 && (
     <div class="tag-filter" id="tag-filter">
@@ -67,6 +80,19 @@ const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--warm-gray);
+  }
+
+  .view-all-link {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--terra);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 150ms;
+  }
+
+  .view-all-link:hover {
+    color: var(--terra-dk);
   }
 
   .post-grid {
