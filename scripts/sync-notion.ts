@@ -87,6 +87,7 @@ interface ParsedPost {
   titleEn: string;
   titleCn: string;
   tags: string[];
+  featured: boolean;
   enBody: string;
   cnBody: string;
   notionId: string;
@@ -156,7 +157,7 @@ function normalizeMarkdown(text: string): string {
   return result.join('\n').trim();
 }
 
-async function parsePage(pageId: string, tags: string[]): Promise<ParsedPost | null> {
+async function parsePage(pageId: string, tags: string[], featured: boolean): Promise<ParsedPost | null> {
   // Use Notion SDK v5 native Markdown conversion — no notion-to-md needed
   const result = await notion.pages.retrieveMarkdown({ page_id: pageId });
   const fullMd = result.markdown;
@@ -178,7 +179,7 @@ async function parsePage(pageId: string, tags: string[]): Promise<ParsedPost | n
     return null;
   }
 
-  return { titleEn, titleCn, tags, enBody, cnBody, notionId: pageId };
+  return { titleEn, titleCn, tags, featured, enBody, cnBody, notionId: pageId };
 }
 
 // ── Markdown file generation ──────────────────────────────────────────────────
@@ -192,6 +193,7 @@ date: ${date}
 readTime: ${readTime}
 slug: ${slug}
 draft: false
+featured: ${post.featured}
 notionId: ${JSON.stringify(post.notionId)}
 ---
 
@@ -308,8 +310,9 @@ async function sync(): Promise<void> {
       console.warn(`[warn] Page ${page.id}: missing "Tag" property — check Notion field name`);
     }
     const tags: string[] = (props?.Tag?.multi_select ?? []).map((o: any) => o.name as string);
+    const featured: boolean = props?.Featured?.checkbox ?? false;
 
-    const post = await parsePage(page.id, tags);
+    const post = await parsePage(page.id, tags, featured);
     if (!post) continue;
 
     const slug = slugify(post.titleEn);

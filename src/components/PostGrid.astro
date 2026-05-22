@@ -5,26 +5,31 @@ import { getTagColor, getTagLightColor } from '../utils/tagColor';
 
 interface Props {
   limit?: number;
+  featured?: boolean;
 }
 
-const { limit } = Astro.props;
+const { limit, featured } = Astro.props;
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const sorted = allPosts.sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
-const posts = limit ? sorted.slice(0, limit) : sorted;
+const posts = featured
+  ? sorted.filter(p => p.data.featured)
+  : limit ? sorted.slice(0, limit) : sorted;
 const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
 ---
 
 <section class="posts-section" id="posts">
   <div class="section-row">
-    {limit ? (
+    {featured ? (
+      <span class="section-heading" data-en="Featured" data-cn="精选">Featured</span>
+    ) : limit ? (
       <span class="section-heading" id="lbl-latest">Latest posts</span>
     ) : (
       <span class="section-heading" data-en="All Posts" data-cn="全部文章">All Posts</span>
     )}
-    {limit && (
+    {(featured || limit) && (
       <a href="/posts" class="view-all-link" id="lbl-viewall">View all →</a>
     )}
   </div>

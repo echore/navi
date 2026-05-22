@@ -12,6 +12,7 @@ const posts = defineCollection({
     readTime: z.number(),
     slug: z.string(),
     draft: z.boolean().default(false),
+    featured: z.boolean().default(false),
     notionId: z.string().optional(),
   }),
 });
