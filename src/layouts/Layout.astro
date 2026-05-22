@@ -74,6 +74,7 @@ const {
           // UI string map
           var T = {
             en: {
+              navHome: 'Home',
               navPosts: 'Posts',
               navFind: 'Find me',
               navNl: 'Newsletter',
@@ -92,6 +93,7 @@ const {
               footerNote: 'Navigate the gap · © 2026 Navi',
             },
             cn: {
+              navHome: '主页',
               navPosts: '文章',
               navFind: '社交媒体',
               navNl: '订阅',
@@ -116,6 +118,7 @@ const {
             var el = document.getElementById(id);
             if (el) el.innerHTML = html;
           }
+          s('nav-home', t.navHome);
           s('nav-posts', t.navPosts);
           s('nav-find', t.navFind);
           s('nav-nl', t.navNl);
