@@ -6,7 +6,7 @@ date: 2026-05-21
 readTime: 10
 slug: real-lessons-from-claude-code-codex-and-ai-agent-tools
 draft: false
-featured: false
+featured: true
 notionId: "366942e6-a592-80c0-8efc-d57e9e2f5ef6"
 ---
 
