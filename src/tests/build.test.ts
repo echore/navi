@@ -28,15 +28,10 @@ describe('build smoke test', () => {
     expect(html).not.toContain('lang-toggle');
   });
 
-  it('intro overlay uses 55px font size', () => {
-    const src = readFileSync(
-      join(process.cwd(), 'src/components/Hero.astro'),
-      'utf-8'
-    );
-    const il1Match = src.match(/\.il1\s*\{[^}]*font-size:\s*(\d+px)/);
-    const il2Match = src.match(/\.il2\s*\{[^}]*font-size:\s*(\d+px)/);
-    expect(il1Match?.[1]).toBe('55px');
-    expect(il2Match?.[1]).toBe('55px');
+  it('homepage shows the hero directly, with no intro overlay', () => {
+    const html = readFileSync(join(dist, 'index.html'), 'utf-8');
+    expect(html).toContain('Be curious');
+    expect(html).not.toContain('id="intro"');
   });
 
   it('post pages include copy button script', () => {

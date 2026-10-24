@@ -4,33 +4,22 @@
 <!-- Custom cursor -->
 <div id="cursor"></div>
 
-<!-- Stage: intro + animated canvas + hero -->
+<!-- Stage: animated canvas + hero -->
 <div id="stage">
   <canvas id="bg"></canvas>
 
-  <!-- Intro overlay -->
-  <div id="intro">
-    <div class="il1" id="l1">Hi, I'm Yachen.</div>
-    <div class="il2" id="l2">I learn by trying things.</div>
-  </div>
-
-  <!-- Main UI (fades in after intro) -->
   <div id="main">
     <slot name="nav" />
 
     <div class="hero">
-      <div class="fade-up eyebrow" id="e1">
+      <div class="eyebrow">
         <div class="ey-dash"></div>
         <span class="ey-txt" id="hero-eyebrow">Yachen Li</span>
       </div>
-      <div class="fade-up hero-h1" id="e2">Be curious</div>
-      <div class="fade-up hero-h1i" id="e3">and keep exploring.</div>
-      <p class="fade-up hero-cn" id="e3b" lang="zh">保持一份旺盛的自我想象和探索自我可能性的勇气</p>
-      <p class="fade-up hero-desc" id="e4">
-        I like building small tools, learning how AI works, and sharing what I find useful.
-        Here I write about AI, business, and how I make decisions.
-      </p>
-      <div class="fade-up hero-btns" id="e5">
+      <div class="hero-h1">Be curious</div>
+      <div class="hero-h1i">and keep exploring.</div>
+      <p class="hero-cn" lang="zh">保持一份旺盛的自我想象和探索自我可能性的勇气</p>
+      <div class="hero-btns">
         <button
           class="btn-p"
           id="hero-cta"
@@ -41,8 +30,6 @@
       </div>
     </div>
   </div>
-
-  <button id="replay">↺ Replay</button>
 </div>
 
 <style>
@@ -74,41 +61,11 @@
     transition: opacity 200ms;
   }
 
-  /* Intro overlay */
-  #intro {
-    position: absolute; inset: 0; z-index: 20;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    transition: opacity 0.7s ease;
-  }
-
-  .il1 {
-    font-family: var(--font-display);
-    font-size: 55px; font-weight: 400; color: var(--deep);
-    opacity: 0; transform: translateY(10px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    letter-spacing: -0.015em;
-  }
-
-  .il2 {
-    font-family: var(--font-display);
-    font-size: 55px; font-weight: 400; font-style: italic; color: var(--terra);
-    opacity: 0; transform: translateY(10px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    margin-top: 6px; letter-spacing: -0.015em;
-  }
-
-  .il1.on, .il2.on { opacity: 1; transform: translateY(0); }
-
   /* Main content */
   #main {
     position: absolute; inset: 0; z-index: 10;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.8s ease;
     display: flex; flex-direction: column;
   }
-
-  #main.on { opacity: 1; pointer-events: auto; }
 
   /* Hero */
   .hero {
@@ -117,13 +74,6 @@
     padding: 0 40px 40px;
     text-align: center;
   }
-
-  .fade-up {
-    opacity: 0; transform: translateY(8px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-
-  .fade-up.on { opacity: 1; transform: translateY(0); }
 
   .eyebrow {
     display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 18px;
@@ -154,15 +104,9 @@
   .hero-cn {
     font-family: var(--font-cn-display);
     font-size: 17px; line-height: 1.7; color: var(--espresso);
-    letter-spacing: 0.04em; margin-bottom: 18px;
+    letter-spacing: 0.04em; margin-bottom: 32px;
     text-wrap: balance;
   }
-  .hero-desc {
-    font-size: 17px; line-height: 1.75; color: var(--dim);
-    font-weight: 300; max-width: 440px; margin-bottom: 32px;
-    text-wrap: pretty; text-align: center;
-  }
-
   .hero-btns { display: flex; gap: 12px; justify-content: center; }
 
   .btn-p {
@@ -176,19 +120,7 @@
 
   .btn-p:hover { background: var(--terra-dk); transform: translateY(-1px); }
 
-  /* Replay */
-  #replay {
-    position: absolute; bottom: 16px; right: 16px; z-index: 30;
-    background: rgba(44, 40, 32, 0.07);
-    border: 0.5px solid rgba(44, 40, 32, 0.12);
-    border-radius: 20px; padding: 6px 14px;
-    font-size: 11px; color: var(--warm-gray);
-    font-family: var(--font-body); cursor: pointer;
-    opacity: 0; transition: opacity 0.4s ease;
-  }
-
   @media (max-width: 768px) {
-    .il1, .il2 { font-size: 34px; text-align: center; padding: 0 20px; }
     .hero-h1 { font-size: 36px; }
     .hero-h1i { font-size: 32px; }
     .hero { padding: 0 20px 32px; }
@@ -320,42 +252,4 @@ function draw() {
 }
 draw();
 
-/* ════════════════════════════════════════════
-   INTRO SEQUENCE
-   ════════════════════════════════════════════ */
-const FADE_IDS = ['e1', 'e2', 'e3', 'e3b', 'e4', 'e5'];
-
-function runIntro() {
-  const intro  = document.getElementById('intro')!;
-  const main   = document.getElementById('main')!;
-  const replay = document.getElementById('replay')!;
-  const l1 = document.getElementById('l1')!;
-  const l2 = document.getElementById('l2')!;
-
-  intro.style.opacity = '1';
-  intro.style.display = 'flex';
-  main.classList.remove('on');
-  replay.style.opacity = '0';
-  l1.classList.remove('on');
-  l2.classList.remove('on');
-  FADE_IDS.forEach(id => document.getElementById(id)?.classList.remove('on'));
-
-  setTimeout(() => l1.classList.add('on'), 200);
-  setTimeout(() => l2.classList.add('on'), 750);
-  setTimeout(() => {
-    intro.style.opacity = '0';
-    setTimeout(() => {
-      intro.style.display = 'none';
-      main.classList.add('on');
-      FADE_IDS.forEach((id, i) =>
-        setTimeout(() => document.getElementById(id)?.classList.add('on'), i * 100)
-      );
-      replay.style.opacity = '1';
-
-    }, 700);
-  }, 2000);
-}
-
-runIntro();
-document.getElementById('replay')!.addEventListener('click', runIntro);
 </script>
