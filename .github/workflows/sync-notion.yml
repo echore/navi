@@ -1,10 +1,9 @@
 name: Sync Notion Posts
 
 on:
-  # Run every 30 minutes — picks up new Publish status changes
-  schedule:
-    - cron: '*/30 * * * *'
-  # Allow manual trigger from GitHub Actions tab
+  # Retired 2026-10-23: posts are now edited directly in src/content/posts.
+  # The 30-minute schedule is off. Don't run this manually — it would
+  # overwrite hand-edited posts with the old Notion copies.
   workflow_dispatch:
 
 concurrency:
