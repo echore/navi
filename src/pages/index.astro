@@ -4,51 +4,10 @@ import Hero from '../components/Hero.astro';
 import NavBar from '../components/NavBar.astro';
 import PostGrid from '../components/PostGrid.astro';
 import QuoteBand from '../components/QuoteBand.astro';
-import PlatformCard from '../components/PlatformCard.astro';
-// import Newsletter from '../components/Newsletter.astro';
 import Footer from '../components/Footer.astro';
-
-const platforms = [
-  {
-    id: 'xhs',
-    name: '小红书',
-    handle: '@Navi导航',
-    accent: '#C17E5A',
-    cnOnly: true,
-    descEn: '',
-    descCn: '中文内容为主——AI 工作流拆解、工具评测、周复盘。适合想用 AI 提效但没有技术背景的你。',
-    ctaEn: 'Follow',
-    ctaCn: '去关注',
-    href: 'https://www.xiaohongshu.com/user/profile/66325ce80000000007004d1f',
-  },
-  {
-    id: 'linkedin',
-    name: 'LinkedIn',
-    handle: '@Yachen Li',
-    accent: '#8FA89C',
-    cnOnly: false,
-    descEn: "Build-in-public updates, career + AI narrative. Honest takes on what works and what doesn't.",
-    descCn: '公开构建日志，职业发展与 AI 结合的思考，英文为主。',
-    ctaEn: 'Connect',
-    ctaCn: '去关注',
-    href: 'https://www.linkedin.com/in/yachenli01/',
-  },
-  {
-    id: 'twitter',
-    name: 'X (Twitter)',
-    handle: '@Yachen Li',
-    accent: '#A09D97',
-    cnOnly: false,
-    descEn: 'Workflow tips, tool observations, and the occasional honest failure. Short and useful.',
-    descCn: '工作流技巧、工具观察，还有偶尔坦诚的失败记录，英文为主。',
-    ctaEn: 'Follow',
-    ctaCn: '去关注',
-    href: 'https://x.com/xia50549083',
-  },
-];
 ---
 
-<Layout title="Navi — Use AI like an expert">
+<Layout>
   <Hero>
     <NavBar slot="nav" />
   </Hero>
@@ -57,80 +16,5 @@ const platforms = [
 
   <QuoteBand />
 
-  <section class="platforms-section" id="platforms">
-    <div class="section-row">
-      <span class="section-heading" id="lbl-findme">Find me on</span>
-    </div>
-    <div class="platforms-grid" id="platforms-grid">
-      {platforms.map((p) => (
-        <div class={p.cnOnly ? 'cn-only-platform' : ''}>
-          <PlatformCard
-            name={p.name}
-            handle={p.handle}
-            accent={p.accent}
-            descEn={p.descEn}
-            descCn={p.descCn}
-            ctaEn={p.ctaEn}
-            ctaCn={p.ctaCn}
-            href={p.href}
-          />
-        </div>
-      ))}
-    </div>
-  </section>
-
-  {/* <Newsletter /> */}
-
   <Footer />
 </Layout>
-
-<script is:inline>
-  /* Hide cnOnly platforms in EN mode, show in CN mode */
-  function updatePlatforms() {
-    const isEn = !document.body.classList.contains('lang-cn');
-    document.querySelectorAll('.cn-only-platform').forEach(function(el) {
-      el.style.display = isEn ? 'none' : 'block';
-    });
-  }
-  updatePlatforms();
-  /* Re-run whenever lang toggle fires */
-  document.addEventListener('langchange', updatePlatforms);
-</script>
-
-<style>
-  .platforms-section {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 72px 40px;
-  }
-
-  .section-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 28px;
-  }
-
-  .section-heading {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--warm-gray);
-  }
-
-  .platforms-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-
-  @media (max-width: 639px) {
-    .platforms-section {
-      padding: 48px 20px;
-    }
-    .platforms-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

@@ -21,10 +21,11 @@ describe('build smoke test', () => {
     ).toBe(true);
   });
 
-  it('CN nav uses 社交媒体, not 找到我', () => {
+  it('homepage has no social media section or language toggle', () => {
     const html = readFileSync(join(dist, 'index.html'), 'utf-8');
-    expect(html).toContain('社交媒体');
-    expect(html).not.toContain('找到我');
+    expect(html).not.toContain('id="platforms"');
+    expect(html).not.toContain('Find my socials');
+    expect(html).not.toContain('lang-toggle');
   });
 
   it('intro overlay uses 55px font size', () => {
