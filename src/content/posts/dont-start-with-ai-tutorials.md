@@ -6,8 +6,9 @@ date: 2026-05-02
 readTime: 2
 slug: dont-start-with-ai-tutorials
 draft: false
-featured: true
+featured: false
 notionId: "354942e6-a592-8002-95e7-dd5e52e6efc7"
+listed: false
 ---
 
 <div class="lang-en">

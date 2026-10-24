@@ -8,6 +8,7 @@ slug: your-read-later-list-is-a-graveyard-heres-my-fix
 draft: false
 featured: false
 notionId: "357942e6-a592-80f9-bcff-ddcb55e6dbb0"
+listed: false
 ---
 
 <div class="lang-en">

@@ -61,6 +61,28 @@ describe('build smoke test', () => {
     expect(hasViewAllLink).toBe(true);
   });
 
+  it('home and /posts list only the selected posts', () => {
+    const selected = [
+      'real-lessons-from-claude-code-codex-and-ai-agent-tools',
+      'toolkit',
+      'what-we-mean-by-ab-testing',
+      'reflections-on-my-entrepreneurial-journey-or-side-hustle',
+      'study-abroad-agencies-are-not-good-business',
+      'inner-scorecard',
+    ];
+    for (const page of ['index.html', 'posts/index.html']) {
+      const html = readFileSync(join(dist, page), 'utf-8');
+      const linked = [...html.matchAll(/href="\/posts\/([^"]+)"/g)].map(m => m[1]);
+      expect(new Set(linked)).toEqual(new Set(selected));
+    }
+  });
+
+  it('unlisted posts keep their URLs', () => {
+    expect(
+      existsSync(join(dist, 'posts/i-avoided-claude-code-for-months-because-of-one-word/index.html'))
+    ).toBe(true);
+  });
+
   it('/posts page uses list layout, not card grid', () => {
     const html = readFileSync(join(dist, 'posts/index.html'), 'utf-8');
     expect(html).toContain('list-row');

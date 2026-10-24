@@ -6,8 +6,9 @@ date: 2026-05-02
 readTime: 3
 slug: i-avoided-claude-code-for-months-because-of-one-word
 draft: false
-featured: true
+featured: false
 notionId: "354942e6-a592-8070-84e5-c39e69df87f0"
+listed: false
 ---
 
 <div class="lang-en">

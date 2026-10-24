@@ -6,6 +6,8 @@ date: 2026-04-28
 readTime: 5
 slug: conversation-to-note-skill
 draft: false
+featured: false
+listed: false
 ---
 
 ## Hook
