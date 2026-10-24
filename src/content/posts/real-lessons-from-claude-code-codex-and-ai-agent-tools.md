@@ -1,7 +1,7 @@
 ---
 title: "长文干货｜关于Claude Code Codex等Agent工具的一切"
 lang: zh
-tags: ["AI","Social Media"]
+tags: ["AI"]
 date: 2026-05-21
 readTime: 10
 slug: real-lessons-from-claude-code-codex-and-ai-agent-tools
