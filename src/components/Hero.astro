@@ -23,8 +23,9 @@
         <div class="ey-dash"></div>
         <span class="ey-txt" id="hero-eyebrow">Yachen Li</span>
       </div>
-      <div class="fade-up hero-h1" id="e2">I try things,</div>
-      <div class="fade-up hero-h1i" id="e3">then write down what I learn.</div>
+      <div class="fade-up hero-h1" id="e2">Be curious</div>
+      <div class="fade-up hero-h1i" id="e3">and keep exploring.</div>
+      <p class="fade-up hero-cn" id="e3b" lang="zh">保持一份旺盛的自我想象和探索自我可能性的勇气</p>
       <p class="fade-up hero-desc" id="e4">
         I like building small tools, learning how AI works, and sharing what I find useful.
         Here I write about AI, business, and how I make decisions.
@@ -150,6 +151,12 @@
     line-height: 1.08; letter-spacing: -0.025em; margin-bottom: 22px;
   }
 
+  .hero-cn {
+    font-family: var(--font-cn-display);
+    font-size: 17px; line-height: 1.7; color: var(--espresso);
+    letter-spacing: 0.04em; margin-bottom: 18px;
+    text-wrap: balance;
+  }
   .hero-desc {
     font-size: 17px; line-height: 1.75; color: var(--dim);
     font-weight: 300; max-width: 440px; margin-bottom: 32px;
@@ -316,7 +323,7 @@ draw();
 /* ════════════════════════════════════════════
    INTRO SEQUENCE
    ════════════════════════════════════════════ */
-const FADE_IDS = ['e1', 'e2', 'e3', 'e4', 'e5'];
+const FADE_IDS = ['e1', 'e2', 'e3', 'e3b', 'e4', 'e5'];
 
 function runIntro() {
   const intro  = document.getElementById('intro')!;
