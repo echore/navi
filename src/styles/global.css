@@ -107,7 +107,7 @@ body {
   overflow-x: hidden;
 }
 
-body.lang-cn { font-family: var(--font-cn-body); }
+body:lang(zh) { font-family: var(--font-cn-body); }
 
 h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; color: var(--deep); }
 
@@ -122,7 +122,7 @@ a {
   line-height: 1.85;
   color: var(--espresso);
 }
-.lang-cn .prose {
+.prose:lang(zh) {
   font-size: var(--text-md);
 }
 .prose h1, .prose h2, .prose h3 {
@@ -182,10 +182,9 @@ a {
   font-style: italic;
 }
 
-/* Bilingual post content — show EN by default, CN in lang-cn mode */
-.prose .lang-zh { display: none; }
-.lang-cn .prose .lang-zh { display: block; }
-.lang-cn .prose .lang-en { display: none; }
+/* Older posts still hold both versions in source; show only the original */
+.prose:lang(zh) .lang-en,
+.prose:lang(en) .lang-zh { display: none; }
 
 /* YouTube / video embeds — responsive 16:9 */
 .prose .video-embed {

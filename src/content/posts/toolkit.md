@@ -1,6 +1,6 @@
 ---
-titleEn: "Toolkit"
-titleCn: "AI工具资源库"
+title: "AI工具资源库"
+lang: zh
 tags: ["AI"]
 date: 2026-05-17
 readTime: 1

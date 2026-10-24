@@ -1,6 +1,6 @@
 ---
-titleEn: "To be confirmed"
-titleCn: "每日 Claude Code 复盘系统"
+title: "每日 Claude Code 复盘系统"
+lang: zh
 tags: []
 date: 2026-05-13
 readTime: 1

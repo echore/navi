@@ -4,44 +4,35 @@ import NavBar from '../components/NavBar.astro';
 import Footer from '../components/Footer.astro';
 
 interface Props {
-  titleEn: string;
-  titleCn: string;
+  title: string;
+  lang: 'en' | 'zh';
   tags: string[];
   date: Date;
   readTime: number;
 }
 
-const { titleEn, titleCn, tags, date, readTime } = Astro.props;
+const { title, lang, tags, date, readTime } = Astro.props;
 
 const dateStr = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-const dateCnStr = `${date.getFullYear()}年${date.getMonth() + 1}月`;
 const primaryTag = tags[0] ?? 'Notes';
 const tagColor = primaryTag === 'AI' ? 'var(--terra)' : 'var(--sage)';
-const tagLabelCn = primaryTag === 'AI' ? 'AI' : '随笔';
 ---
 
-<Layout title={`${titleEn} — Navi`} description={titleEn}>
+<Layout title={`${title} — Yachen Li`} description={title} lang={lang}>
   <NavBar />
 
   <main class="post-main">
     <article class="post-article">
       <header class="post-header">
-        <div class="post-tag" style={`color: ${tagColor}`} data-en={primaryTag} data-cn={tagLabelCn}>{primaryTag}</div>
+        <div class="post-tag" style={`color: ${tagColor}`}>{primaryTag}</div>
         <div class="post-bar" style={`background: ${tagColor}`}></div>
 
-        <h1
-          class="post-title"
-          id="post-title"
-          data-en={titleEn}
-          data-cn={titleCn}
-        >
-          {titleEn}
-        </h1>
+        <h1 class="post-title" id="post-title">{title}</h1>
 
         <div class="post-meta">
           <span id="post-read">{readTime} min read</span>
           <span class="post-meta-dot">·</span>
-          <span id="post-date" data-en={dateStr} data-cn={dateCnStr}>{dateStr}</span>
+          <span id="post-date">{dateStr}</span>
         </div>
       </header>
 
@@ -49,7 +40,7 @@ const tagLabelCn = primaryTag === 'AI' ? 'AI' : '随笔';
         <slot />
       </div>
 
-      <a href="/" class="post-back" id="post-back" data-en="← Back" data-cn="← 返回">← Back</a>
+      <a href="/" class="post-back" id="post-back">← Back</a>
     </article>
   </main>
 
@@ -58,27 +49,21 @@ const tagLabelCn = primaryTag === 'AI' ? 'AI' : '随笔';
 
 <script is:inline>
   (function () {
-    function btnLabel(lang) {
-      return lang === 'cn' ? '复制' : 'Copy';
-    }
-
     function initCopyButtons() {
-      var lang = localStorage.getItem('navi-lang') || 'en';
       document.querySelectorAll('.prose pre').forEach(function (pre) {
         if (pre.querySelector('.copy-btn')) return;
         var btn = document.createElement('button');
         btn.className = 'copy-btn';
-        btn.textContent = btnLabel(lang);
+        btn.textContent = 'Copy';
         btn.setAttribute('aria-label', 'Copy code');
         btn.addEventListener('click', function () {
           var code = pre.querySelector('code');
           var text = code ? code.textContent : pre.textContent;
           navigator.clipboard.writeText(text || '').then(function () {
-            var currentLang = localStorage.getItem('navi-lang') || 'en';
-            btn.textContent = currentLang === 'cn' ? '已复制 ✓' : 'Copied ✓';
+            btn.textContent = 'Copied ✓';
             btn.classList.add('copied');
             setTimeout(function () {
-              btn.textContent = btnLabel(localStorage.getItem('navi-lang') || 'en');
+              btn.textContent = 'Copy';
               btn.classList.remove('copied');
             }, 1500);
           });
@@ -92,13 +77,6 @@ const tagLabelCn = primaryTag === 'AI' ? 'AI' : '随笔';
     } else {
       initCopyButtons();
     }
-
-    document.addEventListener('langchange', function () {
-      var lang = localStorage.getItem('navi-lang') || 'en';
-      document.querySelectorAll('.copy-btn:not(.copied)').forEach(function (btn) {
-        btn.textContent = btnLabel(lang);
-      });
-    });
   })();
 </script>
 
@@ -142,7 +120,7 @@ const tagLabelCn = primaryTag === 'AI' ? 'AI' : '随笔';
     margin-bottom: 16px;
   }
 
-  .lang-cn .post-title {
+  .post-title:lang(zh) {
     font-family: var(--font-cn-display);
     font-size: 30px;
     letter-spacing: 0;

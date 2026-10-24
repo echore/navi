@@ -1,6 +1,6 @@
 ---
-titleEn: "To be confirmed 05"
-titleCn: "AI 学习工作流"
+title: "AI 学习工作流"
+lang: zh
 tags: ["AI"]
 date: 2026-05-13
 readTime: 1

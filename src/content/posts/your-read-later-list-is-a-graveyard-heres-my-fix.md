@@ -1,6 +1,6 @@
 ---
-titleEn: "Your \"Read Later\" List Is a Graveyard. Here's My Fix."
-titleCn: "收藏夹吃灰？我用Claude解决了"
+title: "收藏夹吃灰？我用Claude解决了"
+lang: zh
 tags: ["AI"]
 date: 2026-05-05
 readTime: 3

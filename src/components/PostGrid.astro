@@ -10,7 +10,7 @@ interface Props {
 
 const { limit, featured } = Astro.props;
 
-const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const allPosts = await getCollection('posts', ({ data }) => !data.draft && data.listed);
 const sorted = allPosts.sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
@@ -23,11 +23,11 @@ const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
 <section class="posts-section" id="posts">
   <div class="section-row">
     {featured ? (
-      <span class="section-heading" data-en="Featured" data-cn="精选">Featured</span>
+      <span class="section-heading">Selected writing</span>
     ) : limit ? (
       <span class="section-heading" id="lbl-latest">Latest posts</span>
     ) : (
-      <span class="section-heading" data-en="All Posts" data-cn="全部文章">All Posts</span>
+      <span class="section-heading">All Posts</span>
     )}
     {(featured || limit) && (
       <a href="/posts" class="view-all-link" id="lbl-viewall">View all →</a>
@@ -38,8 +38,6 @@ const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
       <button
         class="tag-btn active"
         data-tag="all"
-        data-en="All"
-        data-cn="全部"
         style="--btn-color: var(--terra); --btn-color-lt: var(--terra-lt)"
       >All</button>
       {allTags.map(tag => (
@@ -54,8 +52,8 @@ const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
   <div class="post-grid" id="post-grid">
     {posts.map((post) => (
       <PostCard
-        titleEn={post.data.titleEn}
-        titleCn={post.data.titleCn}
+        title={post.data.title}
+        lang={post.data.lang}
         tags={post.data.tags}
         date={post.data.date}
         readTime={post.data.readTime}

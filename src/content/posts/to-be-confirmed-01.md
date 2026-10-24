@@ -1,6 +1,6 @@
 ---
-titleEn: "To be confirmed 01"
-titleCn: "项目复盘标准：怎么复盘才能真正积累"
+title: "项目复盘标准：怎么复盘才能真正积累"
+lang: zh
 tags: []
 date: 2026-05-13
 readTime: 1

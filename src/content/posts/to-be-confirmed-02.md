@@ -1,6 +1,6 @@
 ---
-titleEn: "To be confirmed 02"
-titleCn: "Toggl → Obsidian → Notion 时间记录自动化 SOP"
+title: "Toggl → Obsidian → Notion 时间记录自动化 SOP"
+lang: zh
 tags: []
 date: 2026-05-13
 readTime: 1

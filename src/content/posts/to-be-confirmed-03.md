@@ -1,6 +1,6 @@
 ---
-titleEn: "TO be confirmed 03"
-titleCn: "通用 内容创作自动化系统"
+title: "通用 内容创作自动化系统"
+lang: zh
 tags: ["AI"]
 date: 2026-05-13
 readTime: 1

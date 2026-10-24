@@ -168,22 +168,10 @@
     line-height: 1.08; letter-spacing: -0.025em; margin-bottom: 22px;
   }
 
-  :global(.lang-cn) .hero-h1,
-  :global(.lang-cn) .hero-h1i {
-    font-family: var(--font-cn-display);
-    font-size: 50px;
-  }
-
   .hero-desc {
     font-size: 17px; line-height: 1.75; color: var(--dim);
     font-weight: 300; max-width: 440px; margin-bottom: 32px;
     text-wrap: pretty; text-align: center;
-  }
-
-  :global(.lang-cn) .hero-desc {
-    font-family: var(--font-cn-body);
-    font-size: 17px;
-    line-height: 2;
   }
 
   .hero-btns { display: flex; gap: 12px; justify-content: center; }
@@ -374,11 +362,6 @@ function runIntro() {
       );
       replay.style.opacity = '1';
 
-      // Re-apply language after hero appears
-      const lang = localStorage.getItem('navi-lang') || 'en';
-      if (typeof (window as any).setLang === 'function') {
-        (window as any).setLang(lang);
-      }
     }, 700);
   }, 2000);
 }

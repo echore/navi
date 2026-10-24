@@ -1,6 +1,6 @@
 ---
-titleEn: "One Sentence Triggers Claude to Organize Your Conversation into a Bilingual Notion Note"
-titleCn: "一句话让 Claude 把对话整理成双语 Notion 笔记"
+title: "一句话让 Claude 把对话整理成双语 Notion 笔记"
+lang: zh
 tags: ["AI"]
 date: 2026-04-28
 readTime: 5

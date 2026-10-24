@@ -4,13 +4,14 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 
 const postSchema = z.object({
-  titleEn: z.string(),
-  titleCn: z.string(),
+  title: z.string(),
+  lang: z.enum(['en', 'zh']),
   tags: z.array(z.string()),
   date: z.coerce.date(),
   readTime: z.number(),
   slug: z.string(),
   draft: z.boolean().default(false),
+  listed: z.boolean().default(true),
   notionId: z.string().optional(),
 });
 

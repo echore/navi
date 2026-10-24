@@ -1,6 +1,6 @@
 ---
-titleEn: "Don’t start with AI tutorials."
-titleCn: "不建议去看任何 AI 教程"
+title: "不建议去看任何 AI 教程"
+lang: zh
 tags: ["AI"]
 date: 2026-05-02
 readTime: 2

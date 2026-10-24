@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import { getTagColor, getTagLightColor } from '../utils/tagColor';
 
-const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const allPosts = await getCollection('posts', ({ data }) => !data.draft && data.listed);
 const posts = allPosts.sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
@@ -11,7 +11,7 @@ const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
 
 <section class="posts-section">
   <div class="section-row">
-    <span class="section-heading" data-en="All Posts" data-cn="全部文章">All Posts</span>
+    <span class="section-heading">All Posts</span>
   </div>
 
   {allTags.length > 0 && (
@@ -19,8 +19,6 @@ const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
       <button
         class="tag-btn active"
         data-tag="all"
-        data-en="All"
-        data-cn="全部"
         style="--btn-color: var(--terra); --btn-color-lt: var(--terra-lt)"
       >All</button>
       {allTags.map(tag => (
@@ -35,26 +33,15 @@ const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
 
   <div class="post-list" id="post-list">
     {posts.map((post) => {
-      const dateEn = post.data.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-      const dateCn = `${post.data.date.getFullYear()}年${post.data.date.getMonth() + 1}月`;
-      const metaEn = `${post.data.readTime} min · ${dateEn}`;
-      const metaCn = `${post.data.readTime} 分钟 · ${dateCn}`;
+      const dateStr = post.data.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
       return (
         <a
           class="list-row"
           href={`/posts/${post.data.slug}`}
           data-tags={post.data.tags.join(',')}
         >
-          <span
-            class="list-title"
-            data-en={post.data.titleEn}
-            data-cn={post.data.titleCn}
-          >{post.data.titleEn}</span>
-          <span
-            class="list-meta"
-            data-en={metaEn}
-            data-cn={metaCn}
-          >{metaEn}</span>
+          <span class="list-title" lang={post.data.lang}>{post.data.title}</span>
+          <span class="list-meta">{post.data.readTime} min · {dateStr}</span>
         </a>
       );
     })}
