@@ -6,7 +6,7 @@ tags: ["AI"]
 date: 2026-11-14
 readTime: 12
 slug: ai-infra-from-zero-02
-series: "AI Infra note 02"
+series: "AI Infra Track Technological"
 draft: false
 featured: true
 listed: true

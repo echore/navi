@@ -96,7 +96,7 @@ describe('build smoke test', () => {
 
   it('AI infra note 01 is on the site and labeled', () => {
     const html = readFileSync(join(dist, 'posts/ai-infra-from-zero-01/index.html'), 'utf-8');
-    expect(html).toContain('AI Infra note 01');
+    expect(html).toContain('AI Infra Track Technological');
     expect(html).toContain('What Happens After a Prompt Enters an LLM?');
     expect(html).toContain('提示词进了 LLM 之后，发生了什么？');
     expect(html).toContain('id="post-lang"');
@@ -140,10 +140,8 @@ describe('build smoke test', () => {
     const homeLinks = [...home.matchAll(/href="\/posts\/([^"]+)"/g)].map(m => m[1]);
     expect(homeLinks).toHaveLength(9);
     expect(new Set(homeLinks).has('ai-infra-from-zero-01')).toBe(true);
-    expect(home).toContain('AI Infra note 01');
-    expect(home).toContain('AI Infra note 02');
-    expect(home).toContain('AI Infra note 03');
-    expect(home).toContain('AI Infra · product');
+    expect(home).toContain('AI Infra Track Technological');
+    expect(home).toContain('AI Infra Track Product');
     // The oldest listed post drops off the homepage once note 01 is added.
     expect(homeLinks).not.toContain('study-abroad-agencies-are-not-good-business');
   });
