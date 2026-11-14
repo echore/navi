@@ -56,6 +56,34 @@ describe('build smoke test', () => {
     expect(hasViewAllLink).toBe(true);
   });
 
+  it('homepage shows at most 9 posts, with view all under the grid', () => {
+    const html = readFileSync(join(dist, 'index.html'), 'utf-8');
+    const cards = html.match(/class="post-card"/g) ?? [];
+    expect(cards.length).toBeGreaterThan(0);
+    expect(cards.length).toBeLessThanOrEqual(9);
+    const gridAt = html.indexOf('id="post-grid"');
+    const linkAt = html.indexOf('id="lbl-viewall"');
+    expect(gridAt).toBeGreaterThan(-1);
+    expect(linkAt).toBeGreaterThan(gridAt);
+  });
+
+  it('a bilingual post defaults to English and can switch; toolkit cannot', () => {
+    const html = readFileSync(
+      join(dist, 'posts/real-lessons-from-claude-code-codex-and-ai-agent-tools/index.html'),
+      'utf-8'
+    );
+    expect(html).toContain('id="post-lang"');
+    expect(html).toMatch(/<article[^>]*id="post-article"[^>]*lang="en"/);
+    expect(html).toContain('class="lang-en"');
+    expect(html).toContain('class="lang-zh"');
+    expect(html).toContain('Real Lessons from Claude Code, Codex, and AI Agent Tools');
+    expect(html).toContain('长文干货｜关于Claude Code Codex等Agent工具的一切');
+
+    const toolkit = readFileSync(join(dist, 'posts/toolkit/index.html'), 'utf-8');
+    expect(toolkit).not.toContain('id="post-lang"');
+    expect(toolkit).toContain('AI工具资源库');
+  });
+
   it('home and /posts list only the selected posts', () => {
     const selected = [
       'ai-infra-product-lens',

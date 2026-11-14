@@ -131,6 +131,49 @@ describe('extractBetween', () => {
   });
 });
 
+function notionIdInFile(content: string): string | null {
+  const match = content.match(/^notionId:\s*"([^"]+)"/m);
+  return match ? match[1] : null;
+}
+
+function canOverwritePostFile(existing: string | null, notionId: string): boolean {
+  if (existing === null) return true;
+  const existingId = notionIdInFile(existing);
+  return existingId === notionId;
+}
+
+function explicitListed(content: string): boolean | null {
+  const match = content.match(/^listed:\s*(true|false)\s*$/m);
+  return match ? match[1] === 'true' : null;
+}
+
+describe('local post protection', () => {
+  it('writes a new file', () => {
+    expect(canOverwritePostFile(null, 'page-1')).toBe(true);
+  });
+
+  it('rewrites a file owned by the same Notion page', () => {
+    const existing = '---\ntitle: "笔记"\nnotionId: "page-1"\n---\n';
+    expect(canOverwritePostFile(existing, 'page-1')).toBe(true);
+  });
+
+  it('does not overwrite a hand-written post that has no notionId', () => {
+    const existing = '---\ntitle: "Why Is the GPU Still a Bottleneck?"\ntitleZh: "为什么 GPU 还是瓶颈？"\n---\n<div class="lang-zh">中文</div>\n';
+    expect(canOverwritePostFile(existing, 'page-1')).toBe(false);
+  });
+
+  it('does not overwrite a file that belongs to a different Notion page', () => {
+    const existing = '---\nnotionId: "page-2"\n---\n';
+    expect(canOverwritePostFile(existing, 'page-1')).toBe(false);
+  });
+
+  it('remembers an explicit listed flag so a sync can keep a post unlisted', () => {
+    expect(explicitListed('listed: false\n')).toBe(false);
+    expect(explicitListed('listed: true\n')).toBe(true);
+    expect(explicitListed('title: "x"\n')).toBe(null);
+  });
+});
+
 describe('slug collision detection', () => {
   it('two titles that differ only in punctuation produce the same slug', () => {
     expect(slugify('How I Learn')).toBe(slugify('How I Learn!!'));

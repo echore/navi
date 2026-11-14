@@ -1,5 +1,6 @@
 ---
 title: "长文干货｜关于Claude Code Codex等Agent工具的一切"
+titleEn: "Real Lessons from Claude Code, Codex, and AI Agent Tools"
 lang: zh
 tags: ["AI"]
 date: 2026-05-21

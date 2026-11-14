@@ -182,7 +182,10 @@ a {
   font-style: italic;
 }
 
-/* Older posts still hold both versions in source; show only the original */
+/* Posts that ship both versions: the article's lang picks one. Default is English.
+   Posts without an article lang follow the page lang, so a single-language page is unchanged. */
+.post-article:lang(zh) .lang-en,
+.post-article:lang(en) .lang-zh,
 .prose:lang(zh) .lang-en,
 .prose:lang(en) .lang-zh { display: none; }
 
