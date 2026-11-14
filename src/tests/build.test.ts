@@ -126,6 +126,7 @@ describe('build smoke test', () => {
       'ai-infra-product-lens',
       'ai-infra-from-zero-02',
       'ai-infra-from-zero-03',
+      'ai-infra-from-zero-04',
       'real-lessons-from-claude-code-codex-and-ai-agent-tools',
       'toolkit',
       'what-we-mean-by-ab-testing',
@@ -145,8 +146,20 @@ describe('build smoke test', () => {
     expect(home).toContain('AI Infra Track Product');
     expect(home).toContain('AI Infra · Overview');
     // The pinned overview takes the first slot, so the two oldest posts stay on /posts only.
+    expect(homeLinks).toContain('ai-infra-from-zero-04');
     expect(homeLinks).not.toContain('study-abroad-agencies-are-not-good-business');
     expect(homeLinks).not.toContain('inner-scorecard');
+    expect(homeLinks).not.toContain('reflections-on-my-entrepreneurial-journey-or-side-hustle');
+  });
+
+  it('AI infra note 04 is bilingual and defaults to English', () => {
+    const html = readFileSync(join(dist, 'posts/ai-infra-from-zero-04/index.html'), 'utf-8');
+    expect(html).toContain('id="post-lang"');
+    expect(html).toMatch(/<article[^>]*id="post-article"[^>]*lang="en"/);
+    expect(html).toContain('What Makes an Inference Engine Actually Useful?');
+    expect(html).toContain('推理引擎怎样才算真正有用？');
+    expect(html).toContain('AI Infra Track Technology');
+    expect(html).toContain('infra-note-04.css');
   });
 
   it('the AI infra overview is pinned, bilingual, and defaults to English', () => {
