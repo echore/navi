@@ -2,35 +2,32 @@
 import { getCollection } from 'astro:content';
 import PostCard from './PostCard.astro';
 import { getTagColor, getTagLightColor } from '../utils/tagColor';
+import { selectHomepagePosts, selectListedPosts } from '../utils/selectPosts';
 
 interface Props {
+  /** Show this many newest posts. Omit to list every published post. */
   limit?: number;
   featured?: boolean;
 }
 
 const { limit, featured } = Astro.props;
 
-const allPosts = await getCollection('posts', ({ data }) => !data.draft && data.listed);
-const sorted = allPosts.sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const allPosts = await getCollection('posts');
+const listed = selectListedPosts(allPosts);
 const posts = featured
-  ? sorted.filter(p => p.data.featured)
-  : limit ? sorted.slice(0, limit) : sorted;
+  ? listed.filter(p => p.data.featured)
+  : limit
+    ? selectHomepagePosts(allPosts, limit)
+    : listed;
 const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
 ---
 
 <section class="posts-section" id="posts">
   <div class="section-row">
-    {featured ? (
+    {featured || limit ? (
       <span class="section-heading">Selected writing</span>
-    ) : limit ? (
-      <span class="section-heading" id="lbl-latest">Latest posts</span>
     ) : (
       <span class="section-heading">All Posts</span>
-    )}
-    {(featured || limit) && (
-      <a href="/posts" class="view-all-link" id="lbl-viewall">View all →</a>
     )}
   </div>
   {allTags.length > 0 && (
@@ -61,6 +58,9 @@ const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
       />
     ))}
   </div>
+  {(featured || limit) && (
+    <a href="/posts" class="view-all-link" id="lbl-viewall">View all →</a>
+  )}
 </section>
 
 <style>
@@ -86,6 +86,8 @@ const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
   }
 
   .view-all-link {
+    display: inline-block;
+    margin-top: 28px;
     font-size: 12px;
     font-weight: 500;
     color: var(--terra);

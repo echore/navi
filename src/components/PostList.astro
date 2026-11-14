@@ -1,11 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import { getTagColor, getTagLightColor } from '../utils/tagColor';
+import { selectListedPosts } from '../utils/selectPosts';
 
-const allPosts = await getCollection('posts', ({ data }) => !data.draft && data.listed);
-const posts = allPosts.sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const posts = selectListedPosts(await getCollection('posts'));
 const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
 ---
 
