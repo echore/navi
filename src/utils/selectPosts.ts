@@ -4,6 +4,7 @@ export interface ListablePost {
     draft?: boolean;
     listed?: boolean;
     featured?: boolean;
+    pinned?: boolean;
   };
 }
 
@@ -14,7 +15,14 @@ export function selectListedPosts<T extends ListablePost>(posts: T[]): T[] {
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
 
-/** Homepage grid: the newest listed posts, capped so new uploads don't stretch the page. */
+/** Pinned posts stay first. Everything else keeps newest-first order. */
+export function withPinnedFirst<T extends ListablePost>(posts: T[]): T[] {
+  const pinned = posts.filter((post) => post.data.pinned);
+  const rest = posts.filter((post) => !post.data.pinned);
+  return [...pinned, ...rest];
+}
+
+/** Homepage grid: pinned posts first, then the newest, capped at nine. */
 export function selectHomepagePosts<T extends ListablePost>(posts: T[], limit = 9): T[] {
-  return selectListedPosts(posts).slice(0, limit);
+  return withPinnedFirst(selectListedPosts(posts)).slice(0, limit);
 }

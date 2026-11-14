@@ -19,6 +19,10 @@ const posts = defineCollection({
     series: z.string().optional(),
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),
+    // Always shown first on the homepage and the posts list.
+    pinned: z.boolean().default(false),
+    // Full-width page, used by the AI infra overview.
+    wide: z.boolean().default(false),
     // false = hidden from home and /posts, but the post URL still works
     listed: z.boolean().default(true),
     notionId: z.string().optional(),
