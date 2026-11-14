@@ -13,9 +13,10 @@ interface Props {
   tags: string[];
   date: Date;
   readTime: number;
+  series?: string;
 }
 
-const { title, titleEn, titleZh, lang, bilingual = false, tags, date, readTime } = Astro.props;
+const { title, titleEn, titleZh, lang, bilingual = false, tags, date, readTime, series } = Astro.props;
 
 const dateStr = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 const primaryTag = tags[0] ?? 'Notes';
@@ -42,6 +43,7 @@ const pageTitle = showToggle ? titleEn! : title;
             </>
           ) : title}
         </h1>
+        {series && <p class="post-series">{series}</p>}
 
         <div class="post-meta">
           <span id="post-read">{readTime} min read</span>
@@ -173,6 +175,14 @@ const pageTitle = showToggle ? titleEn! : title;
     font-family: var(--font-cn-display);
     font-size: 30px;
     letter-spacing: 0;
+  }
+
+  .post-series {
+    margin: -6px 0 14px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--terra);
   }
 
   .post-meta {

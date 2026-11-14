@@ -6,11 +6,12 @@ interface Props {
   date: Date;
   readTime: number;
   slug: string;
+  series?: string;
 }
 
 import { getTagColor } from '../utils/tagColor';
 
-const { title, lang, tags, date, readTime, slug } = Astro.props;
+const { title, lang, tags, date, readTime, slug, series } = Astro.props;
 
 const barColor = tags.length > 0 ? getTagColor(tags[0]) : 'var(--sage)';
 const dateStr = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
@@ -26,6 +27,7 @@ const dateStr = date.toLocaleDateString('en-US', { month: 'short', year: 'numeri
   <div class="post-card-title" lang={lang}>
     {title}
   </div>
+  {series && <div class="post-card-series">{series}</div>}
   <div class="post-card-meta">
     <span>{readTime} min read</span>
     <span class="meta-dot">·</span>
@@ -88,6 +90,15 @@ const dateStr = date.toLocaleDateString('en-US', { month: 'short', year: 'numeri
     font-family: var(--font-cn-display);
     font-size: 16px;
     letter-spacing: 0;
+  }
+
+  .post-card-series {
+    margin-top: -8px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--terra);
   }
 
   .post-card-meta {
