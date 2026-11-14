@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import { getTagColor, getTagLightColor } from '../utils/tagColor';
-import { selectListedPosts } from '../utils/selectPosts';
+import { selectListedPosts, withPinnedFirst } from '../utils/selectPosts';
 
-const posts = selectListedPosts(await getCollection('posts'));
+const posts = withPinnedFirst(selectListedPosts(await getCollection('posts')));
 const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
 ---
 

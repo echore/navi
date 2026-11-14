@@ -49,6 +49,14 @@ describe('selectHomepagePosts', () => {
     expect(picked.some((p) => p.data.featured === false)).toBe(true);
   });
 
+  it('keeps a pinned post first without dropping the nine-post cap', () => {
+    const pinned = { data: { date: new Date('2020-01-01'), pinned: true }, slug: 'overview' };
+    const picked = selectHomepagePosts([pinned, ...posts]);
+    expect(picked).toHaveLength(9);
+    expect(picked[0]).toBe(pinned);
+    expect(picked[1].data.date.toISOString().slice(0, 10)).toBe('2026-12-01');
+  });
+
   it('lists every non-draft listed post when there is no cap', () => {
     const listed = selectListedPosts(posts);
     expect(listed).toHaveLength(11);

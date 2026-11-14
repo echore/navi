@@ -121,6 +121,7 @@ describe('build smoke test', () => {
 
   it('home shows the nine newest posts, and /posts lists every published post', () => {
     const all = [
+      'ai-infra-overview',
       'ai-infra-from-zero-01',
       'ai-infra-product-lens',
       'ai-infra-from-zero-02',
@@ -139,11 +140,24 @@ describe('build smoke test', () => {
     const home = readFileSync(join(dist, 'index.html'), 'utf-8');
     const homeLinks = [...home.matchAll(/href="\/posts\/([^"]+)"/g)].map(m => m[1]);
     expect(homeLinks).toHaveLength(9);
-    expect(new Set(homeLinks).has('ai-infra-from-zero-01')).toBe(true);
+    expect(homeLinks[0]).toBe('ai-infra-overview');
     expect(home).toContain('AI Infra Track Technology');
     expect(home).toContain('AI Infra Track Product');
-    // The oldest listed post drops off the homepage once note 01 is added.
+    expect(home).toContain('AI Infra · Overview');
+    // The pinned overview takes the first slot, so the two oldest posts stay on /posts only.
     expect(homeLinks).not.toContain('study-abroad-agencies-are-not-good-business');
+    expect(homeLinks).not.toContain('inner-scorecard');
+  });
+
+  it('the AI infra overview is pinned, bilingual, and defaults to English', () => {
+    const html = readFileSync(join(dist, 'posts/ai-infra-overview/index.html'), 'utf-8');
+    expect(html).toContain('id="post-lang"');
+    expect(html).toMatch(/<article[^>]*id="post-article"[^>]*lang="en"/);
+    expect(html).toContain('Learning AI Infrastructure');
+    expect(html).toContain('An Overview of My AI Infrastructure Learning');
+    expect(html).toContain('AI Infrastructure 学习总览');
+    expect(html).toContain('最初的原因其实很简单');
+    expect(html).toContain('infra-overview.css');
   });
 
   it('unlisted posts keep their URLs', () => {

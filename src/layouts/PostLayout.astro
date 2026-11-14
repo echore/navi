@@ -14,9 +14,10 @@ interface Props {
   date: Date;
   readTime: number;
   series?: string;
+  wide?: boolean;
 }
 
-const { title, titleEn, titleZh, lang, bilingual = false, tags, date, readTime, series } = Astro.props;
+const { title, titleEn, titleZh, lang, bilingual = false, tags, date, readTime, series, wide = false } = Astro.props;
 
 const dateStr = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 const primaryTag = tags[0] ?? 'Notes';
@@ -29,9 +30,9 @@ const pageTitle = showToggle ? titleEn! : title;
 <Layout title={`${pageTitle} — Stay Curious`} description={pageTitle} lang={pageLang}>
   <NavBar />
 
-  <main class="post-main">
+  <main class:list={['post-main', { wide }]}>
     <article class="post-article" id="post-article" lang={showToggle ? 'en' : undefined}>
-      <header class="post-header">
+      <header class:list={['post-header', { 'wide-header': wide }]}>
         <div class="post-tag" style={`color: ${tagColor}`}>{primaryTag}</div>
         <div class="post-bar" style={`background: ${tagColor}`}></div>
 
@@ -58,7 +59,7 @@ const pageTitle = showToggle ? titleEn! : title;
         </div>
       </header>
 
-      <div class="prose">
+      <div class={wide ? 'overview-body' : 'prose'}>
         <slot />
       </div>
 
@@ -237,6 +238,36 @@ const pageTitle = showToggle ? titleEn! : title;
 
   .post-back:hover {
     color: var(--deep);
+  }
+
+  .post-main.wide {
+    max-width: 1240px;
+    padding-top: 28px;
+  }
+
+  .wide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .wide-header .post-tag,
+  .wide-header .post-bar,
+  .wide-header .post-title,
+  .wide-header #post-read,
+  .wide-header #post-date,
+  .wide-header .post-meta-dot {
+    display: none;
+  }
+
+  .wide-header .post-series {
+    margin: 0;
+  }
+
+  .wide-header .post-meta {
+    margin-left: auto;
   }
 
   @media (max-width: 768px) {
