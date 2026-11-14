@@ -1,5 +1,6 @@
 ---
 title: "收藏夹吃灰？我用Claude解决了"
+titleEn: "Your \"Read Later\" List Is a Graveyard. Here's My Fix."
 lang: zh
 tags: ["AI"]
 date: 2026-05-05

@@ -15,6 +15,9 @@
  *   ## 其余一切: (ignored)
  *
  * Run: npm run sync
+ *
+ * Hand-written posts (no notionId, including local translations) are never
+ * overwritten. A file is rewritten only when its notionId matches the page.
  */
 
 import 'dotenv/config';
@@ -184,17 +187,44 @@ async function parsePage(pageId: string, tags: string[], featured: boolean): Pro
 
 // ── Markdown file generation ──────────────────────────────────────────────────
 
-function buildMarkdown(post: ParsedPost, date: string, readTime: number, slug: string, enHtml: string, cnHtml: string): string {
+/** Notion page id stored in a post, or null when the file is hand-written. */
+function notionIdInFile(content: string): string | null {
+  const match = content.match(/^notionId:\s*"([^"]+)"/m);
+  return match ? match[1] : null;
+}
+
+/**
+ * True when sync may replace this file. Missing files are fine.
+ * A file with no notionId, or a different one, is left alone so local
+ * translations are not erased by a slug collision.
+ */
+function canOverwritePostFile(existing: string | null, notionId: string): boolean {
+  if (existing === null) return true;
+  const existingId = notionIdInFile(existing);
+  return existingId === notionId;
+}
+
+function explicitListed(content: string): boolean | null {
+  const match = content.match(/^listed:\s*(true|false)\s*$/m);
+  return match ? match[1] === 'true' : null;
+}
+
+function buildMarkdown(post: ParsedPost, date: string, readTime: number, slug: string, enHtml: string, cnHtml: string, listed: boolean | null = null): string {
+  const title = post.titleCn || post.titleEn;
+  const lang = post.titleCn ? 'zh' : 'en';
+  const listedLine = listed === null ? '' : `listed: ${listed}\n`;
   return `---
+title: ${JSON.stringify(title)}
 titleEn: ${JSON.stringify(post.titleEn)}
-titleCn: ${JSON.stringify(post.titleCn)}
+titleZh: ${JSON.stringify(post.titleCn)}
+lang: ${lang}
 tags: ${JSON.stringify(post.tags)}
 date: ${date}
 readTime: ${readTime}
 slug: ${slug}
 draft: false
 featured: ${post.featured}
-notionId: ${JSON.stringify(post.notionId)}
+${listedLine}notionId: ${JSON.stringify(post.notionId)}
 ---
 
 <div class="lang-en">
@@ -329,10 +359,17 @@ async function sync(): Promise<void> {
     }
     const date = publishedDates[page.id];
 
+    const dest = join(POSTS_DIR, `${slug}.md`);
+    const existing = existsSync(dest) ? readFileSync(dest, 'utf-8') : null;
+    if (!canOverwritePostFile(existing, page.id)) {
+      console.warn(`[skip] ${slug}.md is not owned by Notion page ${page.id} — leaving the local file alone`);
+      continue;
+    }
+
     const enHtml = await processImages(fixUnconvertedBold(embedYouTube(String(marked(post.enBody)))), slug);
     const cnHtml = await processImages(fixUnconvertedBold(embedYouTube(String(marked(post.cnBody)))), slug);
-    const markdown = buildMarkdown(post, date, readTime, slug, enHtml, cnHtml);
-    writeFileSync(join(POSTS_DIR, `${slug}.md`), markdown);
+    const markdown = buildMarkdown(post, date, readTime, slug, enHtml, cnHtml, existing ? explicitListed(existing) : null);
+    writeFileSync(dest, markdown);
 
     console.log(`[synced] ${slug}.md`);
     synced++;

@@ -6,8 +6,11 @@ const posts = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/posts' }),
   schema: z.object({
     title: z.string(),
-    // Language the post was written in; posts are shown as written, no translation
+    // Language the post was written in. Lists keep `title` (the original).
+    // Post pages that contain both .lang-en and .lang-zh default to English.
     lang: z.enum(['en', 'zh']),
+    titleEn: z.string().optional(),
+    titleZh: z.string().optional(),
     tags: z.array(z.string()),
     date: z.coerce.date(),
     readTime: z.number(),

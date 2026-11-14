@@ -5,34 +5,54 @@ import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
+  titleEn?: string;
+  titleZh?: string;
   lang: 'en' | 'zh';
+  /** Post body contains both .lang-en and .lang-zh, and this page may switch. */
+  bilingual?: boolean;
   tags: string[];
   date: Date;
   readTime: number;
 }
 
-const { title, lang, tags, date, readTime } = Astro.props;
+const { title, titleEn, titleZh, lang, bilingual = false, tags, date, readTime } = Astro.props;
 
 const dateStr = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 const primaryTag = tags[0] ?? 'Notes';
 const tagColor = primaryTag === 'AI' ? 'var(--terra)' : 'var(--sage)';
+const showToggle = Boolean(bilingual && titleEn && titleZh);
+const pageLang = showToggle ? 'en' : lang;
+const pageTitle = showToggle ? titleEn! : title;
 ---
 
-<Layout title={`${title} — Stay Curious`} description={title} lang={lang}>
+<Layout title={`${pageTitle} — Stay Curious`} description={pageTitle} lang={pageLang}>
   <NavBar />
 
   <main class="post-main">
-    <article class="post-article">
+    <article class="post-article" id="post-article" lang={showToggle ? 'en' : undefined}>
       <header class="post-header">
         <div class="post-tag" style={`color: ${tagColor}`}>{primaryTag}</div>
         <div class="post-bar" style={`background: ${tagColor}`}></div>
 
-        <h1 class="post-title" id="post-title">{title}</h1>
+        <h1 class="post-title" id="post-title">
+          {showToggle ? (
+            <>
+              <span class="lang-en">{titleEn}</span>
+              <span class="lang-zh">{titleZh}</span>
+            </>
+          ) : title}
+        </h1>
 
         <div class="post-meta">
           <span id="post-read">{readTime} min read</span>
           <span class="post-meta-dot">·</span>
           <span id="post-date">{dateStr}</span>
+          {showToggle && (
+            <div class="post-lang" id="post-lang" role="group" aria-label="Language">
+              <button type="button" class="post-lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+              <button type="button" class="post-lang-btn" data-lang="zh" aria-pressed="false">中文</button>
+            </div>
+          )}
         </div>
       </header>
 
@@ -77,6 +97,35 @@ const tagColor = primaryTag === 'AI' ? 'var(--terra)' : 'var(--sage)';
     } else {
       initCopyButtons();
     }
+  })();
+</script>
+
+<script is:inline>
+  (function () {
+    var root = document.getElementById('post-article');
+    var group = document.getElementById('post-lang');
+    if (!root || !group) return;
+
+    function apply(lang) {
+      root.setAttribute('lang', lang);
+      document.documentElement.lang = lang;
+      group.querySelectorAll('.post-lang-btn').forEach(function (btn) {
+        var on = btn.getAttribute('data-lang') === lang;
+        btn.classList.toggle('active', on);
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      var titleEl = document.getElementById('post-title');
+      var shown = titleEl && titleEl.querySelector('.lang-' + lang);
+      if (shown && shown.textContent) {
+        document.title = shown.textContent + ' — Stay Curious';
+      }
+    }
+
+    group.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('.post-lang-btn') : null;
+      if (!btn) return;
+      apply(btn.getAttribute('data-lang') || 'en');
+    });
   })();
 </script>
 
@@ -132,6 +181,35 @@ const tagColor = primaryTag === 'AI' ? 'var(--terra)' : 'var(--sage)';
     display: flex;
     gap: 6px;
     align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .post-lang {
+    display: inline-flex;
+    align-items: center;
+    margin-left: auto;
+    background: rgba(44, 40, 32, 0.07);
+    border-radius: 999px;
+    padding: 2px;
+    gap: 1px;
+  }
+
+  .post-lang-btn {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: var(--warm-gray);
+  }
+
+  .post-lang-btn.active {
+    background: var(--deep);
+    color: var(--canvas);
   }
 
   .post-meta-dot {
