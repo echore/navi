@@ -84,6 +84,16 @@ describe('build smoke test', () => {
     expect(toolkit).toContain('AI工具资源库');
   });
 
+  it('the A/B testing post defaults to English and includes the Chinese original', () => {
+    const html = readFileSync(join(dist, 'posts/what-we-mean-by-ab-testing/index.html'), 'utf-8');
+    expect(html).toContain('id="post-lang"');
+    expect(html).toMatch(/<article[^>]*id="post-article"[^>]*lang="en"/);
+    expect(html).toContain('What Are We Actually Talking About When We Say A/B Testing?');
+    expect(html).toContain('The family photo brought in an extra $57 million.');
+    expect(html).toContain('当我们在说 A/B 测试的时候，我们到底在说什么');
+    expect(html).toContain('全家福那一组多募集了 5700 万美元');
+  });
+
   it('the three AI infra notes default to English and include a Chinese version', () => {
     const cases = [
       ['ai-infra-product-lens', 'What Makes AI Infrastructure Worth Using?', '到底谁需要这个？'],
