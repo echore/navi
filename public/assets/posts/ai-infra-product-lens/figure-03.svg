@@ -1,0 +1,18 @@
+<svg viewBox="0 0 780 214" role="img" aria-label="A feature-to-value chain from prefix caching, to less repeated prefill, to improved workload metrics, to potential user and business results." xmlns="http://www.w3.org/2000/svg"><style>:root{--paper:#F2EEDF;--ink:#2A241B;--ink-soft:#5C5345;--lemon:#D6DD63;--lemon-pale:rgba(214,221,99,.32);--card:rgba(255,255,255,.55);--rule:rgba(42,36,27,.25);--rust:#9A4E2C;--serif:"Cormorant Garamond","Songti SC",Georgia,serif;--sans:"Work Sans",-apple-system,"Helvetica Neue",Arial,sans-serif;--blue:#eaf0f8;--green:#e0f2eb;--purple:#efe8fb;--orange:#fae7d6;--diagram-ink:#243444;--diagram-soft:#667989;--diagram-rule:#cdd7d8--sans:Arial,Helvetica,sans-serif;--serif:Georgia,serif}.d-title{font-family:var(--sans);font-size:16px;fill:var(--diagram-ink);font-weight:600}
+.d-sub{font-family:var(--sans);font-size:12.7px;fill:var(--diagram-soft)}
+.d-kicker{font-family:var(--sans);font-size:11px;fill:var(--diagram-soft);letter-spacing:.4px}
+.d-call{font-family:var(--sans);font-size:14px;fill:var(--diagram-ink);font-weight:500}
+.d-head{font-family:var(--sans);font-size:16px;fill:var(--diagram-ink);font-weight:600}
+.d-body{font-family:var(--sans);font-size:12.5px;fill:var(--diagram-ink)}
+.d-note{font-family:var(--sans);font-size:11.5px;fill:var(--diagram-soft)}</style>
+  <defs><marker id="arr2" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="#8697a6"></path></marker></defs>
+  <g><rect x="6" y="29" width="167" height="115" rx="11" fill="#eaf0f8" stroke="#cdd7d8"></rect><text x="22" y="51" class="d-kicker">FEATURE</text><text x="22" y="79" class="d-head">Prefix caching</text><text x="22" y="104" class="d-sub">Shared token prefix</text><text x="22" y="121" class="d-sub">can reuse past KV</text></g>
+  <path d="M176 88 H198" stroke="#8697a6" stroke-width="1.5" marker-end="url(#arr2)"></path>
+  <g><rect x="202" y="29" width="175" height="115" rx="11" fill="#e0f2eb" stroke="#cdd7d8"></rect><text x="218" y="51" class="d-kicker">MECHANISM</text><text x="218" y="79" class="d-head">Less repeated</text><text x="218" y="97" class="d-head">prefill</text><text x="218" y="121" class="d-sub">When prefixes match</text></g>
+  <path d="M379 88 H401" stroke="#8697a6" stroke-width="1.5" marker-end="url(#arr2)"></path>
+  <g><rect x="405" y="29" width="175" height="115" rx="11" fill="#efe8fb" stroke="#cdd7d8"></rect><text x="421" y="51" class="d-kicker">SYSTEM METRIC</text><text x="421" y="79" class="d-head">Potentially lower</text><text x="421" y="97" class="d-head">TTFT / compute</text><text x="421" y="121" class="d-sub">Measure on real traffic</text></g>
+  <path d="M582 88 H604" stroke="#8697a6" stroke-width="1.5" marker-end="url(#arr2)"></path>
+  <g><rect x="608" y="29" width="166" height="115" rx="11" fill="#fae7d6" stroke="#cdd7d8"></rect><text x="624" y="51" class="d-kicker">USER OUTCOME</text><text x="624" y="79" class="d-head">Faster or more</text><text x="624" y="97" class="d-head">affordable tasks</text><text x="624" y="121" class="d-sub">Not guaranteed</text></g>
+  <rect x="148" y="164" width="484" height="32" rx="10" fill="#f5f4ee" stroke="#d1d9dc"></rect>
+  <text x="390" y="184" text-anchor="middle" class="d-body">Validate: prefix overlap · hit rate · GPU contention · task-level outcome</text>
+</svg>

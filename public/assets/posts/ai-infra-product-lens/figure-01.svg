@@ -1,0 +1,28 @@
+<svg viewBox="0 0 790 370" role="img" aria-label="Three routes to deploying an AI application: a hosted model API, self-hosted open-weight inference, or managed inference services." xmlns="http://www.w3.org/2000/svg"><style>:root{--paper:#F2EEDF;--ink:#2A241B;--ink-soft:#5C5345;--lemon:#D6DD63;--lemon-pale:rgba(214,221,99,.32);--card:rgba(255,255,255,.55);--rule:rgba(42,36,27,.25);--rust:#9A4E2C;--serif:"Cormorant Garamond","Songti SC",Georgia,serif;--sans:"Work Sans",-apple-system,"Helvetica Neue",Arial,sans-serif;--blue:#eaf0f8;--green:#e0f2eb;--purple:#efe8fb;--orange:#fae7d6;--diagram-ink:#243444;--diagram-soft:#667989;--diagram-rule:#cdd7d8--sans:Arial,Helvetica,sans-serif;--serif:Georgia,serif}.d-title{font-family:var(--sans);font-size:16px;fill:var(--diagram-ink);font-weight:600}
+.d-sub{font-family:var(--sans);font-size:12.7px;fill:var(--diagram-soft)}
+.d-kicker{font-family:var(--sans);font-size:11px;fill:var(--diagram-soft);letter-spacing:.4px}
+.d-call{font-family:var(--sans);font-size:14px;fill:var(--diagram-ink);font-weight:500}
+.d-head{font-family:var(--sans);font-size:16px;fill:var(--diagram-ink);font-weight:600}
+.d-body{font-family:var(--sans);font-size:12.5px;fill:var(--diagram-ink)}
+.d-note{font-family:var(--sans);font-size:11.5px;fill:var(--diagram-soft)}</style>
+  <defs><marker id="arr1" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0,0 L9,3.5 L0,7" fill="#8697a6"></path></marker></defs>
+  <rect x="230" y="10" width="330" height="56" rx="11" fill="#f5f4ee" stroke="#cdd7d8"></rect>
+  <text x="395" y="34" text-anchor="middle" class="d-title">AI Coding Agent</text><text x="395" y="53" text-anchor="middle" class="d-sub">The user sees an application, not an inference engine</text>
+  <path d="M395 66 V98 H133 V118" fill="none" stroke="#8697a6" stroke-width="1.5" marker-end="url(#arr1)"></path><path d="M395 98 V118" fill="none" stroke="#8697a6" stroke-width="1.5" marker-end="url(#arr1)"></path><path d="M395 98 H659 V118" fill="none" stroke="#8697a6" stroke-width="1.5" marker-end="url(#arr1)"></path>
+  <rect x="8" y="125" width="242" height="184" rx="12" fill="#eaf0f8" stroke="#cdd7d8"></rect>
+  <text x="25" y="150" class="d-kicker">OPTION A</text><text x="25" y="177" class="d-head">Hosted model API</text>
+  <text x="25" y="201" class="d-body">Provider runs the model</text><text x="25" y="219" class="d-body">and serving infrastructure</text>
+  <path d="M25 237 H233" stroke="#cdd7d8"></path>
+  <text x="25" y="259" class="d-sub">+ Fast initial integration</text><text x="25" y="278" class="d-sub">− Less infra-level control</text>
+  <rect x="274" y="125" width="242" height="184" rx="12" fill="#e0f2eb" stroke="#cdd7d8"></rect>
+  <text x="291" y="150" class="d-kicker">OPTION B</text><text x="291" y="177" class="d-head">Self-hosted model</text>
+  <text x="291" y="201" class="d-body">Open-weight model +</text><text x="291" y="219" class="d-body">inference engine + GPU</text>
+  <path d="M291 237 H499" stroke="#cdd7d8"></path>
+  <text x="291" y="259" class="d-sub">+ Control and custom tuning</text><text x="291" y="278" class="d-sub">− Engineering and operations</text>
+  <rect x="540" y="125" width="242" height="184" rx="12" fill="#efe8fb" stroke="#cdd7d8"></rect>
+  <text x="557" y="150" class="d-kicker">OPTION C</text><text x="557" y="177" class="d-head">Managed inference</text>
+  <text x="557" y="201" class="d-body">A service operates the</text><text x="557" y="219" class="d-body">chosen model stack</text>
+  <path d="M557 237 H765" stroke="#cdd7d8"></path>
+  <text x="557" y="259" class="d-sub">+ Less operational burden</text><text x="557" y="278" class="d-sub">− Service fees and dependence</text>
+  <text x="395" y="346" text-anchor="middle" class="d-sub">Hybrid approaches are common: teams can use more than one route.</text>
+</svg>

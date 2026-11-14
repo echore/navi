@@ -1,0 +1,17 @@
+<svg viewBox="0 0 670 277" role="img" aria-label="Problem diagnosis decision tree: user complaint, bottleneck evidence, suitable solution, and evaluation of migration value." xmlns="http://www.w3.org/2000/svg"><style>:root{--paper:#F2EEDF;--ink:#2A241B;--ink-soft:#5C5345;--lemon:#D6DD63;--lemon-pale:rgba(214,221,99,.32);--card:rgba(255,255,255,.55);--rule:rgba(42,36,27,.25);--rust:#9A4E2C;--serif:"Cormorant Garamond","Songti SC",Georgia,serif;--sans:"Work Sans",-apple-system,"Helvetica Neue",Arial,sans-serif;--blue:#eaf0f8;--green:#e0f2eb;--purple:#efe8fb;--orange:#fae7d6;--diagram-ink:#243444;--diagram-soft:#667989;--diagram-rule:#cdd7d8--sans:Arial,Helvetica,sans-serif;--serif:Georgia,serif}.d-title{font-family:var(--sans);font-size:16px;fill:var(--diagram-ink);font-weight:600}
+.d-sub{font-family:var(--sans);font-size:12.7px;fill:var(--diagram-soft)}
+.d-kicker{font-family:var(--sans);font-size:11px;fill:var(--diagram-soft);letter-spacing:.4px}
+.d-call{font-family:var(--sans);font-size:14px;fill:var(--diagram-ink);font-weight:500}
+.d-head{font-family:var(--sans);font-size:16px;fill:var(--diagram-ink);font-weight:600}
+.d-body{font-family:var(--sans);font-size:12.5px;fill:var(--diagram-ink)}
+.d-note{font-family:var(--sans);font-size:11.5px;fill:var(--diagram-soft)}</style>
+  <defs><marker id="arr3" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="#8697a6"></path></marker></defs>
+  <rect x="168" y="8" width="334" height="48" rx="10" fill="#f5f4ee" stroke="#cdd7d8"></rect><text x="335" y="28" text-anchor="middle" class="d-head">“Our model serving feels slow.”</text><text x="335" y="45" text-anchor="middle" class="d-note">A complaint is not a root cause</text>
+  <path d="M335 57 V80" stroke="#8697a6" marker-end="url(#arr3)"></path>
+  <rect x="188" y="84" width="294" height="43" rx="10" fill="#eaf0f8" stroke="#cdd7d8"></rect><text x="335" y="109" text-anchor="middle" class="d-head">Measure where the time goes</text>
+  <path d="M335 127 V144 H101 V161 M335 144 H335 V161 M335 144 H569 V161" fill="none" stroke="#8697a6" marker-end="url(#arr3)"></path>
+  <rect x="3" y="167" width="197" height="68" rx="10" fill="#e0f2eb" stroke="#cdd7d8"></rect><text x="101" y="189" text-anchor="middle" class="d-title">Inference bottleneck</text><text x="101" y="210" text-anchor="middle" class="d-sub">Profile and tune serving</text>
+  <rect x="235" y="167" width="200" height="68" rx="10" fill="#efe8fb" stroke="#cdd7d8"></rect><text x="335" y="189" text-anchor="middle" class="d-title">Agent / tool bottleneck</text><text x="335" y="210" text-anchor="middle" class="d-sub">Fix workflow or integration</text>
+  <rect x="469" y="167" width="198" height="68" rx="10" fill="#fae7d6" stroke="#cdd7d8"></rect><text x="568" y="189" text-anchor="middle" class="d-title">Model quality issue</text><text x="568" y="210" text-anchor="middle" class="d-sub">Investigate capability first</text>
+  <text x="335" y="262" text-anchor="middle" class="d-note">Only then compare solutions, switching costs, and measured benefits.</text>
+</svg>

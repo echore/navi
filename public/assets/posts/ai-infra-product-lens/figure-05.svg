@@ -1,0 +1,18 @@
+<svg viewBox="0 0 780 340" role="img" aria-label="Illustrative adoption funnel: 1000 aware, 600 read documentation, 400 try, 80 successful first runs, and 30 production users. Largest step drop is trial to first success." xmlns="http://www.w3.org/2000/svg"><style>:root{--paper:#F2EEDF;--ink:#2A241B;--ink-soft:#5C5345;--lemon:#D6DD63;--lemon-pale:rgba(214,221,99,.32);--card:rgba(255,255,255,.55);--rule:rgba(42,36,27,.25);--rust:#9A4E2C;--serif:"Cormorant Garamond","Songti SC",Georgia,serif;--sans:"Work Sans",-apple-system,"Helvetica Neue",Arial,sans-serif;--blue:#eaf0f8;--green:#e0f2eb;--purple:#efe8fb;--orange:#fae7d6;--diagram-ink:#243444;--diagram-soft:#667989;--diagram-rule:#cdd7d8--sans:Arial,Helvetica,sans-serif;--serif:Georgia,serif}.d-title{font-family:var(--sans);font-size:16px;fill:var(--diagram-ink);font-weight:600}
+.d-sub{font-family:var(--sans);font-size:12.7px;fill:var(--diagram-soft)}
+.d-kicker{font-family:var(--sans);font-size:11px;fill:var(--diagram-soft);letter-spacing:.4px}
+.d-call{font-family:var(--sans);font-size:14px;fill:var(--diagram-ink);font-weight:500}
+.d-head{font-family:var(--sans);font-size:16px;fill:var(--diagram-ink);font-weight:600}
+.d-body{font-family:var(--sans);font-size:12.5px;fill:var(--diagram-ink)}
+.d-note{font-family:var(--sans);font-size:11.5px;fill:var(--diagram-soft)}</style>
+  <text x="17" y="24" class="d-kicker">HYPOTHETICAL FEATURE ADOPTION COHORT</text>
+  <text x="17" y="48" class="d-sub">Only eligible developers; counts are invented for teaching</text>
+  <text x="20" y="82" class="d-body">Saw announcement</text><rect x="187" y="65" width="525" height="25" rx="5" fill="#d7e3ef"></rect><text x="730" y="83" class="d-body" text-anchor="end">1,000</text>
+  <text x="20" y="128" class="d-body">Read the docs</text><rect x="187" y="111" width="315" height="25" rx="5" fill="#bfd5e9"></rect><text x="521" y="129" class="d-body">600</text>
+  <text x="20" y="174" class="d-body">Tried the feature</text><rect x="187" y="157" width="210" height="25" rx="5" fill="#95c8c0"></rect><text x="415" y="175" class="d-body">400</text>
+  <text x="20" y="220" class="d-body">First successful run</text><rect x="187" y="203" width="42" height="25" rx="5" fill="#e7ad72"></rect><text x="245" y="221" class="d-body">80</text>
+  <text x="20" y="266" class="d-body">Production use</text><rect x="187" y="249" width="16" height="25" rx="5" fill="#66ad90"></rect><text x="219" y="267" class="d-body">30</text>
+  <rect x="417" y="198" width="318" height="87" rx="10" fill="#fae7d6" stroke="#e1bd9d"></rect>
+  <text x="435" y="220" class="d-head">Trial → first success: 20%</text><text x="435" y="244" class="d-body">Did the setup fail?</text><text x="435" y="262" class="d-body">Was the example incompatible?</text>
+  <text x="20" y="320" class="d-note">The largest observed drop suggests where to investigate; it does not establish a cause.</text>
+</svg>

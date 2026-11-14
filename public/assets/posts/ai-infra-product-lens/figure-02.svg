@@ -1,0 +1,18 @@
+<svg viewBox="0 0 660 238" role="img" aria-label="A comparison of the technical user, the technical evaluator, and the economic buyer, each with a different decision question." xmlns="http://www.w3.org/2000/svg"><style>:root{--paper:#F2EEDF;--ink:#2A241B;--ink-soft:#5C5345;--lemon:#D6DD63;--lemon-pale:rgba(214,221,99,.32);--card:rgba(255,255,255,.55);--rule:rgba(42,36,27,.25);--rust:#9A4E2C;--serif:"Cormorant Garamond","Songti SC",Georgia,serif;--sans:"Work Sans",-apple-system,"Helvetica Neue",Arial,sans-serif;--blue:#eaf0f8;--green:#e0f2eb;--purple:#efe8fb;--orange:#fae7d6;--diagram-ink:#243444;--diagram-soft:#667989;--diagram-rule:#cdd7d8--sans:Arial,Helvetica,sans-serif;--serif:Georgia,serif}.d-title{font-family:var(--sans);font-size:16px;fill:var(--diagram-ink);font-weight:600}
+.d-sub{font-family:var(--sans);font-size:12.7px;fill:var(--diagram-soft)}
+.d-kicker{font-family:var(--sans);font-size:11px;fill:var(--diagram-soft);letter-spacing:.4px}
+.d-call{font-family:var(--sans);font-size:14px;fill:var(--diagram-ink);font-weight:500}
+.d-head{font-family:var(--sans);font-size:16px;fill:var(--diagram-ink);font-weight:600}
+.d-body{font-family:var(--sans);font-size:12.5px;fill:var(--diagram-ink)}
+.d-note{font-family:var(--sans);font-size:11.5px;fill:var(--diagram-soft)}</style>
+  <rect x="8" y="13" width="206" height="190" rx="11" fill="#e0f2eb" stroke="#cdd7d8"></rect>
+  <text x="25" y="43" class="d-kicker">TECHNICAL USER</text><text x="25" y="70" class="d-title">ML / Infra Engineer</text>
+  <path d="M25 82 H195" stroke="#cdd7d8"></path><text x="25" y="108" class="d-body">Will it work for my model?</text><text x="25" y="128" class="d-body">Can I debug and tune it?</text><text x="25" y="176" class="d-note">Hands-on experience</text>
+  <rect x="227" y="13" width="206" height="190" rx="11" fill="#eaf0f8" stroke="#cdd7d8"></rect>
+  <text x="244" y="43" class="d-kicker">TECHNICAL EVALUATOR</text><text x="244" y="70" class="d-title">Infra Lead</text>
+  <path d="M244 82 H414" stroke="#cdd7d8"></path><text x="244" y="108" class="d-body">Is migration worth the risk?</text><text x="244" y="128" class="d-body">Can we meet our SLOs?</text><text x="244" y="176" class="d-note">Architecture and reliability</text>
+  <rect x="446" y="13" width="206" height="190" rx="11" fill="#fae7d6" stroke="#cdd7d8"></rect>
+  <text x="463" y="43" class="d-kicker">ECONOMIC BUYER</text><text x="463" y="70" class="d-title">CTO / VP Engineering</text>
+  <path d="M463 82 H633" stroke="#cdd7d8"></path><text x="463" y="108" class="d-body">What does it cost overall?</text><text x="463" y="128" class="d-body">What can our team stop doing?</text><text x="463" y="176" class="d-note">TCO and opportunity cost</text>
+  <text x="330" y="229" text-anchor="middle" class="d-note">Illustrative roles; buying processes vary by organization.</text>
+</svg>

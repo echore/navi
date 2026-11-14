@@ -58,6 +58,9 @@ describe('build smoke test', () => {
 
   it('home and /posts list only the selected posts', () => {
     const selected = [
+      'ai-infra-product-lens',
+      'ai-infra-from-zero-02',
+      'ai-infra-from-zero-03',
       'real-lessons-from-claude-code-codex-and-ai-agent-tools',
       'toolkit',
       'what-we-mean-by-ab-testing',
