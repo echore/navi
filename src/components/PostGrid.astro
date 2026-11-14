@@ -59,7 +59,9 @@ const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
     ))}
   </div>
   {(featured || limit) && (
-    <a href="/posts" class="view-all-link" id="lbl-viewall">View all →</a>
+    <div class="view-all-row">
+      <a href="/posts" class="view-all-link" id="lbl-viewall">View all posts</a>
+    </div>
   )}
 </section>
 
@@ -85,19 +87,29 @@ const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
     color: var(--warm-gray);
   }
 
+  .view-all-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
   .view-all-link {
     display: inline-block;
-    margin-top: 28px;
-    font-size: 12px;
+    font-family: var(--font-body);
+    font-size: 14px;
     font-weight: 500;
-    color: var(--terra);
+    color: var(--canvas);
+    background: var(--terra);
     text-decoration: none;
-    letter-spacing: 0.02em;
-    transition: color 150ms;
+    letter-spacing: 0.01em;
+    padding: 12px 28px;
+    border-radius: 999px;
+    transition: background 150ms, transform 100ms;
   }
 
   .view-all-link:hover {
-    color: var(--terra-dk);
+    background: var(--terra-dk);
+    transform: translateY(-1px);
   }
 
   .post-grid {
