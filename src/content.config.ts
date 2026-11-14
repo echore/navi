@@ -15,7 +15,7 @@ const posts = defineCollection({
     date: z.coerce.date(),
     readTime: z.number(),
     slug: z.string(),
-    // Short series hint shown after the title, e.g. "AI Infra note 01"
+    // Short series hint shown after the title, e.g. "AI Infra Track Technological"
     series: z.string().optional(),
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),

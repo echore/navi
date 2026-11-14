@@ -6,7 +6,7 @@ tags: ["AI"]
 date: 2026-11-14
 readTime: 11
 slug: ai-infra-product-lens
-series: "AI Infra · product"
+series: "AI Infra Track Product"
 draft: false
 featured: true
 listed: true
