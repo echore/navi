@@ -84,6 +84,22 @@ describe('build smoke test', () => {
     expect(toolkit).toContain('AI工具资源库');
   });
 
+  it('the three AI infra notes default to English and include a Chinese version', () => {
+    const cases = [
+      ['ai-infra-product-lens', 'What Makes AI Infrastructure Worth Using?', '到底谁需要这个？'],
+      ['ai-infra-from-zero-02', 'Why Is the GPU Still a Bottleneck?', '模型放进显存，只是服务用户的第一步。'],
+      ['ai-infra-from-zero-03', 'How Does an LLM Serve Thousands of Requests?', '有一个模型，还不等于有一项服务'],
+    ] as const;
+    for (const [slug, en, zh] of cases) {
+      const html = readFileSync(join(dist, 'posts', slug, 'index.html'), 'utf-8');
+      expect(html).toContain('id="post-lang"');
+      expect(html).toMatch(/<article[^>]*id="post-article"[^>]*lang="en"/);
+      expect(html).toContain(en);
+      expect(html).toContain(zh);
+      expect(html).toContain('infra-notes.css');
+    }
+  });
+
   it('home and /posts list only the selected posts', () => {
     const selected = [
       'ai-infra-product-lens',

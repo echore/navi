@@ -1,5 +1,6 @@
 ---
 title: "Why Is the GPU Still a Bottleneck?"
+titleZh: "为什么 GPU 还是瓶颈？"
 lang: en
 tags: ["AI"]
 date: 2026-11-14
@@ -12,6 +13,7 @@ listed: true
 
 <link rel="stylesheet" href="/styles/infra-notes.css">
 
+<div class="lang-en">
 <div class="infra-note infra-note--gpu">
 
 <div class="series">AI Infra Learning Notes · 02 / 06</div>
@@ -109,4 +111,106 @@ listed: true
 <h2>Further Reading and References</h2>
 <ol class="refs"><li><a href="https://huggingface.co/blog/tngtech/llm-performance-prefill-decode-concurrent-requests" target="_blank" rel="noopener">TNG Technology: Prefill and Decode for Concurrent Requests</a>: The compute and bandwidth patterns of prefill and decode.</li><li><a href="https://nvidia.github.io/TensorRT-LLM/features/disagg-serving.html" target="_blank" rel="noopener">NVIDIA TensorRT-LLM: Disaggregated Serving</a>: Why separate prefill and decode.</li><li><a href="https://docs.nvidia.com/dynamo/dev/knowledge-base/concepts/system-architecture/disaggregated-serving" target="_blank" rel="noopener">NVIDIA Dynamo: Disaggregated Serving</a>: KV transfer and resource allocation trade-offs.</li><li><a href="https://docs.vllm.ai/en/latest/design/arch_overview/" target="_blank" rel="noopener">vLLM: Architecture Overview and Scheduler</a>: An example of scheduling in an open-source inference engine.</li><li><a href="https://arxiv.org/abs/2309.06180" target="_blank" rel="noopener">Kwon et al. (2023): PagedAttention</a>: KV cache memory management.</li><li><a href="https://huggingface.co/unsloth/Llama-3.1-8B/blob/main/config.json" target="_blank" rel="noopener">Llama 3.1 8B Configuration Example</a>: The model dimensions used in the KV cache estimate.</li></ol>
 <div class="next"><a href="https://echore.github.io/ai-projects/posts/ai-infra-from-zero-01-en.html">← Previous · 01: What Happens After a Prompt Enters an LLM?</a><br><a href="/posts/ai-infra-from-zero-03">Next · 03: How Does an LLM Serve Thousands of Requests? →</a></div><nav class="next" aria-label="Related AI infrastructure articles"><a href="/posts/ai-infra-product-lens">What Makes AI Infrastructure Worth Using?</a><br><a href="/posts/ai-infra-from-zero-03">How Does an LLM Serve Thousands of Requests?</a></nav>
+</div>
+</div>
+
+<div class="lang-zh">
+<div class="infra-note infra-note--gpu">
+
+<div class="series">AI Infra 学习笔记 · 02 / 06</div>
+
+<div class="meta">显存容量、带宽、batching，以及同时服务很多用户要付出的代价</div>
+<p class="note">这是我 AI 基础设施学习系列的第二篇，接在 <a href="https://echore.github.io/ai-projects/posts/ai-infra-from-zero-01-en.html">提示词进了 LLM 之后发生了什么？</a> 后面。写给已经知道大语言模型（LLM）基础、想看懂工程上限的人。数字如果没有给出处，就是为了讲清楚而设的假设。</p>
+<h2><span class="num">00</span> 接着上一个问题</h2>
+<p>在笔记 01 里，我搞懂了模型为什么需要键值缓存，也就是 KV cache。它存着 attention 的状态，生成 token 时可以复用。前缀相同的请求，也可以复用彼此兼容的缓存。</p>
+<p>但这里有个取舍：<strong>省下计算，要用掉显存，而 GPU 显存是有限的。</strong></p>
+<p>假设我用一个开源的 8B 模型做 AI 编程助手。模型放得进 GPU。用户一多，服务为什么还是会吃力？</p>
+<blockquote><p>模型放进显存，只是服务用户的第一步。</p></blockquote>
+<p>我得把四个问题分开。GPU 能存多少数据？数据搬得有多快？计算做得了多少？服务怎么安排互相抢资源的请求？</p>
+<figure class="fig wide"><div class="svg-scroll"><img src="/assets/posts/ai-infra-from-zero-02/figure-01.svg" alt="图 1 · 模型权重、KV cache 和运行时缓冲都占 GPU 显存。" loading="lazy" decoding="async" width="840" height="394"></div><figcaption>图 1 · 模型权重、KV cache 和运行时缓冲都占 GPU 显存。</figcaption></figure>
+<h2><span class="num">01</span> GPU 显存被什么占着？</h2>
+<p>先看<strong>模型权重</strong>，也就是学出来的参数。一个 8B 模型大约有八十亿个参数。BF16 是一种 16 位的数字格式，每个参数 2 字节。光是权重就要大约 160 亿字节，也就是 <strong>14.9 GiB</strong>。</p>
+<p>GPU 还要给正在处理的请求留 KV cache。激活值（模型算到一半的中间结果）、临时缓冲和其他运行时数据，也得留地方。</p>
+<div class="formula">GPU 显存 ≈ 权重 + KV Cache + 运行时开销</div>
+<p>假设服务有 80 GiB 可用显存。权重占 15 GiB，运行时数据占 8 GiB。30 个互不相干的请求，每个大约要 1 GiB 的 KV cache。一共是 <strong>15 + 8 + 30 = 53 GiB</strong>，还剩 27 GiB。如果只减掉权重，会以为还空着 65 GiB，请求真正占的显存大部分就被漏掉了。</p>
+<figure class="fig wide"><div class="svg-scroll"><img src="/assets/posts/ai-infra-from-zero-02/figure-02.svg" alt="图 2 · 一份用来说明的 80 GiB 显存预算，不是某块 GPU 的实测。" loading="lazy" decoding="async" width="840" height="380"></div><figcaption>图 2 · 一份用来说明的 80 GiB 显存预算，不是某块 GPU 的实测。</figcaption></figure>
+<h3>一个请求为什么会要 1 GiB 的 KV cache？</h3>
+<p>这个数取决于模型。假设它有 32 层 transformer，每层 8 个 KV head，每个 head 128 维。缓存值用 BF16 时，每个 token 的 KV 显存大约是：</p>
+<div class="formula">2 × 32 × 8 × 128 × 2 字节 = 128 KiB / token</div>
+<p>第一个 2 是 key 和 value 两份状态。最后一个 2 是每个 BF16 数值占的字节。所以 8,192 个 token 的上下文，大约需要 <strong>1 GiB 的 KV cache</strong>。</p>
+<p>这些尺寸和常见的 Llama 8B 配置对得上。别的模型、数字格式和 attention 设计，显存可以差很多。</p>
+<figure class="fig wide"><div class="svg-scroll"><img src="/assets/posts/ai-infra-from-zero-02/figure-03.svg" alt="图 3 · 模型和精度固定时，请求变多，或者上下文变长，各自独立的请求就要更多 KV 显存。" loading="lazy" decoding="async" width="840" height="402"></div><figcaption>图 3 · 模型和精度固定时，请求变多，或者上下文变长，各自独立的请求就要更多 KV 显存。</figcaption></figure>
+<p>我之前没分开的一点其实很简单：<strong>同一个模型实例上的请求共用权重，但互不相干的上下文要各自再占一份 KV cache。</strong>前缀相同的可以共用一部分缓存。不能假设每个用户发来的上下文都一样。</p>
+<h3>把上下文截短就行了吗？</h3>
+<p>这是我的第一个想法。编程助手可以丢掉更早的消息，或者少传一些仓库文件。显存是省了，但模型看文件之间依赖时需要的信息，也可能被丢掉。</p>
+<p>另一种做法是保留上下文，用前缀缓存。很多请求开头相同时，这有用。如果用户在不同的仓库里工作，能共用的项目上下文可能很少。同一个用户在多轮对话里可以复用上下文，但缓存本身还有容量上限。</p>
+<p>服务可以把三件事合在一起：挑选上下文、复用前缀、以及在空间不够时丢掉缓存状态。我会用显存预算之内的模型是否还有用、用户体验如何来判断这套组合。只看缓存命中率，目标太窄了。</p>
+<h2><span class="num">02</span> 容量、带宽和计算</h2>
+<p>我刚开始学 GPU 的时候，显存容量、显存带宽和计算吞吐听起来差不多。它们说的是不同的上限。</p>
+<figure class="fig wide"><div class="svg-scroll"><img src="/assets/posts/ai-infra-from-zero-02/figure-04.svg" alt="图 4 · 容量决定装得下多少。带宽决定数据搬得有多快。计算决定数学运算做得了多少。" loading="lazy" decoding="async" width="840" height="397"></div><figcaption>图 4 · 容量决定装得下多少。带宽决定数据搬得有多快。计算决定数学运算做得了多少。</figcaption></figure>
+<div class="table-wrap"><table><tbody><tr><th>资源</th><th>问题</th><th>常见单位</th></tr><tr><td>显存容量</td><td>模型和请求状态能不能同时放进去？</td><td>GiB</td></tr><tr><td>显存带宽</td><td>数据在 GPU 显存之间来回搬，能有多快？</td><td>GB/s、TB/s</td></tr><tr><td>计算吞吐</td><td>硬件每秒能做多少次数学运算？</td><td>FLOP/s</td></tr></tbody></table></div>
+<p>显存还有空，GPU 也可能因为在等数据而慢下来。负载已经卡在显存带宽上时，再加计算单元用处不大。</p>
+<p>假设 batch 很小的时候，一次 decode 要从显存里读大约 16 GB 的权重。有效带宽 1 TB/s 时，光是把这些字节搬完，理想情况下至少大约要 <strong>16 毫秒</strong>。</p>
+<p>这不是在预测端到端的生成时间。缓存、计算、读取 KV 和其他开销都没算进去。这个计算只说明：数据搬运可以给执行时间设一条下限。</p>
+<h3>为什么 prefill 和 decode 的瓶颈不一样？</h3>
+<p><strong>Prefill</strong> 处理输入 token。它们的位置已经知道，所以模型可以一次算很多个位置，并在这些位置之间复用权重。输入很长时，这一段常常卡在计算速度上。</p>
+<p><strong>Decode</strong> 生成输出。标准的自回归模型，每个请求每一步通常只新生成一个 token。batch 小时，这一步为了相对很少的计算，要读很多模型数据。上限常常变成显存带宽。</p>
+<figure class="fig wide"><div class="svg-scroll"><img src="/assets/posts/ai-infra-from-zero-02/figure-05.svg" alt="图 5 · Prefill 和小 batch 的 decode，复用模型权重的方式不一样。" loading="lazy" decoding="async" width="840" height="374"></div><figcaption>图 5 · Prefill 和小 batch 的 decode，复用模型权重的方式不一样。</figcaption></figure>
+<p><strong>算术强度</strong>衡量每搬一个字节，做了多少次数学运算。</p>
+<div class="formula">算术强度 = FLOPs ÷ 搬过的字节数</div>
+<p>算术强度高，计算单元每读一个字节就有更多活干。强度低的时候，GPU 可能把更多时间花在等数据上。</p>
+<p>这是常见的情况，不是固定规则。模型、batch 大小、上下文长度、GPU 上实际跑的计算例程（kernel），还有硬件，都会影响瓶颈在哪。</p>
+<h2><span class="num">03</span> 为什么 batch 变大，每个用户会变慢？</h2>
+<p>这个问题我反复回来看。Batching 能让 GPU 更忙，所以我一开始以为每个用户都会更快拿到回答。但系统一共干了多少活，和一个人等了多久，是两件事。</p>
+<p>对一个线性层，算一个 token 可以写成 <code>y = xW</code>。把不同请求的 token 表示叠成矩阵 X，就变成 <code>Y = XW</code>。权重 W 这一次服务了更多计算。</p>
+<p>这可以提高总<strong>吞吐</strong>，也就是服务每秒完成的工作量。更大的 batch 这一步干的活仍然比小 batch 多，所以即便吐出的 token 更多，这一步也可能更久。</p>
+<figure class="fig wide"><div class="svg-scroll"><img src="/assets/posts/ai-infra-from-zero-02/figure-06.svg" alt="图 6 · 一个示意：总吞吐上去了，每个用户收到 token 的速度却更慢。" loading="lazy" decoding="async" width="840" height="456"></div><figcaption>图 6 · 一个示意：总吞吐上去了，每个用户收到 token 的速度却更慢。</figcaption></figure>
+<div class="table-wrap"><table><tbody><tr><th>指标</th><th class="r">Batch 1</th><th class="r">Batch 8</th></tr><tr><td>一次 decode</td><td class="r">20 ms</td><td class="r">55 ms</td></tr><tr><td>每步的 token 总数</td><td class="r">1 个 token</td><td class="r">8 个 token</td></tr><tr><td>总吞吐</td><td class="r">50 token/s</td><td class="r">约 145 token/s</td></tr><tr><td>每个用户的输出速度</td><td class="r">50 token/s</td><td class="r">约 18 token/s</td></tr></tbody></table></div>
+<p>八个用户的 batch 里，每个人是 <strong>55 毫秒拿到一个 token</strong>。不是一个人拿到八个 token。服务整体产出的 token 更多了，但同一个用户前后两个 token 的间隔，从 20 毫秒变成了 55 毫秒。</p>
+<p>这是延迟和吞吐的取舍。不是说 batch 变大就一定让用户更慢。GPU 还有余量时，batch 大一点，这一步的时间可能几乎不变。结果取决于上限先出现在计算、带宽、显存，还是调度上。</p>
+<h3>三个要分开看的指标</h3>
+<div class="table-wrap"><table><tbody><tr><th>指标</th><th>它量的是什么</th></tr><tr><td>TTFT</td><td>首 token 时间：用户等到第一个输出 token 的时间，包括排队和其他阶段。</td></tr><tr><td>ITL / TPOT</td><td>token 间隔 / 每个输出 token 的时间：输出 token 之间的空隙，或者每个输出 token 的平均时间。Benchmark 的定义并不统一。</td></tr><tr><td>吞吐</td><td>整个服务每秒干的活，比如每秒输出多少 token。</td></tr></tbody></table></div>
+<p>这些指标回答的是不同的业务问题。量大的模型 API 可能优先看吞吐和每个 token 的成本。交互式的编程助手可能优先看 TTFT，以及流式输出顺不顺。</p>
+<p>如果吞吐提高了 40%，用户延迟差不多没变，有些客户会受益。把这个结果说成“回答快了 40%”，说的就不是实际变了的那件事。</p>
+<h2><span class="num">04</span> 请求开始和结束的时间不一样</h2>
+<p>真实流量还更麻烦。用户 A 要 2,000 个输出 token，B 要 100 个，C 要 500 个。D 晚一点才来。</p>
+<p>如果一个固定的 batch 必须一起结束，短请求结束后，资源可能空着。D 可能得等最长的那个请求 A。 <strong>连续 batching</strong> 让调度器在生成的步骤之间拿走已经结束的请求，再放进新的。</p>
+<figure class="fig wide"><div class="svg-scroll"><img src="/assets/posts/ai-infra-from-zero-02/figure-07.svg" alt="图 7 · B 结束后，D 在后面的 decode 步骤里加入，A 和 C 继续跑。" loading="lazy" decoding="async" width="840" height="425"></div><figcaption>图 7 · B 结束后，D 在后面的 decode 步骤里加入，A 和 C 继续跑。</figcaption></figure>
+<p>调度器要盯的不只是谁先到。每个还在跑的请求都占 KV 显存。有的请求在 prefill，有的在 decode。放进、暂停、拿走请求，都会改变还剩多少资源。</p>
+<p>连续 batching 让 GPU 有更多机会去干有用的活。容量和带宽仍然限制着它。需求够高时，调度器必须选择先跑哪一份工作。</p>
+<h2><span class="num">05</span> 为什么很长的 prefill 会打断 decode？</h2>
+<p>回到编程助手。早上 9 点，很多开发者发来带着大仓库的提示词。另一些用户的回答已经在往外流。</p>
+<p>如果 prefill 和 decode 共用同一批 GPU worker，一段很长的 prefill 会占住执行资源，把那些正在输出的回答按住。看起来像网络问题的卡顿，可能来自 <strong>GPU 调度</strong>。</p>
+<h3>做法 A：分块 prefill</h3>
+<p>分块 prefill 把很长的提示词切成小块。调度器可以在块和块之间跑 decode。有的实现还会在同一次迭代里把 prefill 和 decode 混在一起。</p>
+<figure class="fig wide"><div class="svg-scroll"><img src="/assets/posts/ai-infra-from-zero-02/figure-08.svg" alt="图 8 · 把很长的 prefill 切成小块，已经在 decode 的请求就有更多机会接着跑。" loading="lazy" decoding="async" width="840" height="389"></div><figcaption>图 8 · 把很长的 prefill 切成小块，已经在 decode 的请求就有更多机会接着跑。</figcaption></figure>
+<p>输出 token 之间的停顿可以变短。新提示词处理完可能更久，TTFT 会上去。结果取决于块有多大、调度策略是什么、负载是什么。和把 GPU worker 拆成不同的池相比，这种做法通常要改的架构更少。</p>
+<h3>做法 B：Prefill 和 decode 拆开</h3>
+<p>Prefill-decode 分离是把两个阶段放在<strong>不同的 GPU worker 或资源池</strong>上。Prefill 的 worker 处理输入上下文。Decode 的 worker 生成输出 token。Prefill 结束后，服务把生成所需要的 KV cache 传给 decode 的 worker。</p>
+<figure class="fig wide"><div class="svg-scroll"><img src="/assets/posts/ai-infra-from-zero-02/figure-09.svg" alt="图 9 · 不同的 GPU worker 分别处理 prefill 和 decode，同时多了 KV 传输和协调的成本。" loading="lazy" decoding="async" width="840" height="406"></div><figcaption>图 9 · 不同的 GPU worker 分别处理 prefill 和 decode，同时多了 KV 传输和协调的成本。</figcaption></figure>
+<p>把 worker 分开，可以减少长 prefill 和正在进行的 decode 直接互相打扰。但 <strong>传 KV 要时间和网络带宽</strong>。长提示词会造出很大的缓存。服务还得做更多路由、资源分配和运维。</p>
+<p>分开的池也可能更贵。负载轻的时候，共用一个 worker 可能更简单，也省掉 worker 之间的传输。持续、很重、而且 prefill 和 decode 混在一起的流量下，专用的池可能更值。</p>
+<h2><span class="num">06</span> 如果我是产品经理，会怎么选？</h2>
+<p>我先看见两笔成本：切块可能让一次新的 prefill 更晚做完；分开的池则多了 KV 传输和部署上的复杂度。这是个开头，但拿来做产品决定还太少。</p>
+<p>我会先问：<strong>用户在等什么？</strong>是第一个 token 来得晚？是输出到一半停住？还是请求卡在队列里？然后我会去看出问题那段时间的流量，而不是拿一整天的平均数来判断。</p>
+<div class="steps"><div class="step"><div class="n">1</div><h4>看负载</h4><p>输入和输出有多长、早高峰、同时有多少请求、缓存命中、队列有多长。</p></div><div class="step"><div class="n">2</div><h4>找瓶颈</h4><p>计算、高带宽显存（HBM）的带宽、KV 显存、网络传输，还是调度上的互相干扰。</p></div><div class="step"><div class="n">3</div><h4>比取舍</h4><p>p95 / p99 的 TTFT 和 ITL、完成了多少请求、GPU 成本、稳定性，以及复杂度。</p></div><div class="step"><div class="n">4</div><h4>按用户的目标来测</h4><p>重放有代表性的请求，在差不多的成本下比较这几个选项。</p></div></div>
+<p>我会比现在的系统、分块 prefill、分开的池，必要的话再加上组合。如果只有一个 GPU 池，而且每天的高峰很短，切块可能是第一个值得试的。如果大的 prefill 一直在打断 decode，分开的池值得测，前提是 KV 传得够快。</p>
+<p>如果抱怨的是输出卡住，我会特别看 <strong>p95 和 p99 的 ITL</strong>。p95 覆盖 95% 的测量间隔，p99 覆盖 99%。这两个分位数看的是分布里慢的那一头。平均数很低，也可以藏住让产品用起来很烦的停顿。</p>
+<h2><span class="num">07</span> 从系统指标到用户在乎的事</h2>
+<p>现在看一项优化，我会问三个问题：它帮的是哪种负载，它减轻的是哪个瓶颈，它要付出什么。</p>
+<figure class="fig wide"><div class="svg-scroll"><img src="/assets/posts/ai-infra-from-zero-02/figure-10.svg" alt="图 10 · 负载 → 瓶颈 → 取舍 → 用户价值：把系统测量接到用户的问题上。" loading="lazy" decoding="async" width="840" height="402"></div><figcaption>图 10 · 负载 → 瓶颈 → 取舍 → 用户价值：把系统测量接到用户的问题上。</figcaption></figure>
+<p>假设一个工程师说：“我们的改动把吞吐提高了 40%，但每个用户的延迟差不多没变。”</p>
+<p>对一个量大的推理 API，同样的 GPU 现在可能干更多活。需求够的话，每个 token 的基础设施成本可以降下来。</p>
+<p>对一个交互式的编程助手，用户抱怨的是停顿，这个结果<strong>并不能说明输出感觉更快了</strong>。它仍然可能帮公司在 GPU 成本没有同比上涨的情况下服务更多用户。那是另一笔要单独去量的好处。</p>
+<p>一项优化可以在技术上有效，同时仍然没有解决某个客户最主要的问题。</p>
+<blockquote><p>看清负载，找到瓶颈，把成本比一比，再去量用户在乎的那个结果。</p></blockquote>
+<h2><span class="num">08</span> 把这些想法串起来</h2>
+<div class="chain"><b>模型放得进 GPU</b> → 正在处理的请求还要 KV cache 和临时显存 → 长上下文和并发会把显存用上去 → 带宽和计算限制执行速度 → prefill 和 decode 要的资源不一样 → batching 同时影响总吞吐和单个人的延迟 → 调度和 worker 怎么放，决定这些取舍最后怎么落到人身上。</div>
+<p>现在看 GPU 性能，我会问五个问题。状态放得下吗？数据必须怎么搬？哪些计算占大头？请求之间怎么互相影响？哪个结果是用户在乎的？</p>
+<p>同一个编程助手，流量变了，需要的架构也可能变。负载长大的时候，我会继续测、继续比、继续调。</p>
+<p class="note">图、batch 的时间和显存预算是用来解释机制的。它们不是官方架构，也不是测出来的 benchmark。实际结果取决于模型设计、数值精度、GPU 之间的连接、kernel、并发和调度策略。</p>
+<h2>延伸阅读和参考</h2>
+<ol class="refs"><li><a href="https://huggingface.co/blog/tngtech/llm-performance-prefill-decode-concurrent-requests" target="_blank" rel="noopener">TNG Technology：并发请求下的 Prefill 和 Decode</a>：prefill 和 decode 在计算和带宽上的不同表现。</li><li><a href="https://nvidia.github.io/TensorRT-LLM/features/disagg-serving.html" target="_blank" rel="noopener">NVIDIA TensorRT-LLM：分离式服务</a>：为什么把 prefill 和 decode 分开。</li><li><a href="https://docs.nvidia.com/dynamo/dev/knowledge-base/concepts/system-architecture/disaggregated-serving" target="_blank" rel="noopener">NVIDIA Dynamo：分离式服务</a>：KV 传输和资源分配上的取舍。</li><li><a href="https://docs.vllm.ai/en/latest/design/arch_overview/" target="_blank" rel="noopener">vLLM：架构概览和调度器</a>：开源推理引擎里调度长什么样的一个例子。</li><li><a href="https://arxiv.org/abs/2309.06180" target="_blank" rel="noopener">Kwon 等人（2023）：PagedAttention</a>：KV cache 的显存管理。</li><li><a href="https://huggingface.co/unsloth/Llama-3.1-8B/blob/main/config.json" target="_blank" rel="noopener">Llama 3.1 8B 配置示例</a>：估算 KV cache 时用到的模型尺寸。</li></ol>
+<div class="next"><a href="https://echore.github.io/ai-projects/posts/ai-infra-from-zero-01-en.html">← 上一篇 · 01：提示词进了 LLM 之后发生了什么？</a><br><a href="/posts/ai-infra-from-zero-03">下一篇 · 03：LLM 怎么同时服务几千个请求？ →</a></div><nav class="next" aria-label="相关的 AI 基础设施文章"><a href="/posts/ai-infra-product-lens">AI 基础设施，什么时候值得用？</a><br><a href="/posts/ai-infra-from-zero-03">LLM 怎么同时服务几千个请求？</a></nav>
+</div>
 </div>
