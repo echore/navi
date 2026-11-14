@@ -6,6 +6,7 @@ tags: ["AI"]
 date: 2026-11-14
 readTime: 12
 slug: ai-infra-from-zero-02
+series: "AI Infra note 02"
 draft: false
 featured: true
 listed: true
@@ -19,7 +20,7 @@ listed: true
 <div class="series">AI Infra Learning Notes · 02 / 06</div>
 
 <div class="meta">Memory capacity, bandwidth, batching, and the cost of serving many users</div>
-<p class="note">This is the second note in my AI infrastructure learning series, following <a href="https://echore.github.io/ai-projects/posts/ai-infra-from-zero-01-en.html">What Happens After a Prompt Enters an LLM?</a> It is for readers who know the basics of large language models (LLMs) and want to understand the engineering limits. Numerical examples are teaching assumptions unless a source is given.</p>
+<p class="note">This is the second note in my AI infrastructure learning series, following <a href="/posts/ai-infra-from-zero-01">What Happens After a Prompt Enters an LLM?</a> It is for readers who know the basics of large language models (LLMs) and want to understand the engineering limits. Numerical examples are teaching assumptions unless a source is given.</p>
 <h2><span class="num">00</span> Picking Up the Previous Question</h2>
 <p>In Note 01, I learned why models need a key-value cache, or KV cache. It stores attention states so the model can reuse them while generating tokens. Requests with matching prefixes can also reuse compatible cached states.</p>
 <p>But this creates a trade-off: <strong>saving computation takes memory, and GPU memory is finite.</strong></p>
@@ -110,7 +111,7 @@ listed: true
 <p class="note">The diagrams, batch timings, and memory budgets explain mechanisms. They are not official architectures or measured benchmarks. Actual results depend on model design, numerical precision, GPU links, kernels, concurrency, and scheduling policy.</p>
 <h2>Further Reading and References</h2>
 <ol class="refs"><li><a href="https://huggingface.co/blog/tngtech/llm-performance-prefill-decode-concurrent-requests" target="_blank" rel="noopener">TNG Technology: Prefill and Decode for Concurrent Requests</a>: The compute and bandwidth patterns of prefill and decode.</li><li><a href="https://nvidia.github.io/TensorRT-LLM/features/disagg-serving.html" target="_blank" rel="noopener">NVIDIA TensorRT-LLM: Disaggregated Serving</a>: Why separate prefill and decode.</li><li><a href="https://docs.nvidia.com/dynamo/dev/knowledge-base/concepts/system-architecture/disaggregated-serving" target="_blank" rel="noopener">NVIDIA Dynamo: Disaggregated Serving</a>: KV transfer and resource allocation trade-offs.</li><li><a href="https://docs.vllm.ai/en/latest/design/arch_overview/" target="_blank" rel="noopener">vLLM: Architecture Overview and Scheduler</a>: An example of scheduling in an open-source inference engine.</li><li><a href="https://arxiv.org/abs/2309.06180" target="_blank" rel="noopener">Kwon et al. (2023): PagedAttention</a>: KV cache memory management.</li><li><a href="https://huggingface.co/unsloth/Llama-3.1-8B/blob/main/config.json" target="_blank" rel="noopener">Llama 3.1 8B Configuration Example</a>: The model dimensions used in the KV cache estimate.</li></ol>
-<div class="next"><a href="https://echore.github.io/ai-projects/posts/ai-infra-from-zero-01-en.html">← Previous · 01: What Happens After a Prompt Enters an LLM?</a><br><a href="/posts/ai-infra-from-zero-03">Next · 03: How Does an LLM Serve Thousands of Requests? →</a></div><nav class="next" aria-label="Related AI infrastructure articles"><a href="/posts/ai-infra-product-lens">What Makes AI Infrastructure Worth Using?</a><br><a href="/posts/ai-infra-from-zero-03">How Does an LLM Serve Thousands of Requests?</a></nav>
+<div class="next"><a href="/posts/ai-infra-from-zero-01">← Previous · 01: What Happens After a Prompt Enters an LLM?</a><br><a href="/posts/ai-infra-from-zero-03">Next · 03: How Does an LLM Serve Thousands of Requests? →</a></div><nav class="next" aria-label="Related AI infrastructure articles"><a href="/posts/ai-infra-product-lens">What Makes AI Infrastructure Worth Using?</a><br><a href="/posts/ai-infra-from-zero-03">How Does an LLM Serve Thousands of Requests?</a></nav>
 </div>
 </div>
 
@@ -120,7 +121,7 @@ listed: true
 <div class="series">AI Infra 学习笔记 · 02 / 06</div>
 
 <div class="meta">显存容量、带宽、batching，以及同时服务很多用户要付出的代价</div>
-<p class="note">这是我 AI 基础设施学习系列的第二篇，接在 <a href="https://echore.github.io/ai-projects/posts/ai-infra-from-zero-01-en.html">提示词进了 LLM 之后发生了什么？</a> 后面。写给已经知道大语言模型（LLM）基础、想看懂工程上限的人。数字如果没有给出处，就是为了讲清楚而设的假设。</p>
+<p class="note">这是我 AI 基础设施学习系列的第二篇，接在 <a href="/posts/ai-infra-from-zero-01">提示词进了 LLM 之后发生了什么？</a> 后面。写给已经知道大语言模型（LLM）基础、想看懂工程上限的人。数字如果没有给出处，就是为了讲清楚而设的假设。</p>
 <h2><span class="num">00</span> 接着上一个问题</h2>
 <p>在笔记 01 里，我搞懂了模型为什么需要键值缓存，也就是 KV cache。它存着 attention 的状态，生成 token 时可以复用。前缀相同的请求，也可以复用彼此兼容的缓存。</p>
 <p>但这里有个取舍：<strong>省下计算，要用掉显存，而 GPU 显存是有限的。</strong></p>
@@ -211,6 +212,6 @@ listed: true
 <p class="note">图、batch 的时间和显存预算是用来解释机制的。它们不是官方架构，也不是测出来的 benchmark。实际结果取决于模型设计、数值精度、GPU 之间的连接、kernel、并发和调度策略。</p>
 <h2>延伸阅读和参考</h2>
 <ol class="refs"><li><a href="https://huggingface.co/blog/tngtech/llm-performance-prefill-decode-concurrent-requests" target="_blank" rel="noopener">TNG Technology：并发请求下的 Prefill 和 Decode</a>：prefill 和 decode 在计算和带宽上的不同表现。</li><li><a href="https://nvidia.github.io/TensorRT-LLM/features/disagg-serving.html" target="_blank" rel="noopener">NVIDIA TensorRT-LLM：分离式服务</a>：为什么把 prefill 和 decode 分开。</li><li><a href="https://docs.nvidia.com/dynamo/dev/knowledge-base/concepts/system-architecture/disaggregated-serving" target="_blank" rel="noopener">NVIDIA Dynamo：分离式服务</a>：KV 传输和资源分配上的取舍。</li><li><a href="https://docs.vllm.ai/en/latest/design/arch_overview/" target="_blank" rel="noopener">vLLM：架构概览和调度器</a>：开源推理引擎里调度长什么样的一个例子。</li><li><a href="https://arxiv.org/abs/2309.06180" target="_blank" rel="noopener">Kwon 等人（2023）：PagedAttention</a>：KV cache 的显存管理。</li><li><a href="https://huggingface.co/unsloth/Llama-3.1-8B/blob/main/config.json" target="_blank" rel="noopener">Llama 3.1 8B 配置示例</a>：估算 KV cache 时用到的模型尺寸。</li></ol>
-<div class="next"><a href="https://echore.github.io/ai-projects/posts/ai-infra-from-zero-01-en.html">← 上一篇 · 01：提示词进了 LLM 之后发生了什么？</a><br><a href="/posts/ai-infra-from-zero-03">下一篇 · 03：LLM 怎么同时服务几千个请求？ →</a></div><nav class="next" aria-label="相关的 AI 基础设施文章"><a href="/posts/ai-infra-product-lens">AI 基础设施，什么时候值得用？</a><br><a href="/posts/ai-infra-from-zero-03">LLM 怎么同时服务几千个请求？</a></nav>
+<div class="next"><a href="/posts/ai-infra-from-zero-01">← 上一篇 · 01：提示词进了 LLM 之后发生了什么？</a><br><a href="/posts/ai-infra-from-zero-03">下一篇 · 03：LLM 怎么同时服务几千个请求？ →</a></div><nav class="next" aria-label="相关的 AI 基础设施文章"><a href="/posts/ai-infra-product-lens">AI 基础设施，什么时候值得用？</a><br><a href="/posts/ai-infra-from-zero-03">LLM 怎么同时服务几千个请求？</a></nav>
 </div>
 </div>

@@ -6,6 +6,7 @@ tags: ["AI"]
 date: 2026-11-14
 readTime: 12
 slug: ai-infra-from-zero-03
+series: "AI Infra note 03"
 draft: false
 featured: true
 listed: true

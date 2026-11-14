@@ -6,6 +6,7 @@ tags: ["AI"]
 date: 2026-11-14
 readTime: 11
 slug: ai-infra-product-lens
+series: "AI Infra · product"
 draft: false
 featured: true
 listed: true
@@ -21,7 +22,7 @@ listed: true
 
 <div class="meta">From technical performance to user problems, product value, and developer adoption</div>
 
-<p class="note">This essay extends my <a href="https://echore.github.io/ai-projects/posts/ai-infra-from-zero-01-en.html">AI Infra From Zero</a> technical series. The diagrams are simplified teaching models. Customer scenarios and funnel numbers are illustrative, not confidential company information or actual product analytics. Product judgments are hypotheses unless backed by cited public evidence.</p>
+<p class="note">This essay extends my <a href="/posts/ai-infra-from-zero-01">AI Infra From Zero</a> technical series. The diagrams are simplified teaching models. Customer scenarios and funnel numbers are illustrative, not confidential company information or actual product analytics. Product judgments are hypotheses unless backed by cited public evidence.</p>
 
 <div class="article-nav" aria-label="Sections"><a href="#shift">The shift</a><a href="#map">Product map</a><a href="#users">Users</a><a href="#value">Value</a><a href="#diagnosis">Discovery</a><a href="#adoption">Adoption</a><a href="#practice">Practice</a></div>
 
@@ -181,7 +182,7 @@ listed: true
 <li><a href="https://github.com/sgl-project/sglang/issues/42473">SGLang public Q4 2026 roadmap</a>: usability, cookbooks, deployment simplicity, and compatibility as publicly stated development goals.</li>
 <li><a href="https://github.com/sgl-project/sglang/issues/50045">SGLang public 1.0 tracker</a>: production stability and configuration clarity as an example of developer-experience work.</li>
 <li><a href="https://docs.vllm.ai/">vLLM documentation</a>: another open-source inference-serving framework and an example of the existing alternatives a developer might evaluate.</li>
-<li><a href="https://echore.github.io/ai-projects/posts/ai-infra-from-zero-01-en.html">AI Infra From Zero: Note 01</a>: my earlier technical learning note on prefill, decode, KV cache, and prefix reuse.</li>
+<li><a href="/posts/ai-infra-from-zero-01">AI Infra From Zero: Note 01</a>: my earlier technical learning note on prefill, decode, KV cache, and prefix reuse.</li>
 </ol>
 </section>
 <div class="footer">From how models run → to why people choose to run them.<br><a href="/posts">← Back to AI Projects</a></div>
@@ -197,7 +198,7 @@ listed: true
 
 <div class="meta">从技术性能，到用户的问题、产品值不值得用，以及开发者会不会真的用上</div>
 
-<p class="note">这篇是我 <a href="https://echore.github.io/ai-projects/posts/ai-infra-from-zero-01-en.html">AI Infra From Zero</a> 技术系列的延伸。图是简化过的教学模型。客户场景和漏斗里的数字都是示意，不是公司机密，也不是真实的产品数据。没有公开材料支撑的判断，只是假设。</p>
+<p class="note">这篇是我 <a href="/posts/ai-infra-from-zero-01">AI Infra From Zero</a> 技术系列的延伸。图是简化过的教学模型。客户场景和漏斗里的数字都是示意，不是公司机密，也不是真实的产品数据。没有公开材料支撑的判断，只是假设。</p>
 
 <div class="article-nav" aria-label="章节"><a href="#shift">转变</a><a href="#map">地图</a><a href="#users">用户</a><a href="#value">价值</a><a href="#diagnosis">诊断</a><a href="#adoption">采用</a><a href="#practice">实践</a></div>
 
@@ -357,7 +358,7 @@ listed: true
 <li><a href="https://github.com/sgl-project/sglang/issues/42473">SGLang 公开的 2026 年第四季度路线图</a>：易用性、cookbook、部署更简单、兼容性，是公开写明的开发目标。</li>
 <li><a href="https://github.com/sgl-project/sglang/issues/50045">SGLang 公开的 1.0 跟踪 issue</a>：生产稳定性和配置是否清楚，是开发者体验工作的一个例子。</li>
 <li><a href="https://docs.vllm.ai/">vLLM 文档</a>：另一个开源推理服务框架，也是开发者可能会拿来比较的现有选择。</li>
-<li><a href="https://echore.github.io/ai-projects/posts/ai-infra-from-zero-01-en.html">AI Infra From Zero：笔记 01</a>：我之前关于 prefill、decode、KV cache 和前缀复用的技术笔记。</li>
+<li><a href="/posts/ai-infra-from-zero-01">AI Infra From Zero：笔记 01</a>：我之前关于 prefill、decode、KV cache 和前缀复用的技术笔记。</li>
 </ol>
 </section>
 <div class="footer">从模型怎么跑 → 到人为什么选择自己去跑。<br><a href="/posts">← 返回 AI 项目</a></div>

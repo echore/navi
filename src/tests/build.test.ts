@@ -94,6 +94,15 @@ describe('build smoke test', () => {
     expect(html).toContain('全家福那一组多募集了 5700 万美元');
   });
 
+  it('AI infra note 01 is on the site and labeled', () => {
+    const html = readFileSync(join(dist, 'posts/ai-infra-from-zero-01/index.html'), 'utf-8');
+    expect(html).toContain('AI Infra note 01');
+    expect(html).toContain('What Happens After a Prompt Enters an LLM?');
+    expect(html).toContain('提示词进了 LLM 之后，发生了什么？');
+    expect(html).toContain('id="post-lang"');
+    expect(html).toContain('/assets/posts/ai-infra-from-zero-01/00_knowledge_tree.svg');
+  });
+
   it('the three AI infra notes default to English and include a Chinese version', () => {
     const cases = [
       ['ai-infra-product-lens', 'What Makes AI Infrastructure Worth Using?', '到底谁需要这个？'],
@@ -110,8 +119,9 @@ describe('build smoke test', () => {
     }
   });
 
-  it('home and /posts list only the selected posts', () => {
-    const selected = [
+  it('home shows the nine newest posts, and /posts lists every published post', () => {
+    const all = [
+      'ai-infra-from-zero-01',
       'ai-infra-product-lens',
       'ai-infra-from-zero-02',
       'ai-infra-from-zero-03',
@@ -122,11 +132,20 @@ describe('build smoke test', () => {
       'study-abroad-agencies-are-not-good-business',
       'inner-scorecard',
     ];
-    for (const page of ['index.html', 'posts/index.html']) {
-      const html = readFileSync(join(dist, page), 'utf-8');
-      const linked = [...html.matchAll(/href="\/posts\/([^"]+)"/g)].map(m => m[1]);
-      expect(new Set(linked)).toEqual(new Set(selected));
-    }
+    const postsPage = readFileSync(join(dist, 'posts/index.html'), 'utf-8');
+    const listed = [...postsPage.matchAll(/href="\/posts\/([^"]+)"/g)].map(m => m[1]);
+    expect(new Set(listed)).toEqual(new Set(all));
+
+    const home = readFileSync(join(dist, 'index.html'), 'utf-8');
+    const homeLinks = [...home.matchAll(/href="\/posts\/([^"]+)"/g)].map(m => m[1]);
+    expect(homeLinks).toHaveLength(9);
+    expect(new Set(homeLinks).has('ai-infra-from-zero-01')).toBe(true);
+    expect(home).toContain('AI Infra note 01');
+    expect(home).toContain('AI Infra note 02');
+    expect(home).toContain('AI Infra note 03');
+    expect(home).toContain('AI Infra · product');
+    // The oldest listed post drops off the homepage once note 01 is added.
+    expect(homeLinks).not.toContain('study-abroad-agencies-are-not-good-business');
   });
 
   it('unlisted posts keep their URLs', () => {
