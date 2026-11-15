@@ -101,13 +101,13 @@ wide: true
   <div class="section-heading"><span class="section-num">03</span><h2>My Learning Map</h2></div>
   <p class="intro">I wanted each module to be a question worth answering, not just a term. The map moves from a single computation to a full system, then from technical capability to user value.</p>
   <div class="map-section-figure"><div class="map-label"><h3>Track A <span style="font-style:italic;color:#7399b2">— Technology</span></h3><span>How systems work</span></div>
-   <p>It starts with a single LLM computation, then moves to the resource limits of GPUs. From there it covers LLM serving for many users, inference engines, post-training, and how open-source technology becomes a business.</p>
-   <div class="map-shell"><div class="map-scroll"><svg class="map-svg" role="img" aria-label="TRACK A · Understand the Technology" viewBox="0 0 1570 1024" xmlns="http://www.w3.org/2000/svg">
+   <p>It starts with a single LLM computation, then moves to the resource limits of GPUs. From there it covers LLM serving for many users, inference engines, and post-training. That is the technology line. Turning an open-source project into a business sits in Track B, not here.</p>
+   <div class="map-shell"><div class="map-scroll"><svg class="map-svg" role="img" aria-label="TRACK A · Understand the Technology" viewBox="0 0 1570 840" xmlns="http://www.w3.org/2000/svg">
 <title>TRACK A · Understand the Technology</title>
 <text x="44" y="51" font-size="31" font-weight="700" fill="#263846">TRACK A · Understand the Technology</text>
-<text x="44" y="89" font-size="19" font-weight="400" fill="#687E89">One computation → serving many users → improving models → building a business</text>
+<text x="44" y="89" font-size="19" font-weight="400" fill="#687E89">One computation → GPUs → serving many users → inference engines → post-training</text>
 <path d="M44 109 H1526" fill="none" stroke="#D9E1DB" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M312 562.5 H333 M333 261.0 V864.0" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M312 562.5 H333 M333 261.0 V730.0" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M333 261.0 H354" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M614 261.0 H646 M646 194.0 V328.0" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M646 194.0 H672" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -119,13 +119,10 @@ wide: true
 <path d="M333 730.0 H354" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M614 730.0 H646 M646 730.0 V730.0" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M646 730.0 H672" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M333 864.0 H354" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M614 864.0 H646 M646 864.0 V864.0" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M646 864.0 H672" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <rect x="42" y="494.5" width="270" height="136" rx="22" fill="#FFFEFB" stroke="#C7D4D1" stroke-width="2"/>
 <text x="177.0" y="546.5" font-size="27" font-weight="700" fill="#263846" text-anchor="middle">AI Infrastructure</text>
-<text x="177.0" y="576.5" font-size="18" font-weight="400" fill="#687E89" text-anchor="middle">Make models fast,</text>
-<text x="177.0" y="606.5" font-size="18" font-weight="400" fill="#687E89" text-anchor="middle">affordable, and better</text>
+<text x="177.0" y="576.5" font-size="18" font-weight="400" fill="#687E89" text-anchor="middle">Make models run,</text>
+<text x="177.0" y="606.5" font-size="18" font-weight="400" fill="#687E89" text-anchor="middle">scale, and improve</text>
 <rect x="354" y="203.0" width="260" height="116" rx="18" fill="#E8F0F7" stroke="#9AB8CE" stroke-width="1.5"/>
 <text x="484.0" y="254.0" font-size="23" font-weight="700" fill="#263846" text-anchor="middle">One Computation</text>
 <text x="484.0" y="285.0" font-size="17" font-weight="400" fill="#687E89" text-anchor="middle">Model + hardware</text>
@@ -135,13 +132,10 @@ wide: true
 <rect x="354" y="672.0" width="260" height="116" rx="18" fill="#EFEAF6" stroke="#C1B3D6" stroke-width="1.5"/>
 <text x="484.0" y="723.0" font-size="23" font-weight="700" fill="#263846" text-anchor="middle">Improving Models</text>
 <text x="484.0" y="754.0" font-size="17" font-weight="400" fill="#687E89" text-anchor="middle">Training loop</text>
-<rect x="354" y="806.0" width="260" height="116" rx="18" fill="#F8EBDD" stroke="#DFC2A3" stroke-width="1.5"/>
-<text x="484.0" y="857.0" font-size="23" font-weight="700" fill="#263846" text-anchor="middle">Building a Business</text>
-<text x="484.0" y="888.0" font-size="17" font-weight="400" fill="#687E89" text-anchor="middle">Product + market</text>
 <a href="/posts/ai-infra-from-zero-01" aria-label="Open note: How Does an LLM Actually Run?" class="svg-note-link">
 <rect x="672" y="144" width="854" height="101" rx="17" fill="#E5F2EB" stroke="#9AC7B3" stroke-width="1.4"/>
 <rect x="672" y="144" width="6" height="101" rx="3" fill="#578B76"/>
-<text x="695" y="175" font-size="23" font-weight="700" fill="#263846">01 · How Does an LLM Actually Run?</text>
+<text x="695" y="175" font-size="23" font-weight="700" fill="#263846">01 · LLM Fundamentals</text>
 <text x="695" y="205" font-size="19" font-weight="400" fill="#263846">What computation happens when a prompt enters an LLM?</text>
 <text x="695" y="229" font-size="16" font-weight="400" fill="#687E89">Parameters · Tokens · Forward Pass · Prefill · Decode · KV Cache</text>
 <text x="1496" y="177" font-size="26" font-weight="500" fill="#578B76" text-anchor="middle">↗</text>
@@ -149,7 +143,7 @@ wide: true
 <a href="/posts/ai-infra-from-zero-02" aria-label="Open note: Why Does the GPU Become the Bottleneck?" class="svg-note-link">
 <rect x="672" y="278" width="854" height="101" rx="17" fill="#E8F0F7" stroke="#9AB8CE" stroke-width="1.4"/>
 <rect x="672" y="278" width="6" height="101" rx="3" fill="#557FA2"/>
-<text x="695" y="309" font-size="23" font-weight="700" fill="#263846">02 · Why Does the GPU Become the Bottleneck?</text>
+<text x="695" y="309" font-size="23" font-weight="700" fill="#263846">02 · GPU &amp; Hardware</text>
 <text x="695" y="339" font-size="19" font-weight="400" fill="#263846">Why can powerful GPUs still slow LLM inference down?</text>
 <text x="695" y="363" font-size="16" font-weight="400" fill="#687E89">GPU Memory · HBM · Compute · Bandwidth · Latency · Throughput</text>
 <text x="1496" y="311" font-size="26" font-weight="500" fill="#557FA2" text-anchor="middle">↗</text>
@@ -157,31 +151,29 @@ wide: true
 <a href="/posts/ai-infra-from-zero-03" class="svg-note-link" aria-label="Open note: How Does an LLM Serving System Work?">
 <rect x="672" y="412" width="854" height="101" rx="17" fill="#E5F2EB" stroke="#9AC7B3" stroke-width="1.4"/>
 <rect x="672" y="412" width="6" height="101" rx="3" fill="#578B76"/>
-<text x="695" y="443" font-size="23" font-weight="700" fill="#263846">03 · How Does an LLM Serving System Work?</text>
+<text x="695" y="443" font-size="23" font-weight="700" fill="#263846">03 · LLM Serving Systems</text>
 <text x="695" y="473" font-size="19" font-weight="400" fill="#263846">How does one model serve thousands of users at once?</text>
 <text x="695" y="497" font-size="16" font-weight="400" fill="#687E89">Scheduling · Batching · Caching · Concurrency · Engine</text>
 <text x="1496" y="445" font-size="26" font-weight="500" fill="#578B76" text-anchor="middle">↗</text>
 </a>
+<a href="/posts/ai-infra-from-zero-04" class="svg-note-link" aria-label="Open note: What Makes an Inference Engine Actually Useful?">
 <rect x="672" y="546" width="854" height="101" rx="17" fill="#E5F2EB" stroke="#9AC7B3" stroke-width="1.4"/>
 <rect x="672" y="546" width="6" height="101" rx="3" fill="#578B76"/>
-<text x="695" y="577" font-size="23" font-weight="700" fill="#263846">04 · What Do Inference Engines Actually Solve?</text>
+<text x="695" y="577" font-size="23" font-weight="700" fill="#263846">04 · SGLang &amp; Inference Optimization</text>
 <text x="695" y="607" font-size="19" font-weight="400" fill="#263846">What trade-offs do open-source inference engines make?</text>
 <text x="695" y="631" font-size="16" font-weight="400" fill="#687E89">Prefix Caching · Continuous Batching · PD Disaggregation · SGLang</text>
+<text x="1496" y="579" font-size="26" font-weight="500" fill="#578B76" text-anchor="middle">↗</text>
+</a>
 <rect x="672" y="680" width="854" height="101" rx="17" fill="#EFEAF6" stroke="#C1B3D6" stroke-width="1.4"/>
 <rect x="672" y="680" width="6" height="101" rx="3" fill="#8A73A7"/>
-<text x="695" y="711" font-size="23" font-weight="700" fill="#263846">05 · Model Post-Training</text>
+<text x="695" y="711" font-size="23" font-weight="700" fill="#263846">05 · Post-training &amp; Reinforcement Learning</text>
 <text x="695" y="741" font-size="19" font-weight="400" fill="#263846">Why does improving AI agents take training infrastructure?</text>
 <text x="695" y="765" font-size="16" font-weight="400" fill="#687E89">Post-training · RL · Rollouts · Rewards · Train–Serve Loop</text>
-<rect x="672" y="814" width="854" height="101" rx="17" fill="#F8EBDD" stroke="#DFC2A3" stroke-width="1.4"/>
-<rect x="672" y="814" width="6" height="101" rx="3" fill="#AF815A"/>
-<text x="695" y="845" font-size="23" font-weight="700" fill="#263846">06 · Commercializing Open-Source AI Infra</text>
-<text x="695" y="875" font-size="19" font-weight="400" fill="#263846">How does a popular open-source project become a company?</text>
-<text x="695" y="899" font-size="16" font-weight="400" fill="#687E89">Open Source · Developer Adoption · ICP · GTM · Monetization</text>
 </svg></div></div>
    <p class="map-note">Each question in the tree is that module's learning goal. Modules with a published note link straight to it. The rest show the learning question and key concepts.</p>
   </div>
   <div class="map-section-figure"><div class="map-label"><h3>Track B <span style="font-style:italic;color:#77a58c">— Product &amp; Business</span></h3><span>Why systems matter</span></div>
-   <p>It starts with the AI infrastructure ecosystem and research into real developer problems. Next it looks at how technical capability becomes product value. It ends with developer adoption, product marketing (PMM), go-to-market, and hands-on contribution.</p>
+   <p>It starts with the market and real developer problems, then asks how a technical capability becomes product value. Adoption and building a business are one phase: developer experience, go-to-market, and how an open-source project gets used and paid for. It ends with work you can actually contribute.</p>
    <div class="map-shell"><div class="map-scroll"><svg class="map-svg" role="img" aria-label="TRACK B · Understand Users &amp; Business" viewBox="0 0 1570 890" xmlns="http://www.w3.org/2000/svg">
 <title>TRACK B · Understand Users &amp; Business</title>
 <text x="44" y="51" font-size="31" font-weight="700" fill="#263846">TRACK B · Understand Users &amp; Business</text>
@@ -212,8 +204,9 @@ wide: true
 <text x="484.0" y="455.0" font-size="23" font-weight="700" fill="#263846" text-anchor="middle">Evaluate Value</text>
 <text x="484.0" y="486.0" font-size="17" font-weight="400" fill="#687E89" text-anchor="middle">Capability → outcome</text>
 <rect x="354" y="538.0" width="260" height="116" rx="18" fill="#EFEAF6" stroke="#C1B3D6" stroke-width="1.5"/>
-<text x="484.0" y="589.0" font-size="23" font-weight="700" fill="#263846" text-anchor="middle">Drive Adoption</text>
-<text x="484.0" y="620.0" font-size="17" font-weight="400" fill="#687E89" text-anchor="middle">DX + GTM + growth</text>
+<text x="484.0" y="575.0" font-size="18" font-weight="700" fill="#263846" text-anchor="middle">Drive Adoption</text>
+<text x="484.0" y="600.0" font-size="16" font-weight="700" fill="#263846" text-anchor="middle">&amp; Build a Business</text>
+<text x="484.0" y="626.0" font-size="14" font-weight="400" fill="#687E89" text-anchor="middle">GTM · open source · revenue</text>
 <rect x="354" y="672.0" width="260" height="116" rx="18" fill="#F8EBDD" stroke="#DFC2A3" stroke-width="1.5"/>
 <text x="484.0" y="723.0" font-size="21" font-weight="700" fill="#263846" text-anchor="middle">Contribute in Practice</text>
 <text x="484.0" y="754.0" font-size="17" font-weight="400" fill="#687E89" text-anchor="middle">Evidence + execution</text>
@@ -234,18 +227,18 @@ wide: true
 <text x="695" y="497" font-size="16" font-weight="400" fill="#687E89">Real Workloads · Trade-offs · Use Cases · Differentiation · Validation</text>
 <rect x="672" y="546" width="854" height="101" rx="17" fill="#EFEAF6" stroke="#C1B3D6" stroke-width="1.4"/>
 <rect x="672" y="546" width="6" height="101" rx="3" fill="#8A73A7"/>
-<text x="695" y="577" font-size="23" font-weight="700" fill="#263846">04 · Developer Adoption, PMM &amp; Go-to-Market</text>
-<text x="695" y="607" font-size="19" font-weight="400" fill="#263846">How does a product move from discovery to sustained adoption?</text>
-<text x="695" y="631" font-size="16" font-weight="400" fill="#687E89">DX · Positioning · Onboarding · DevRel · Funnels · Retention</text>
+<text x="695" y="577" font-size="22" font-weight="700" fill="#263846">04 · Drive Adoption &amp; Build a Business</text>
+<text x="695" y="607" font-size="19" font-weight="400" fill="#263846">How does a product get adopted, and how does an open-source project become a business?</text>
+<text x="695" y="631" font-size="16" font-weight="400" fill="#687E89">DX · PMM · DevRel · GTM · Open-source business · Monetization</text>
 <rect x="672" y="680" width="854" height="101" rx="17" fill="#F8EBDD" stroke="#DFC2A3" stroke-width="1.4"/>
 <rect x="672" y="680" width="6" height="101" rx="3" fill="#AF815A"/>
 <text x="695" y="711" font-size="23" font-weight="700" fill="#263846">05 · Real-World Contribution &amp; Portfolio</text>
 <text x="695" y="741" font-size="19" font-weight="400" fill="#263846">What useful work can I actually contribute?</text>
 <text x="695" y="765" font-size="16" font-weight="400" fill="#687E89">Documentation PRs · Technical Explainers · Workshops · Growth Experiments</text>
 </svg></div></div>
-   <p class="map-note">The tree starts from market and user evidence and moves step by step toward product judgment, developer adoption, and real contribution. It links observing users, validating value, and contributing in practice.</p>
+   <p class="map-note">The tree starts from market and user evidence and moves step by step toward product judgment, developer adoption, and real contribution. Building a business lives in this track, next to adoption, not as a sixth technology module.</p>
   </div>
-  <div class="highlight-line">One track explains what the system can do. The other asks who needs it, and why.</div>
+  <div class="highlight-line">Track A: Understand the technology. Track B: Understand the users, create value, and drive adoption.</div>
  </section>
 
  <section class="section" id="insights">
@@ -380,13 +373,13 @@ wide: true
   <div class="section-heading"><span class="section-num">03</span><h2>My Learning Map</h2></div>
   <p class="intro">我想让每个 Module 不只是一个术语，而是一个值得回答的问题。从微观计算到完整系统，再从技术能力走向用户价值。</p>
   <div class="map-section-figure"><div class="map-label"><h3>Track A <span style="font-style:italic;color:#7399b2">— Technology</span></h3><span>How systems work</span></div>
-   <p>从单次 LLM 计算开始，逐渐理解 GPU 的资源限制，再进入多用户环境下的 LLM Serving、推理框架、Post-training，以及开源技术的商业化。</p>
-   <div class="map-shell"><div class="map-scroll"><svg class="map-svg" role="img" aria-label="TRACK A · Understand the Technology" viewBox="0 0 1570 1024" xmlns="http://www.w3.org/2000/svg">
+   <p>从单次 LLM 计算开始，逐渐理解 GPU 的资源限制，再进入多用户环境下的 LLM Serving、推理引擎和 Post-training。技术线到这里就完整了。开源项目怎么变成一门生意，放在 Track B，不放在这里。</p>
+   <div class="map-shell"><div class="map-scroll"><svg class="map-svg" role="img" aria-label="TRACK A · Understand the Technology" viewBox="0 0 1570 840" xmlns="http://www.w3.org/2000/svg">
 <title>TRACK A · Understand the Technology</title>
 <text x="44" y="51" font-size="31" font-weight="700" fill="#263846">TRACK A · Understand the Technology</text>
-<text x="44" y="89" font-size="19" font-weight="400" fill="#687E89">One computation → serving many users → improving models → building a business</text>
+<text x="44" y="89" font-size="19" font-weight="400" fill="#687E89">One computation → GPUs → serving many users → inference engines → post-training</text>
 <path d="M44 109 H1526" fill="none" stroke="#D9E1DB" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M312 562.5 H333 M333 261.0 V864.0" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M312 562.5 H333 M333 261.0 V730.0" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M333 261.0 H354" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M614 261.0 H646 M646 194.0 V328.0" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M646 194.0 H672" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -398,13 +391,10 @@ wide: true
 <path d="M333 730.0 H354" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M614 730.0 H646 M646 730.0 V730.0" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M646 730.0 H672" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M333 864.0 H354" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M614 864.0 H646 M646 864.0 V864.0" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M646 864.0 H672" fill="none" stroke="#AAB9BD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <rect x="42" y="494.5" width="270" height="136" rx="22" fill="#FFFEFB" stroke="#C7D4D1" stroke-width="2"/>
 <text x="177.0" y="546.5" font-size="27" font-weight="700" fill="#263846" text-anchor="middle">AI Infrastructure</text>
-<text x="177.0" y="576.5" font-size="18" font-weight="400" fill="#687E89" text-anchor="middle">Make models fast,</text>
-<text x="177.0" y="606.5" font-size="18" font-weight="400" fill="#687E89" text-anchor="middle">affordable, and better</text>
+<text x="177.0" y="576.5" font-size="18" font-weight="400" fill="#687E89" text-anchor="middle">Make models run,</text>
+<text x="177.0" y="606.5" font-size="18" font-weight="400" fill="#687E89" text-anchor="middle">scale, and improve</text>
 <rect x="354" y="203.0" width="260" height="116" rx="18" fill="#E8F0F7" stroke="#9AB8CE" stroke-width="1.5"/>
 <text x="484.0" y="254.0" font-size="23" font-weight="700" fill="#263846" text-anchor="middle">One Computation</text>
 <text x="484.0" y="285.0" font-size="17" font-weight="400" fill="#687E89" text-anchor="middle">Model + hardware</text>
@@ -414,13 +404,10 @@ wide: true
 <rect x="354" y="672.0" width="260" height="116" rx="18" fill="#EFEAF6" stroke="#C1B3D6" stroke-width="1.5"/>
 <text x="484.0" y="723.0" font-size="23" font-weight="700" fill="#263846" text-anchor="middle">Improving Models</text>
 <text x="484.0" y="754.0" font-size="17" font-weight="400" fill="#687E89" text-anchor="middle">Training loop</text>
-<rect x="354" y="806.0" width="260" height="116" rx="18" fill="#F8EBDD" stroke="#DFC2A3" stroke-width="1.5"/>
-<text x="484.0" y="857.0" font-size="23" font-weight="700" fill="#263846" text-anchor="middle">Building a Business</text>
-<text x="484.0" y="888.0" font-size="17" font-weight="400" fill="#687E89" text-anchor="middle">Product + market</text>
 <a href="/posts/ai-infra-from-zero-01" aria-label="Open note: How Does an LLM Actually Run?" class="svg-note-link">
 <rect x="672" y="144" width="854" height="101" rx="17" fill="#E5F2EB" stroke="#9AC7B3" stroke-width="1.4"/>
 <rect x="672" y="144" width="6" height="101" rx="3" fill="#578B76"/>
-<text x="695" y="175" font-size="23" font-weight="700" fill="#263846">01 · How Does an LLM Actually Run?</text>
+<text x="695" y="175" font-size="23" font-weight="700" fill="#263846">01 · LLM Fundamentals</text>
 <text x="695" y="205" font-size="19" font-weight="400" fill="#263846">What computation happens when a prompt enters an LLM?</text>
 <text x="695" y="229" font-size="16" font-weight="400" fill="#687E89">Parameters · Tokens · Forward Pass · Prefill · Decode · KV Cache</text>
 <text x="1496" y="177" font-size="26" font-weight="500" fill="#578B76" text-anchor="middle">↗</text>
@@ -428,7 +415,7 @@ wide: true
 <a href="/posts/ai-infra-from-zero-02" aria-label="Open note: Why Does the GPU Become the Bottleneck?" class="svg-note-link">
 <rect x="672" y="278" width="854" height="101" rx="17" fill="#E8F0F7" stroke="#9AB8CE" stroke-width="1.4"/>
 <rect x="672" y="278" width="6" height="101" rx="3" fill="#557FA2"/>
-<text x="695" y="309" font-size="23" font-weight="700" fill="#263846">02 · Why Does the GPU Become the Bottleneck?</text>
+<text x="695" y="309" font-size="23" font-weight="700" fill="#263846">02 · GPU &amp; Hardware</text>
 <text x="695" y="339" font-size="19" font-weight="400" fill="#263846">Why can powerful GPUs still slow LLM inference down?</text>
 <text x="695" y="363" font-size="16" font-weight="400" fill="#687E89">GPU Memory · HBM · Compute · Bandwidth · Latency · Throughput</text>
 <text x="1496" y="311" font-size="26" font-weight="500" fill="#557FA2" text-anchor="middle">↗</text>
@@ -436,31 +423,29 @@ wide: true
 <a href="/posts/ai-infra-from-zero-03" class="svg-note-link" aria-label="Open note: How Does an LLM Serving System Work?">
 <rect x="672" y="412" width="854" height="101" rx="17" fill="#E5F2EB" stroke="#9AC7B3" stroke-width="1.4"/>
 <rect x="672" y="412" width="6" height="101" rx="3" fill="#578B76"/>
-<text x="695" y="443" font-size="23" font-weight="700" fill="#263846">03 · How Does an LLM Serving System Work?</text>
+<text x="695" y="443" font-size="23" font-weight="700" fill="#263846">03 · LLM Serving Systems</text>
 <text x="695" y="473" font-size="19" font-weight="400" fill="#263846">How does one model serve thousands of users at once?</text>
 <text x="695" y="497" font-size="16" font-weight="400" fill="#687E89">Scheduling · Batching · Caching · Concurrency · Engine</text>
 <text x="1496" y="445" font-size="26" font-weight="500" fill="#578B76" text-anchor="middle">↗</text>
 </a>
+<a href="/posts/ai-infra-from-zero-04" class="svg-note-link" aria-label="Open note: What Makes an Inference Engine Actually Useful?">
 <rect x="672" y="546" width="854" height="101" rx="17" fill="#E5F2EB" stroke="#9AC7B3" stroke-width="1.4"/>
 <rect x="672" y="546" width="6" height="101" rx="3" fill="#578B76"/>
-<text x="695" y="577" font-size="23" font-weight="700" fill="#263846">04 · What Do Inference Engines Actually Solve?</text>
+<text x="695" y="577" font-size="23" font-weight="700" fill="#263846">04 · SGLang &amp; Inference Optimization</text>
 <text x="695" y="607" font-size="19" font-weight="400" fill="#263846">What trade-offs do open-source inference engines make?</text>
 <text x="695" y="631" font-size="16" font-weight="400" fill="#687E89">Prefix Caching · Continuous Batching · PD Disaggregation · SGLang</text>
+<text x="1496" y="579" font-size="26" font-weight="500" fill="#578B76" text-anchor="middle">↗</text>
+</a>
 <rect x="672" y="680" width="854" height="101" rx="17" fill="#EFEAF6" stroke="#C1B3D6" stroke-width="1.4"/>
 <rect x="672" y="680" width="6" height="101" rx="3" fill="#8A73A7"/>
-<text x="695" y="711" font-size="23" font-weight="700" fill="#263846">05 · Model Post-Training</text>
+<text x="695" y="711" font-size="23" font-weight="700" fill="#263846">05 · Post-training &amp; Reinforcement Learning</text>
 <text x="695" y="741" font-size="19" font-weight="400" fill="#263846">Why does improving AI agents take training infrastructure?</text>
 <text x="695" y="765" font-size="16" font-weight="400" fill="#687E89">Post-training · RL · Rollouts · Rewards · Train–Serve Loop</text>
-<rect x="672" y="814" width="854" height="101" rx="17" fill="#F8EBDD" stroke="#DFC2A3" stroke-width="1.4"/>
-<rect x="672" y="814" width="6" height="101" rx="3" fill="#AF815A"/>
-<text x="695" y="845" font-size="23" font-weight="700" fill="#263846">06 · Commercializing Open-Source AI Infra</text>
-<text x="695" y="875" font-size="19" font-weight="400" fill="#263846">How does a popular open-source project become a company?</text>
-<text x="695" y="899" font-size="16" font-weight="400" fill="#687E89">Open Source · Developer Adoption · ICP · GTM · Monetization</text>
 </svg></div></div>
    <p class="map-note">树中的问题是每个模块的学习目标。已提供原文地址的模块标题可直接打开对应笔记；其他模块保留学习问题与知识点。</p>
   </div>
   <div class="map-section-figure"><div class="map-label"><h3>Track B <span style="font-style:italic;color:#77a58c">— Product &amp; Business</span></h3><span>Why systems matter</span></div>
-   <p>从 AI Infrastructure 产业生态开始，研究真实的 Developer Problems，理解技术能力如何转化为产品价值，再探索 Developer Adoption、PMM、Go-to-Market 和实际贡献。</p>
+   <p>从市场和真实的开发者问题开始，再看一项技术能力怎么变成产品价值。采用和做成一门生意是同一个阶段：开发者体验、GTM，以及开源项目怎么被用起来、怎么收费。最后落到你真正能做出来的贡献。</p>
    <div class="map-shell"><div class="map-scroll"><svg class="map-svg" role="img" aria-label="TRACK B · Understand Users &amp; Business" viewBox="0 0 1570 890" xmlns="http://www.w3.org/2000/svg">
 <title>TRACK B · Understand Users &amp; Business</title>
 <text x="44" y="51" font-size="31" font-weight="700" fill="#263846">TRACK B · Understand Users &amp; Business</text>
@@ -491,8 +476,9 @@ wide: true
 <text x="484.0" y="455.0" font-size="23" font-weight="700" fill="#263846" text-anchor="middle">Evaluate Value</text>
 <text x="484.0" y="486.0" font-size="17" font-weight="400" fill="#687E89" text-anchor="middle">Capability → outcome</text>
 <rect x="354" y="538.0" width="260" height="116" rx="18" fill="#EFEAF6" stroke="#C1B3D6" stroke-width="1.5"/>
-<text x="484.0" y="589.0" font-size="23" font-weight="700" fill="#263846" text-anchor="middle">Drive Adoption</text>
-<text x="484.0" y="620.0" font-size="17" font-weight="400" fill="#687E89" text-anchor="middle">DX + GTM + growth</text>
+<text x="484.0" y="575.0" font-size="18" font-weight="700" fill="#263846" text-anchor="middle">Drive Adoption</text>
+<text x="484.0" y="600.0" font-size="16" font-weight="700" fill="#263846" text-anchor="middle">&amp; Build a Business</text>
+<text x="484.0" y="626.0" font-size="14" font-weight="400" fill="#687E89" text-anchor="middle">GTM · open source · revenue</text>
 <rect x="354" y="672.0" width="260" height="116" rx="18" fill="#F8EBDD" stroke="#DFC2A3" stroke-width="1.5"/>
 <text x="484.0" y="723.0" font-size="21" font-weight="700" fill="#263846" text-anchor="middle">Contribute in Practice</text>
 <text x="484.0" y="754.0" font-size="17" font-weight="400" fill="#687E89" text-anchor="middle">Evidence + execution</text>
@@ -513,18 +499,18 @@ wide: true
 <text x="695" y="497" font-size="16" font-weight="400" fill="#687E89">Real Workloads · Trade-offs · Use Cases · Differentiation · Validation</text>
 <rect x="672" y="546" width="854" height="101" rx="17" fill="#EFEAF6" stroke="#C1B3D6" stroke-width="1.4"/>
 <rect x="672" y="546" width="6" height="101" rx="3" fill="#8A73A7"/>
-<text x="695" y="577" font-size="23" font-weight="700" fill="#263846">04 · Developer Adoption, PMM &amp; Go-to-Market</text>
-<text x="695" y="607" font-size="19" font-weight="400" fill="#263846">How does a product move from discovery to sustained adoption?</text>
-<text x="695" y="631" font-size="16" font-weight="400" fill="#687E89">DX · Positioning · Onboarding · DevRel · Funnels · Retention</text>
+<text x="695" y="577" font-size="22" font-weight="700" fill="#263846">04 · Drive Adoption &amp; Build a Business</text>
+<text x="695" y="607" font-size="19" font-weight="400" fill="#263846">How does a product get adopted, and how does an open-source project become a business?</text>
+<text x="695" y="631" font-size="16" font-weight="400" fill="#687E89">DX · PMM · DevRel · GTM · Open-source business · Monetization</text>
 <rect x="672" y="680" width="854" height="101" rx="17" fill="#F8EBDD" stroke="#DFC2A3" stroke-width="1.4"/>
 <rect x="672" y="680" width="6" height="101" rx="3" fill="#AF815A"/>
 <text x="695" y="711" font-size="23" font-weight="700" fill="#263846">05 · Real-World Contribution &amp; Portfolio</text>
 <text x="695" y="741" font-size="19" font-weight="400" fill="#263846">What useful work can I actually contribute?</text>
 <text x="695" y="765" font-size="16" font-weight="400" fill="#687E89">Documentation PRs · Technical Explainers · Workshops · Growth Experiments</text>
 </svg></div></div>
-   <p class="map-note">从市场与用户证据出发，逐层走向产品判断、开发者采用和实际贡献。这张树把观察用户、验证价值和实际贡献连接起来。</p>
+   <p class="map-note">从市场与用户证据出发，逐层走向产品判断、开发者采用和实际贡献。做成一门生意放在这条线里，跟采用放在一起，不再单列成技术线的第六块。</p>
   </div>
-  <div class="highlight-line">One track explains what the system can do. The other asks who needs it, and why.</div>
+  <div class="highlight-line">Track A：把技术搞懂。Track B：理解用户，做出价值，并让人真正用起来。</div>
  </section>
 
  <section class="section" id="insights">
