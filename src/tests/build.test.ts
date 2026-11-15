@@ -167,10 +167,18 @@ describe('build smoke test', () => {
     expect(html).toContain('id="post-lang"');
     expect(html).toMatch(/<article[^>]*id="post-article"[^>]*lang="en"/);
     expect(html).toContain('Learning AI Infrastructure');
-    expect(html).toContain('An Overview of My AI Infrastructure Learning');
     expect(html).toContain('AI Infrastructure 学习总览');
     expect(html).toContain('最初的原因其实很简单');
     expect(html).toContain('infra-overview.css');
+  });
+
+  it('the AI infra overview uses the same layout as the notes (no hero art, no contents rail)', () => {
+    const html = readFileSync(join(dist, 'posts/ai-infra-overview/index.html'), 'utf-8');
+    expect(html).toContain('infra-notes.css');
+    expect(html).toContain('infra-note infra-note--gpu');
+    expect(html).not.toContain('class="hero-art"');
+    expect(html).not.toContain('class="rail"');
+    expect(html).not.toMatch(/class="post-main[^"]*\bwide\b/);
   });
 
   it('unlisted posts keep their URLs', () => {
