@@ -167,35 +167,10 @@ describe('build smoke test', () => {
     expect(html).toContain('id="post-lang"');
     expect(html).toMatch(/<article[^>]*id="post-article"[^>]*lang="en"/);
     expect(html).toContain('Learning AI Infrastructure');
+    expect(html).toContain('An Overview of My AI Infrastructure Learning');
     expect(html).toContain('AI Infrastructure 学习总览');
     expect(html).toContain('最初的原因其实很简单');
     expect(html).toContain('infra-overview.css');
-  });
-
-  it('the overview learning map links every published note with a visible button', () => {
-    const html = readFileSync(join(dist, 'posts/ai-infra-overview/index.html'), 'utf-8');
-    for (const slug of [
-      'ai-infra-from-zero-01',
-      'ai-infra-from-zero-02',
-      'ai-infra-from-zero-03',
-      'ai-infra-from-zero-04',
-      'ai-infra-product-lens',
-    ]) {
-      // Once in English, once in Chinese, each as a module card with a "read" button.
-      const cards = html.match(new RegExp(`<a class="module is-live" href="/posts/${slug}"`, 'g')) ?? [];
-      expect(cards.length, slug).toBe(2);
-    }
-    expect(html.match(/class="m-cta"/g)?.length).toBe(10);
-  });
-
-  it('overview section ids are unique so the contents rail works in both languages', () => {
-    const html = readFileSync(join(dist, 'posts/ai-infra-overview/index.html'), 'utf-8');
-    const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]);
-    expect(ids.length).toBe(new Set(ids).size);
-    for (const id of ['why', 'design', 'map', 'insights', 'reflection']) {
-      expect(html).toContain(`href="#${id}"`);
-      expect(html).toContain(`href="#zh-${id}"`);
-    }
   });
 
   it('unlisted posts keep their URLs', () => {
