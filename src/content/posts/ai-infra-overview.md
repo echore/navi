@@ -259,7 +259,6 @@ pinned: true
   <p><strong>The questions I most want to explore next:</strong></p>
   <ol class="questions"><li>When developers choose an AI infrastructure product, what do they weigh besides performance and cost?</li><li>How can we tell whether a technical optimization actually improves the user experience?</li><li>What does a strong open-source project need to become a widely adopted, sustainable product?</li></ol>
   <p>I hope this roadmap helps me understand a new industry. I also hope it helps me find the value I can create where technology, users, and business meet.</p>
-  <div class="final-quote">The more I explore, the bigger the map becomes.</div><div class="final-quote-cn">Understand the technology · Get close to users · Create real value</div>
  </section>
 </div>
 </div>
@@ -506,7 +505,6 @@ pinned: true
   <p><strong>接下来我最想探索的问题包括：</strong></p>
   <ol class="questions"><li>开发者实际选择 AI Infrastructure 产品时，除了性能和成本，还会考虑什么？</li><li>我们如何判断某一项技术优化，是否真正改善了用户体验？</li><li>一个优秀的开源技术项目，需要什么才能发展成被广泛采用、可持续发展的产品？</li></ol>
   <p>我希望这条学习路线不仅帮助我理解一个新行业，也帮助我进一步探索自己能够在技术、用户和商业的交汇处创造什么价值。</p>
-  <div class="final-quote">The more I explore, the bigger the map becomes.</div><div class="final-quote-cn">理解技术 · 走近用户 · 创造真实价值</div>
  </section>
 </div>
 </div>
