@@ -138,7 +138,7 @@ wide: true
 <text x="695" y="175" font-size="23" font-weight="700" fill="#263846">01 · LLM Fundamentals</text>
 <text x="695" y="205" font-size="19" font-weight="400" fill="#263846">What computation happens when a prompt enters an LLM?</text>
 <text x="695" y="229" font-size="16" font-weight="400" fill="#687E89">Parameters · Tokens · Forward Pass · Prefill · Decode · KV Cache</text>
-<text x="1496" y="177" font-size="26" font-weight="500" fill="#578B76" text-anchor="middle">↗</text>
+<rect class="svg-cta" x="1352" y="174" width="152" height="42" rx="21" fill="#D6DD63" stroke="#B9C04A" stroke-width="1"/><text x="1428" y="201" font-size="17" font-weight="700" fill="#2A241B" text-anchor="middle">Read note →</text>
 </a>
 <a href="/posts/ai-infra-from-zero-02" aria-label="Open note: Why Does the GPU Become the Bottleneck?" class="svg-note-link">
 <rect x="672" y="278" width="854" height="101" rx="17" fill="#E8F0F7" stroke="#9AB8CE" stroke-width="1.4"/>
@@ -146,7 +146,7 @@ wide: true
 <text x="695" y="309" font-size="23" font-weight="700" fill="#263846">02 · GPU &amp; Hardware</text>
 <text x="695" y="339" font-size="19" font-weight="400" fill="#263846">Why can powerful GPUs still slow LLM inference down?</text>
 <text x="695" y="363" font-size="16" font-weight="400" fill="#687E89">GPU Memory · HBM · Compute · Bandwidth · Latency · Throughput</text>
-<text x="1496" y="311" font-size="26" font-weight="500" fill="#557FA2" text-anchor="middle">↗</text>
+<rect class="svg-cta" x="1352" y="308" width="152" height="42" rx="21" fill="#D6DD63" stroke="#B9C04A" stroke-width="1"/><text x="1428" y="335" font-size="17" font-weight="700" fill="#2A241B" text-anchor="middle">Read note →</text>
 </a>
 <a href="/posts/ai-infra-from-zero-03" class="svg-note-link" aria-label="Open note: How Does an LLM Serving System Work?">
 <rect x="672" y="412" width="854" height="101" rx="17" fill="#E5F2EB" stroke="#9AC7B3" stroke-width="1.4"/>
@@ -154,7 +154,7 @@ wide: true
 <text x="695" y="443" font-size="23" font-weight="700" fill="#263846">03 · LLM Serving Systems</text>
 <text x="695" y="473" font-size="19" font-weight="400" fill="#263846">How does one model serve thousands of users at once?</text>
 <text x="695" y="497" font-size="16" font-weight="400" fill="#687E89">Scheduling · Batching · Caching · Concurrency · Engine</text>
-<text x="1496" y="445" font-size="26" font-weight="500" fill="#578B76" text-anchor="middle">↗</text>
+<rect class="svg-cta" x="1352" y="442" width="152" height="42" rx="21" fill="#D6DD63" stroke="#B9C04A" stroke-width="1"/><text x="1428" y="469" font-size="17" font-weight="700" fill="#2A241B" text-anchor="middle">Read note →</text>
 </a>
 <a href="/posts/ai-infra-from-zero-04" class="svg-note-link" aria-label="Open note: What Makes an Inference Engine Actually Useful?">
 <rect x="672" y="546" width="854" height="101" rx="17" fill="#E5F2EB" stroke="#9AC7B3" stroke-width="1.4"/>
@@ -162,7 +162,7 @@ wide: true
 <text x="695" y="577" font-size="23" font-weight="700" fill="#263846">04 · SGLang &amp; Inference Optimization</text>
 <text x="695" y="607" font-size="19" font-weight="400" fill="#263846">What trade-offs do open-source inference engines make?</text>
 <text x="695" y="631" font-size="16" font-weight="400" fill="#687E89">Prefix Caching · Continuous Batching · PD Disaggregation · SGLang</text>
-<text x="1496" y="579" font-size="26" font-weight="500" fill="#578B76" text-anchor="middle">↗</text>
+<rect class="svg-cta" x="1352" y="576" width="152" height="42" rx="21" fill="#D6DD63" stroke="#B9C04A" stroke-width="1"/><text x="1428" y="603" font-size="17" font-weight="700" fill="#2A241B" text-anchor="middle">Read note →</text>
 </a>
 <rect x="672" y="680" width="854" height="101" rx="17" fill="#EFEAF6" stroke="#C1B3D6" stroke-width="1.4"/>
 <rect x="672" y="680" width="6" height="101" rx="3" fill="#8A73A7"/>
@@ -210,11 +210,14 @@ wide: true
 <rect x="354" y="672.0" width="260" height="116" rx="18" fill="#F8EBDD" stroke="#DFC2A3" stroke-width="1.5"/>
 <text x="484.0" y="723.0" font-size="21" font-weight="700" fill="#263846" text-anchor="middle">Contribute in Practice</text>
 <text x="484.0" y="754.0" font-size="17" font-weight="400" fill="#687E89" text-anchor="middle">Evidence + execution</text>
+<a href="/posts/ai-infra-product-lens" class="svg-note-link" aria-label="Open note: What Makes AI Infrastructure Worth Using?">
 <rect x="672" y="144" width="854" height="101" rx="17" fill="#E8F0F7" stroke="#9AB8CE" stroke-width="1.4"/>
 <rect x="672" y="144" width="6" height="101" rx="3" fill="#557FA2"/>
 <text x="695" y="175" font-size="23" font-weight="700" fill="#263846">01 · Mapping the AI Infra Ecosystem</text>
 <text x="695" y="205" font-size="19" font-weight="400" fill="#263846">Who builds, uses, and pays for AI infrastructure?</text>
 <text x="695" y="229" font-size="16" font-weight="400" fill="#687E89">Value Chain · Model Providers · Managed Inference · Buyers · Business Models</text>
+<rect class="svg-cta" x="1352" y="174" width="152" height="42" rx="21" fill="#D6DD63" stroke="#B9C04A" stroke-width="1"/><text x="1428" y="201" font-size="17" font-weight="700" fill="#2A241B" text-anchor="middle">Read note →</text>
+</a>
 <rect x="672" y="278" width="854" height="101" rx="17" fill="#E8F0F7" stroke="#9AB8CE" stroke-width="1.4"/>
 <rect x="672" y="278" width="6" height="101" rx="3" fill="#557FA2"/>
 <text x="695" y="309" font-size="23" font-weight="700" fill="#263846">02 · Developer Research &amp; Customer Discovery</text>
@@ -238,7 +241,6 @@ wide: true
 </svg></div></div>
    <p class="map-note">The tree starts from market and user evidence and moves step by step toward product judgment, developer adoption, and real contribution. Building a business lives in this track, next to adoption, not as a sixth technology module.</p>
   </div>
-  <div class="highlight-line">Track A: Understand the technology. Track B: Understand the users, create value, and drive adoption.</div>
  </section>
 
  <section class="section" id="insights">
@@ -252,7 +254,7 @@ wide: true
      <div class="scale-card"><h4>One Request</h4><div class="person-row"><span class="person"></span></div><div class="downline"></div><div class="pipeline-box">LLM Inference<span>One input → one response</span></div><div class="gpu-tile">One user sees a <strong>model answer</strong></div></div>
      <div class="scale-card many"><h4>Many Concurrent Requests</h4><div class="person-row"><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span></div><div class="downline"></div><div class="pipeline-box emph">Scheduling · Batching · Caching<span>Requests compete for shared resources</span></div><div class="downline"></div><div class="pipeline-box">GPU / Memory / Compute<span>Manage latency, throughput &amp; cost</span></div></div>
    </div>
-  </div><figcaption class="fig-caption">Inference doesn't exist because of many users. What serving at scale changes is how concurrent requests share limited compute.</figcaption></figure>
+  </div><figcaption class="fig-caption">The model is the same in both cases. What changes at scale is that many requests compete for the same GPU memory and compute.</figcaption></figure>
   <div class="insight-heading"><span class="insight-count">02</span><h3>Higher Metrics Aren't Always Better</h3></div>
   <p>A higher cache hit rate, for example, doesn't necessarily mean lower end-to-end latency. It says even less about developer experience.</p>
   <p>Caching takes up resources, and requests may have to wait. Improving one technical metric doesn't guarantee that the whole system, or the user experience, gets better.</p>
@@ -410,7 +412,7 @@ wide: true
 <text x="695" y="175" font-size="23" font-weight="700" fill="#263846">01 · LLM Fundamentals</text>
 <text x="695" y="205" font-size="19" font-weight="400" fill="#263846">What computation happens when a prompt enters an LLM?</text>
 <text x="695" y="229" font-size="16" font-weight="400" fill="#687E89">Parameters · Tokens · Forward Pass · Prefill · Decode · KV Cache</text>
-<text x="1496" y="177" font-size="26" font-weight="500" fill="#578B76" text-anchor="middle">↗</text>
+<rect class="svg-cta" x="1352" y="174" width="152" height="42" rx="21" fill="#D6DD63" stroke="#B9C04A" stroke-width="1"/><text x="1428" y="201" font-size="17" font-weight="700" fill="#2A241B" text-anchor="middle">阅读笔记 →</text>
 </a>
 <a href="/posts/ai-infra-from-zero-02" aria-label="Open note: Why Does the GPU Become the Bottleneck?" class="svg-note-link">
 <rect x="672" y="278" width="854" height="101" rx="17" fill="#E8F0F7" stroke="#9AB8CE" stroke-width="1.4"/>
@@ -418,7 +420,7 @@ wide: true
 <text x="695" y="309" font-size="23" font-weight="700" fill="#263846">02 · GPU &amp; Hardware</text>
 <text x="695" y="339" font-size="19" font-weight="400" fill="#263846">Why can powerful GPUs still slow LLM inference down?</text>
 <text x="695" y="363" font-size="16" font-weight="400" fill="#687E89">GPU Memory · HBM · Compute · Bandwidth · Latency · Throughput</text>
-<text x="1496" y="311" font-size="26" font-weight="500" fill="#557FA2" text-anchor="middle">↗</text>
+<rect class="svg-cta" x="1352" y="308" width="152" height="42" rx="21" fill="#D6DD63" stroke="#B9C04A" stroke-width="1"/><text x="1428" y="335" font-size="17" font-weight="700" fill="#2A241B" text-anchor="middle">阅读笔记 →</text>
 </a>
 <a href="/posts/ai-infra-from-zero-03" class="svg-note-link" aria-label="Open note: How Does an LLM Serving System Work?">
 <rect x="672" y="412" width="854" height="101" rx="17" fill="#E5F2EB" stroke="#9AC7B3" stroke-width="1.4"/>
@@ -426,7 +428,7 @@ wide: true
 <text x="695" y="443" font-size="23" font-weight="700" fill="#263846">03 · LLM Serving Systems</text>
 <text x="695" y="473" font-size="19" font-weight="400" fill="#263846">How does one model serve thousands of users at once?</text>
 <text x="695" y="497" font-size="16" font-weight="400" fill="#687E89">Scheduling · Batching · Caching · Concurrency · Engine</text>
-<text x="1496" y="445" font-size="26" font-weight="500" fill="#578B76" text-anchor="middle">↗</text>
+<rect class="svg-cta" x="1352" y="442" width="152" height="42" rx="21" fill="#D6DD63" stroke="#B9C04A" stroke-width="1"/><text x="1428" y="469" font-size="17" font-weight="700" fill="#2A241B" text-anchor="middle">阅读笔记 →</text>
 </a>
 <a href="/posts/ai-infra-from-zero-04" class="svg-note-link" aria-label="Open note: What Makes an Inference Engine Actually Useful?">
 <rect x="672" y="546" width="854" height="101" rx="17" fill="#E5F2EB" stroke="#9AC7B3" stroke-width="1.4"/>
@@ -434,7 +436,7 @@ wide: true
 <text x="695" y="577" font-size="23" font-weight="700" fill="#263846">04 · SGLang &amp; Inference Optimization</text>
 <text x="695" y="607" font-size="19" font-weight="400" fill="#263846">What trade-offs do open-source inference engines make?</text>
 <text x="695" y="631" font-size="16" font-weight="400" fill="#687E89">Prefix Caching · Continuous Batching · PD Disaggregation · SGLang</text>
-<text x="1496" y="579" font-size="26" font-weight="500" fill="#578B76" text-anchor="middle">↗</text>
+<rect class="svg-cta" x="1352" y="576" width="152" height="42" rx="21" fill="#D6DD63" stroke="#B9C04A" stroke-width="1"/><text x="1428" y="603" font-size="17" font-weight="700" fill="#2A241B" text-anchor="middle">阅读笔记 →</text>
 </a>
 <rect x="672" y="680" width="854" height="101" rx="17" fill="#EFEAF6" stroke="#C1B3D6" stroke-width="1.4"/>
 <rect x="672" y="680" width="6" height="101" rx="3" fill="#8A73A7"/>
@@ -482,11 +484,14 @@ wide: true
 <rect x="354" y="672.0" width="260" height="116" rx="18" fill="#F8EBDD" stroke="#DFC2A3" stroke-width="1.5"/>
 <text x="484.0" y="723.0" font-size="21" font-weight="700" fill="#263846" text-anchor="middle">Contribute in Practice</text>
 <text x="484.0" y="754.0" font-size="17" font-weight="400" fill="#687E89" text-anchor="middle">Evidence + execution</text>
+<a href="/posts/ai-infra-product-lens" class="svg-note-link" aria-label="Open note: What Makes AI Infrastructure Worth Using?">
 <rect x="672" y="144" width="854" height="101" rx="17" fill="#E8F0F7" stroke="#9AB8CE" stroke-width="1.4"/>
 <rect x="672" y="144" width="6" height="101" rx="3" fill="#557FA2"/>
 <text x="695" y="175" font-size="23" font-weight="700" fill="#263846">01 · Mapping the AI Infra Ecosystem</text>
 <text x="695" y="205" font-size="19" font-weight="400" fill="#263846">Who builds, uses, and pays for AI infrastructure?</text>
 <text x="695" y="229" font-size="16" font-weight="400" fill="#687E89">Value Chain · Model Providers · Managed Inference · Buyers · Business Models</text>
+<rect class="svg-cta" x="1352" y="174" width="152" height="42" rx="21" fill="#D6DD63" stroke="#B9C04A" stroke-width="1"/><text x="1428" y="201" font-size="17" font-weight="700" fill="#2A241B" text-anchor="middle">阅读笔记 →</text>
+</a>
 <rect x="672" y="278" width="854" height="101" rx="17" fill="#E8F0F7" stroke="#9AB8CE" stroke-width="1.4"/>
 <rect x="672" y="278" width="6" height="101" rx="3" fill="#557FA2"/>
 <text x="695" y="309" font-size="23" font-weight="700" fill="#263846">02 · Developer Research &amp; Customer Discovery</text>
@@ -510,7 +515,6 @@ wide: true
 </svg></div></div>
    <p class="map-note">从市场与用户证据出发，逐层走向产品判断、开发者采用和实际贡献。做成一门生意放在这条线里，跟采用放在一起，不再单列成技术线的第六块。</p>
   </div>
-  <div class="highlight-line">Track A：把技术搞懂。Track B：理解用户，做出价值，并让人真正用起来。</div>
  </section>
 
  <section class="section" id="insights">
@@ -524,7 +528,7 @@ wide: true
      <div class="scale-card"><h4>One Request</h4><div class="person-row"><span class="person"></span></div><div class="downline"></div><div class="pipeline-box">LLM Inference<span>One input → one response</span></div><div class="gpu-tile">One user sees a <strong>model answer</strong></div></div>
      <div class="scale-card many"><h4>Many Concurrent Requests</h4><div class="person-row"><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span></div><div class="downline"></div><div class="pipeline-box emph">Scheduling · Batching · Caching<span>Requests compete for shared resources</span></div><div class="downline"></div><div class="pipeline-box">GPU / Memory / Compute<span>Manage latency, throughput &amp; cost</span></div></div>
    </div>
-  </div><figcaption class="fig-caption">Inference 本身不是因多用户而出现；大规模服务改变的是如何协调并发请求与有限计算资源。</figcaption></figure>
+  </div><figcaption class="fig-caption">两种情况下模型是同一个。规模变大之后，变化的是大量请求在争抢同一块 GPU 的显存和算力。</figcaption></figure>
   <div class="insight-heading"><span class="insight-count">02</span><h3>技术指标不是越高越好</h3></div>
   <p>比如，更高的 Cache Hit Rate 并不一定意味着更低的 End-to-End Latency，更不一定意味着更好的 Developer Experience。</p>
   <p>因为缓存需要占据资源，请求也可能需要等待。某一项技术指标改善，并不保证整个系统或用户体验都会改善。</p>

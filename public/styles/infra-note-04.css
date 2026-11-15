@@ -8,3 +8,22 @@
 @media(max-width:660px){.infra-04{font-size:15px}.infra-04 .sitebar{height:60px}.infra-04 .sitebar .inner{padding:0 17px}.infra-04 .siteback{display:none}.infra-04 .toplink{display:none}.infra-04 .hero{padding:49px 20px 39px}.infra-04 .hero h1{font-size:42px}.infra-04.zh .hero h1{font-size:38px}.infra-04 .hero .dek{font-size:20px}.infra-04 .hero-intro{font-size:15.5px}.infra-04 .wrap{padding:0 20px 65px}.infra-04 .sectionhead h2{font-size:28px}.infra-04 .article section{margin-bottom:53px}.infra-04 .figure{padding:17px 13px}.infra-04 .scene .scene-grid,.infra-04 .atlas,.infra-04 .questions,.infra-04 .grid-two,.infra-04 .stack{grid-template-columns:1fr}.infra-04 .scene .scene-grid>div:not(:last-child){border-right:0;border-bottom:1px solid var(--rule);padding-right:0;padding-bottom:15px}.infra-04 .steps{grid-template-columns:repeat(2,1fr)}.infra-04 .step{min-height:91px}.infra-04 .step:last-child{grid-column:1/-1}.infra-04 .bar-chart .bar-row{grid-template-columns:87px 1fr 48px;gap:8px}.infra-04 .tinylist{grid-template-columns:1fr}.infra-04 .chain{grid-template-columns:repeat(2,1fr)}.infra-04 .twolane{grid-template-columns:1fr}.infra-04 .memorypair{gap:8px}.infra-04 .panel{padding:17px}.infra-04 .sitebrand{gap:8px}.infra-04 .eyebrow{font-size:9.8px}}
 @media(prefers-reduced-motion:reduce){.infra-04{scroll-behavior:auto}}
 @media print{.infra-04 .sitebar,.infra-04 .side,.infra-04 .footnav{display:none}.infra-04 .wrap{display:block;max-width:850px}.infra-04 .hero{padding-top:20px}.infra-04 .article section{break-inside:avoid}.infra-04 .figure,.infra-04 .panel,.infra-04 .atlas-card,.infra-04 .tablewrap{break-inside:avoid}.infra-04{background:white}}
+
+/* Match notes 01-03 (e.g. ai-infra-from-zero-02): heading font, italic section numbers,
+   warm text, lemon highlights, terra quote rule. Layout and figure colors are unchanged. */
+.infra-04{--ink:#2A241B;--body:#2A241B;--muted:#6E6556;--green:#2A241B}
+.infra-04 a{text-decoration:underline;text-decoration-color:rgba(42,36,27,.3);text-underline-offset:3px}
+.infra-04 a:hover{text-decoration-color:#2A241B}
+.infra-04 .side nav a,.infra-04 .footnav a,.infra-04 .language a,.infra-04 sup.ref a,.infra-04 .toplink,.infra-04 .siteback{text-decoration:none}
+.infra-04 .hero h1,.infra-04 .sectionhead h2,.infra-04 .article h3{font-family:var(--font-display),"Noto Serif CJK SC","Songti SC",serif;font-weight:400;letter-spacing:-.01em}
+.infra-04.zh .hero h1,.infra-04.zh .sectionhead h2,.infra-04.zh .article h3{font-family:"Noto Serif SC","Songti SC",serif}
+.infra-04 .hero .dek{color:#5C5345}
+.infra-04 .eyebrow{color:#5C5345}
+.infra-04 .hero-intro,.infra-04 .lead{color:#2A241B}
+.infra-04 .sectionhead{align-items:baseline}
+.infra-04 .sectno{font-family:var(--font-display);font-style:italic;font-weight:400;letter-spacing:0;color:#5C5345;font-size:clamp(25px,2.8vw,36px);line-height:1.37}
+.infra-04 b,.infra-04 strong{color:#2D2B28;font-weight:500}
+.infra-04 .article p strong,.infra-04 .article p b,.infra-04 .hero-intro strong,.infra-04 .hero-intro b,.infra-04 mark{background:linear-gradient(transparent 62%,rgba(214,221,99,.32) 62%)}
+.infra-04 .pull{border-left:3px solid #C17E5A;font-family:"Cormorant Garamond",Georgia,serif;color:#2A241B}
+.infra-04.zh .pull{font-family:"Noto Serif SC","Songti SC",serif}
+.infra-04 .side nav a:hover,.infra-04 .side nav a.active{border-left-color:#C17E5A;color:#2A241B}

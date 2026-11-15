@@ -86,3 +86,26 @@
 @media(max-width:730px){.infra-overview .site-header{padding:18px 20px}.infra-overview .header-side{display:none}.infra-overview .hero{grid-template-columns:1fr;padding:55px 22px 54px}.infra-overview .hero h1{font-size:clamp(46px,11.8vw,58px)}.infra-overview .hero-art{min-height:280px;padding:15px}.infra-overview .hero-art svg{max-height:250px}.infra-overview .article-shell{padding:0 22px 55px}.infra-overview .section{padding:56px 0}.infra-overview .section-heading{gap:13px;margin-bottom:21px}.infra-overview .section-num{font-size:35px}.infra-overview .section-heading h2{font-size:36px}.infra-overview .section p{font-size:14.5px}.infra-overview .origin-grid{grid-template-columns:1fr;gap:8px}.infra-overview .origin-card{min-height:115px;padding:18px}.infra-overview .arw{transform:rotate(90deg)}.infra-overview .track-pair{grid-template-columns:1fr}.infra-overview .track-card p{min-height:0}.infra-overview .bridge svg{height:45px}.infra-overview .process-line{grid-template-columns:repeat(2,1fr)}.infra-overview .process-node:last-child{grid-column:span 2}.infra-overview .map-shell{padding:5px}.infra-overview .map-label{display:block}.infra-overview .map-label h3{font-size:27px}.infra-overview .map-label span{display:block;margin-top:4px}.infra-overview .scale-grid{grid-template-columns:1fr}.infra-overview .fighead{flex-direction:column;align-items:flex-start}.infra-overview .fighead .fig-topic{text-align:left}.infra-overview .metric-branches{gap:8px}.infra-overview .metric-branch{padding:13px 9px}.infra-overview .metric-branch h4{font-size:13px}.infra-overview .metric-branch p{font-size:11px!important}.infra-overview footer{padding:27px 22px 45px;display:block}}
 @media(prefers-reduced-motion:reduce){.infra-overview{scroll-behavior:auto}}
 @media print{.infra-overview{background:white}.infra-overview .site-header,.infra-overview .rail{display:none}.infra-overview .article-shell{display:block}.infra-overview .hero{padding:35px 0}.infra-overview .section{page-break-inside:avoid;padding:35px 0}.infra-overview .map-scroll{overflow:visible}.infra-overview .map-svg{min-width:0}.infra-overview .hero-art{box-shadow:none}.infra-overview a{color:inherit}}
+
+/* Match notes 01-03 (e.g. ai-infra-from-zero-02): heading font, italic numbers, warm text,
+   lemon highlights, terra quote rule. Layout and figure colors are unchanged. */
+.infra-overview{--serif:var(--font-display);--ink:#2A241B;color:#2A241B}
+.infra-overview a:hover{color:#C17E5A}
+.infra-overview .hero h1,.infra-overview .section-heading h2,.infra-overview .map-label h3,.infra-overview .track-card h3,.infra-overview .scale-card h4,.infra-overview .bridge-answer .bridge-title{font-weight:400;letter-spacing:-.01em}
+.infra-overview .hero h1{line-height:1.06}
+.infra-overview .kicker,.infra-overview .hero .deck,.infra-overview .hero .tagline,.infra-overview .fighead,.infra-overview .art-note{color:#5C5345}
+.infra-overview .kicker:before{background:rgba(42,36,27,.3)}
+.infra-overview .rail-inner,.infra-overview .rail-title{color:#5C5345}
+.infra-overview .rail-inner a:hover{border-color:#C17E5A;color:#2A241B}
+.infra-overview .section-heading .section-num{font-family:var(--font-display);font-style:italic;font-weight:400;color:#5C5345;font-size:clamp(36px,3.5vw,51px);line-height:1.2}
+.infra-overview .section p,.infra-overview .section .intro,.infra-overview .questions li{color:#2A241B}
+.infra-overview .section strong{color:#2D2B28;font-weight:500;background:linear-gradient(transparent 62%,rgba(214,221,99,.32) 62%)}
+.infra-overview .highlight-line{border-left:3px solid #C17E5A;background:none;font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;font-size:22px;line-height:1.55;color:#2A241B}
+.infra-overview .lang-zh .highlight-line{font-family:"Noto Serif SC","Songti SC",serif;font-size:19px}
+.infra-overview .insight-count{border:0;background:none;width:auto;height:auto;font-family:var(--font-display);font-style:italic;font-weight:400;font-size:26px;color:#5C5345}
+.infra-overview .lang-en .insight-heading h3{font-family:var(--font-display);font-weight:400;font-size:24px}
+.infra-overview .process-node .count,.infra-overview .questions li:before{font-style:italic;color:#5C5345}
+.infra-overview .mini-caption,.infra-overview .final-quote{color:#5C5345}
+.infra-overview .fig-caption,.infra-overview .map-note,.infra-overview .final-quote-cn{color:#6E6556!important}
+.infra-overview .map-svg .svg-note-link:hover .svg-cta{fill:#C9D14E}
+@media(max-width:730px){.infra-overview .section-heading .section-num{font-size:36px}}
