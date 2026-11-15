@@ -15,9 +15,12 @@ interface Props {
   readTime: number;
   series?: string;
   wide?: boolean;
+  /** Wide pages with their own hero hide this title. The overview keeps it. */
+  showTitle?: boolean;
 }
 
-const { title, titleEn, titleZh, lang, bilingual = false, tags, date, readTime, series, wide = false } = Astro.props;
+const { title, titleEn, titleZh, lang, bilingual = false, tags, date, readTime, series, wide = false, showTitle = false } = Astro.props;
+const hideChrome = wide && !showTitle;
 
 const dateStr = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 const primaryTag = tags[0] ?? 'Notes';
@@ -32,7 +35,7 @@ const pageTitle = showToggle ? titleEn! : title;
 
   <main class:list={['post-main', { wide }]}>
     <article class="post-article" id="post-article" lang={showToggle ? 'en' : undefined}>
-      <header class:list={['post-header', { 'wide-header': wide }]}>
+      <header class:list={['post-header', { 'wide-header': hideChrome }]}>
         <div class="post-tag" style={`color: ${tagColor}`}>{primaryTag}</div>
         <div class="post-bar" style={`background: ${tagColor}`}></div>
 
@@ -243,6 +246,10 @@ const pageTitle = showToggle ? titleEn! : title;
   .post-main.wide {
     max-width: 1240px;
     padding-top: 28px;
+  }
+
+  .post-main.wide .post-header:not(.wide-header) {
+    max-width: 720px;
   }
 
   .wide-header {

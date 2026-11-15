@@ -167,9 +167,13 @@ describe('build smoke test', () => {
     expect(html).toContain('id="post-lang"');
     expect(html).toMatch(/<article[^>]*id="post-article"[^>]*lang="en"/);
     expect(html).toContain('Learning AI Infrastructure');
-    expect(html).toContain('An Overview of My AI Infrastructure Learning');
     expect(html).toContain('AI Infrastructure 学习总览');
-    expect(html).toContain('最初的原因其实很简单');
+    expect(html).toContain('I was interviewing at an AI infrastructure startup');
+    expect(html).toContain('我当时在面一家做 AI infrastructure 的 startup');
+    expect(html).toContain('href="/posts/ai-infra-product-lens"');
+    expect(html).toContain('Read note');
+    expect(html).toContain('读这篇');
+    expect(html).not.toContain('Product Judgment');
     expect(html).toContain('infra-overview.css');
   });
 

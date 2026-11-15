@@ -21,8 +21,10 @@ const posts = defineCollection({
     featured: z.boolean().default(false),
     // Always shown first on the homepage and the posts list.
     pinned: z.boolean().default(false),
-    // Full-width page, used by the AI infra overview.
+    // Full-width page, used by the long AI infra notes.
     wide: z.boolean().default(false),
+    // Wide pages hide the site title when they draw their own. The overview uses the site title.
+    showTitle: z.boolean().default(false),
     // false = hidden from home and /posts, but the post URL still works
     listed: z.boolean().default(true),
     notionId: z.string().optional(),
