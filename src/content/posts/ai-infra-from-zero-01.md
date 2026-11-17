@@ -16,6 +16,7 @@ listed: true
 
 <div class="lang-en">
 <div class="infra-note infra-note--gpu">
+<p class="authorship-note">This article was summarized and organized by AI based on my original learning notes.</p>
 <div class="series">AI Infra Learning Notes · 01 / 05</div>
 <div class="meta">From prefill and decode to the KV cache, and prefix reuse across requests</div>
 
@@ -241,6 +242,7 @@ listed: true
 
 <div class="lang-zh">
 <div class="infra-note infra-note--gpu">
+<p class="authorship-note">文章是AI 根据我的原始学习笔记总结、整理而成。</p>
 <div class="series">AI Infra 学习笔记 · 01 / 05</div>
 <div class="meta">从 prefill 和 decode，到 KV cache，以及请求之间的前缀复用</div>
 

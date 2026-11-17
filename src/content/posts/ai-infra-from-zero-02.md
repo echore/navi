@@ -17,6 +17,7 @@ listed: true
 <div class="lang-en">
 <div class="infra-note infra-note--gpu">
 
+<p class="authorship-note">This article was summarized and organized by AI based on my original learning notes.</p>
 <div class="series">AI Infra Learning Notes · 02 / 05</div>
 
 <div class="meta">Memory capacity, bandwidth, batching, and the cost of serving many users</div>
@@ -118,6 +119,7 @@ listed: true
 <div class="lang-zh">
 <div class="infra-note infra-note--gpu">
 
+<p class="authorship-note">文章是AI 根据我的原始学习笔记总结、整理而成。</p>
 <div class="series">AI Infra 学习笔记 · 02 / 05</div>
 
 <div class="meta">显存容量、带宽、batching，以及同时服务很多用户要付出的代价</div>

@@ -17,6 +17,7 @@ listed: true
 
 <div class="lang-en">
 <div class="infra-note infra-note--gpu infra-04">
+<p class="authorship-note">This article was summarized and organized by AI based on my original learning notes.</p>
 <div class="series">AI Infra Learning Notes · 04 / 05</div>
 
 <div class="meta">Inside SGLang—from RadixAttention and scheduling to the workloads, trade-offs, and customer outcomes behind every optimization.</div>
@@ -121,6 +122,7 @@ listed: true
 
 <div class="lang-zh">
 <div class="infra-note infra-note--gpu infra-04 zh">
+<p class="authorship-note">文章是AI 根据我的原始学习笔记总结、整理而成。</p>
 <div class="series">AI Infra 学习笔记 · 04 / 05</div>
 
 <div class="meta">走进 SGLang：从 RadixAttention、Scheduling、PD Disaggregation，到不同 Workload 背后的产品价值。</div>

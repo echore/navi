@@ -117,3 +117,6 @@
 @media(max-width:640px){.prose .infra-note--serving{font-size:17px}.prose .infra-note--serving figure.wide{width:calc(100vw - 48px);max-width:800px}.prose .infra-note--serving .table-wrap{max-width:100%}}
 .prose .infra-note--serving .svg-scroll>img{width:100%;height:auto;min-width:510px}.prose .infra-note--serving figure.wide .svg-scroll>img{min-width:660px}
 .prose .infra-note--serving .svg-scroll{overflow-x:auto;max-width:100%;border:1px solid #e3e9eb;border-radius:14px;background:#fbfcfc;padding:12px}.prose .infra-note--serving .svg-scroll>img{border:0;padding:0;margin:auto}.prose .infra-note--serving .num{display:inline-block}
+
+/* AI attribution shown before the series label in notes 01–05. */
+.prose .infra-note .authorship-note{font-family:var(--font-body);font-size:14px;line-height:1.65;color:var(--ink-soft);margin:0 0 28px}

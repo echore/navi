@@ -17,6 +17,7 @@ listed: true
 
 <div class="lang-en">
 <div class="infra-note infra-note--gpu infra-05">
+<p class="authorship-note">This article was summarized and organized by AI based on my original learning notes.</p>
 <div class="series">AI Infra Learning Notes · 05 / 05</div>
 <div class="meta">From post-training and agentic rollouts to Miles, asynchronous RL, and the diagnostic work behind a surprising result: <strong>GPU utilization ↑, task success ↓.</strong></div>
 <p class="note">This is Part 05 of an AI infrastructure learning series. Earlier chapters covered how an LLM generates tokens, why GPUs become bottlenecks, how serving systems schedule work, and what SGLang optimizes. This chapter asks what changes when the objective is not to serve a model, but to <em>improve the model itself</em>. We use one hypothetical Qwen coding-agent startup throughout. All numerical examples and experiments here are illustrative, not measured Miles results.</p>
@@ -128,6 +129,7 @@ listed: true
 
 <div class="lang-zh">
 <div class="infra-note infra-note--gpu infra-05">
+<p class="authorship-note">文章是AI 根据我的原始学习笔记总结、整理而成。</p>
 <div class="series">AI Infra Learning Notes · 05 / 05</div>
 <div class="meta">从 Post-training、Agentic Rollout 到 Miles 与 Asynchronous RL，再到一个值得认真推敲的案例：<strong>GPU 利用率上升，Coding Agent 成功率却下降了。</strong></div>
 <p class="note">这是「AI Infra Learning Notes」的 Part 05。前四篇讨论了 LLM 如何生成、GPU 为什么成为瓶颈、Serving System 如何调度，以及 SGLang 的设计。现在，我们把问题从「如何高效运行模型」推进到「如何让模型通过训练真正变好」。全文以一个假想的 Qwen Coding Agent startup 贯穿；所有数字和实验都是教学案例，并非 Miles 的真实测量结果。</p>

@@ -18,6 +18,7 @@ listed: true
 <div class="infra-note infra-note--serving">
 
 
+<p class="authorship-note">This article was summarized and organized by AI based on my original learning notes.</p>
 <div class="series">AI Infra Learning Notes · 03 / 05</div>
 
 <div class="meta">From request queues and GPU workers to KV memory, scheduling, and routing</div>
@@ -263,6 +264,7 @@ listed: true
 <div class="infra-note infra-note--serving">
 
 
+<p class="authorship-note">文章是AI 根据我的原始学习笔记总结、整理而成。</p>
 <div class="series">AI Infra 学习笔记 · 03 / 05</div>
 
 <div class="meta">从请求队列和 GPU worker，到 KV 显存、调度和路由</div>
