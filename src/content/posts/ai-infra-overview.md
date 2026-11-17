@@ -141,11 +141,14 @@ pinned: true
 <text x="695" y="631" font-size="16" font-weight="400" fill="#687E89">Prefix Caching · Continuous Batching · PD Disaggregation · SGLang</text>
 <rect class="svg-cta" x="1352" y="576" width="152" height="42" rx="21" fill="#D6DD63" stroke="#B9C04A" stroke-width="1"/><text x="1428" y="603" font-size="17" font-weight="700" fill="#2A241B" text-anchor="middle">Read note →</text>
 </a>
+<a href="/posts/ai-infra-from-zero-05" class="svg-note-link" aria-label="Open note: How Does a Model Learn from Its Own Attempts?">
 <rect x="672" y="680" width="854" height="101" rx="17" fill="#EFEAF6" stroke="#C1B3D6" stroke-width="1.4"/>
 <rect x="672" y="680" width="6" height="101" rx="3" fill="#8A73A7"/>
 <text x="695" y="711" font-size="23" font-weight="700" fill="#263846">05 · Post-training &amp; Reinforcement Learning</text>
 <text x="695" y="741" font-size="19" font-weight="400" fill="#263846">Why does improving AI agents take training infrastructure?</text>
 <text x="695" y="765" font-size="16" font-weight="400" fill="#687E89">Post-training · RL · Rollouts · Rewards · Train–Serve Loop</text>
+<rect class="svg-cta" x="1352" y="710" width="152" height="42" rx="21" fill="#D6DD63" stroke="#B9C04A" stroke-width="1"/><text x="1428" y="737" font-size="17" font-weight="700" fill="#2A241B" text-anchor="middle">Read note →</text>
+</a>
 </svg></div></div><figcaption>Each question in the tree is that module's learning goal. Modules with a published note link straight to it. The rest show the learning question and key concepts.</figcaption></figure>
   <h3>Track B — Product &amp; Business</h3>
    <p>It starts with the market and real developer problems, then asks how a technical capability becomes product value. Adoption and building a business are one phase: developer experience, go-to-market, and how an open-source project gets used and paid for. It ends with work you can actually contribute.</p>
@@ -387,11 +390,14 @@ pinned: true
 <text x="695" y="631" font-size="16" font-weight="400" fill="#687E89">Prefix Caching · Continuous Batching · PD Disaggregation · SGLang</text>
 <rect class="svg-cta" x="1352" y="576" width="152" height="42" rx="21" fill="#D6DD63" stroke="#B9C04A" stroke-width="1"/><text x="1428" y="603" font-size="17" font-weight="700" fill="#2A241B" text-anchor="middle">阅读笔记 →</text>
 </a>
+<a href="/posts/ai-infra-from-zero-05" class="svg-note-link" aria-label="Open note: How Does a Model Learn from Its Own Attempts?">
 <rect x="672" y="680" width="854" height="101" rx="17" fill="#EFEAF6" stroke="#C1B3D6" stroke-width="1.4"/>
 <rect x="672" y="680" width="6" height="101" rx="3" fill="#8A73A7"/>
 <text x="695" y="711" font-size="23" font-weight="700" fill="#263846">05 · Post-training &amp; Reinforcement Learning</text>
 <text x="695" y="741" font-size="19" font-weight="400" fill="#263846">Why does improving AI agents take training infrastructure?</text>
 <text x="695" y="765" font-size="16" font-weight="400" fill="#687E89">Post-training · RL · Rollouts · Rewards · Train–Serve Loop</text>
+<rect class="svg-cta" x="1352" y="710" width="152" height="42" rx="21" fill="#D6DD63" stroke="#B9C04A" stroke-width="1"/><text x="1428" y="737" font-size="17" font-weight="700" fill="#2A241B" text-anchor="middle">阅读笔记 →</text>
+</a>
 </svg></div></div><figcaption>树中的问题是每个模块的学习目标。已提供原文地址的模块标题可直接打开对应笔记；其他模块保留学习问题与知识点。</figcaption></figure>
   <h3>Track B — Product &amp; Business</h3>
    <p>从市场和真实的开发者问题开始，再看一项技术能力怎么变成产品价值。采用和做成一门生意是同一个阶段：开发者体验、GTM，以及开源项目怎么被用起来、怎么收费。最后落到你真正能做出来的贡献。</p>

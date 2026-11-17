@@ -127,6 +127,7 @@ describe('build smoke test', () => {
       'ai-infra-from-zero-02',
       'ai-infra-from-zero-03',
       'ai-infra-from-zero-04',
+      'ai-infra-from-zero-05',
       'real-lessons-from-claude-code-codex-and-ai-agent-tools',
       'toolkit',
       'what-we-mean-by-ab-testing',
@@ -147,6 +148,7 @@ describe('build smoke test', () => {
     expect(home).toContain('AI Infra · Overview');
     // The pinned overview takes the first slot, so the two oldest posts stay on /posts only.
     expect(homeLinks).toContain('ai-infra-from-zero-04');
+    expect(homeLinks).toContain('ai-infra-from-zero-05');
     expect(homeLinks).not.toContain('study-abroad-agencies-are-not-good-business');
     expect(homeLinks).not.toContain('inner-scorecard');
     expect(homeLinks).not.toContain('reflections-on-my-entrepreneurial-journey-or-side-hustle');
