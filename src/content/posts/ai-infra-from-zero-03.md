@@ -18,7 +18,7 @@ listed: true
 <div class="infra-note infra-note--serving">
 
 
-<div class="series">AI Infra Learning Notes · 03 / 06</div>
+<div class="series">AI Infra Learning Notes · 03 / 05</div>
 
 <div class="meta">From request queues and GPU workers to KV memory, scheduling, and routing</div>
 
@@ -263,7 +263,7 @@ listed: true
 <div class="infra-note infra-note--serving">
 
 
-<div class="series">AI Infra 学习笔记 · 03 / 06</div>
+<div class="series">AI Infra 学习笔记 · 03 / 05</div>
 
 <div class="meta">从请求队列和 GPU worker，到 KV 显存、调度和路由</div>
 

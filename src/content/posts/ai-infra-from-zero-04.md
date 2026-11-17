@@ -17,7 +17,7 @@ listed: true
 
 <div class="lang-en">
 <div class="infra-note infra-note--gpu infra-04">
-<div class="series">AI Infra Learning Notes · 04 / 06</div>
+<div class="series">AI Infra Learning Notes · 04 / 05</div>
 
 <div class="meta">Inside SGLang—from RadixAttention and scheduling to the workloads, trade-offs, and customer outcomes behind every optimization.</div>
 <p class="note">This is Part 04 of my notes on learning AI infrastructure from zero. Earlier parts explained how a model computes and why serving gets hard. Here I use a Qwen-based coding agent to ask a more practical question: <strong>when does an inference optimization actually help a customer?</strong> The architecture diagrams are simplified, the example metrics are hypothetical, and the goal is to connect technical mechanisms to product decisions—not rank engines by an isolated benchmark.</p>
@@ -121,7 +121,7 @@ listed: true
 
 <div class="lang-zh">
 <div class="infra-note infra-note--gpu infra-04 zh">
-<div class="series">AI Infra 学习笔记 · 04 / 06</div>
+<div class="series">AI Infra 学习笔记 · 04 / 05</div>
 
 <div class="meta">走进 SGLang：从 RadixAttention、Scheduling、PD Disaggregation，到不同 Workload 背后的产品价值。</div>
 <p class="note">这是「AI Infra Learning Notes」的 Part 04。前几篇已经讨论过 LLM 如何计算、GPU 为什么成为瓶颈，以及 Serving System 如何处理大量请求。这次，我想把问题变得更贴近真实产品：<strong>为什么同样是“响应慢”，不同的 Coding Agent Workload 却需要完全不同的基础设施优化？</strong> 文中的架构图经过简化，性能数字均为教学假设。重点不在于宣布哪个引擎更快，而是把机制与产品决策真正联系起来。</p>

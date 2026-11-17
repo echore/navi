@@ -17,7 +17,7 @@ listed: true
 <div class="lang-en">
 <div class="infra-note infra-note--gpu">
 
-<div class="series">AI Infra Learning Notes · 02 / 06</div>
+<div class="series">AI Infra Learning Notes · 02 / 05</div>
 
 <div class="meta">Memory capacity, bandwidth, batching, and the cost of serving many users</div>
 <p class="note">This is the second note in my AI infrastructure learning series, following <a href="/posts/ai-infra-from-zero-01">What Happens After a Prompt Enters an LLM?</a> It is for readers who know the basics of large language models (LLMs) and want to understand the engineering limits. Numerical examples are teaching assumptions unless a source is given.</p>
@@ -118,7 +118,7 @@ listed: true
 <div class="lang-zh">
 <div class="infra-note infra-note--gpu">
 
-<div class="series">AI Infra 学习笔记 · 02 / 06</div>
+<div class="series">AI Infra 学习笔记 · 02 / 05</div>
 
 <div class="meta">显存容量、带宽、batching，以及同时服务很多用户要付出的代价</div>
 <p class="note">这是我 AI 基础设施学习系列的第二篇，接在 <a href="/posts/ai-infra-from-zero-01">提示词进了 LLM 之后发生了什么？</a> 后面。写给已经知道大语言模型（LLM）基础、想看懂工程上限的人。数字如果没有给出处，就是为了讲清楚而设的假设。</p>

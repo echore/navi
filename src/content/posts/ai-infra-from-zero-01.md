@@ -16,7 +16,7 @@ listed: true
 
 <div class="lang-en">
 <div class="infra-note infra-note--gpu">
-<div class="series">AI Infra Learning Notes · 01 / 06</div>
+<div class="series">AI Infra Learning Notes · 01 / 05</div>
 <div class="meta">From prefill and decode to the KV cache, and prefix reuse across requests</div>
 
   <p class="note">This is the first note in my series on learning AI infra from zero. I'm writing for readers like me: you've used AI and know roughly how it works, but you aren't an infra specialist. The token counts and examples below are teaching assumptions I chose to make the mechanisms clear, and the diagrams don't show any engine's full official implementation.</p>
@@ -241,7 +241,7 @@ listed: true
 
 <div class="lang-zh">
 <div class="infra-note infra-note--gpu">
-<div class="series">AI Infra 学习笔记 · 01 / 06</div>
+<div class="series">AI Infra 学习笔记 · 01 / 05</div>
 <div class="meta">从 prefill 和 decode，到 KV cache，以及请求之间的前缀复用</div>
 
 <p class="note">这是我从零学 AI infra 的第一篇。写给和我一样的人：你用过 AI，大概知道它怎么工作，但不是做基础设施的。下面的 token 数和例子是我为了把机制讲清楚而设的假设。图也不代表任何一个引擎的完整官方实现。</p>
