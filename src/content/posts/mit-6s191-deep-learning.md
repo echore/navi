@@ -18,15 +18,6 @@ listed: true
 <div class="infra-note infra-note--gpu">
 
 <p class="authorship-note">This article was summarized and organized by AI based on my original learning notes.</p>
-<div class="series">MIT AI Course Notes · 01 / 02</div>
-
-<div class="meta">Weights, gradients, memory, attention, convolution, generative models, and decisions</div>
-<p class="note">This is the first of two notes from MIT courses. It follows <a href="http://introtodeeplearning.com/" target="_blank" rel="noopener">MIT 6.S191, Introduction to Deep Learning</a>, and it is for readers who have heard terms such as “gradient” or “attention” but want to know what they do. Numbers in the examples are teaching assumptions, not measured results.</p>
-<h2><span class="num">00</span> The Question Behind This Note</h2>
-<p>I kept hearing that a model “learned” something during training. I wanted a plainer answer: what actually changes inside the network, and how does that change make the next prediction better?</p>
-<p>The short answer is that training adjusts numbers. The rest of this note asks which numbers, how they change, and how different network designs decide what those numbers can capture.</p>
-<blockquote><p>A neural network does not store rules. It stores weights, and training moves them in the direction that reduces the loss.</p></blockquote>
-<p>I follow the course in six steps: one neuron, sequences, attention, images, generative models, and reinforcement learning.</p>
 <h2><span class="num">01</span> What a Neural Network Learns</h2>
 <p>The basic computation of a neural network is small. Multiply each input by a weight, add a bias, and pass the result through an activation function.</p>
 <div class="formula">z = Σ<sub>i</sub> w<sub>i</sub>x<sub>i</sub> + b,&nbsp;&nbsp;&nbsp; a = f(z)</div>
@@ -133,15 +124,6 @@ listed: true
 <div class="infra-note infra-note--gpu">
 
 <p class="authorship-note">文章是AI 根据我的原始学习笔记总结、整理而成。</p>
-<div class="series">MIT AI 课程笔记 · 01 / 02</div>
-
-<div class="meta">权重、梯度、记忆、注意力、卷积、生成模型，以及做决策</div>
-<p class="note">这是 MIT 课程笔记的第一篇，跟的是 <a href="http://introtodeeplearning.com/" target="_blank" rel="noopener">MIT 6.S191《深度学习导论》</a>。适合听过“梯度”“注意力”这些词、但想知道它们到底在干什么的读者。例子里的数字是为了讲清楚机制而设的，不是实测结果。</p>
-<h2><span class="num">00</span> 这篇笔记想回答的问题</h2>
-<p>我总听到一句话：模型在训练中“学会了”什么。我想要一个更朴素的答案：网络里到底什么变了？这个变化又是怎么让下一次预测更准的？</p>
-<p>简短的回答是：训练在调数字。这篇笔记剩下的部分，是在问调的是哪些数字、怎么调，以及不同的网络结构如何决定这些数字能学到什么。</p>
-<blockquote><p>神经网络里存的不是规则，而是权重。训练做的事，是把权重往让 loss 变小的方向挪。</p></blockquote>
-<p>我按课程的顺序走六步：一个神经元、序列、注意力、图像、生成模型、强化学习。</p>
 <h2><span class="num">01</span> 神经网络究竟在学什么？</h2>
 <p>神经网络最基本的计算很小：每个输入乘一个权重，加上偏置，再经过激活函数。</p>
 <div class="formula">z = Σ<sub>i</sub> w<sub>i</sub>x<sub>i</sub> + b,&nbsp;&nbsp;&nbsp; a = f(z)</div>

@@ -18,14 +18,6 @@ listed: true
 <div class="infra-note infra-note--gpu">
 
 <p class="authorship-note">This article was summarized and organized by AI based on my original learning notes.</p>
-<div class="series">MIT AI Course Notes · 02 / 02</div>
-
-<div class="meta">Pretraining, text-to-text, embeddings, contrastive learning, diffusion, and what “similar” means</div>
-<p class="note">This is the second of two notes from MIT courses. It follows <a href="https://ocw.mit.edu/courses/6-s087-foundation-models-and-generative-ai-january-iap-2024/" target="_blank" rel="noopener">MIT 6.S087, Foundation Models and Generative AI</a>, and builds on <a href="/posts/mit-6s191-deep-learning">What Does a Neural Network Actually Learn?</a> Numbers and vectors in the examples are illustrations, not results from a trained model.</p>
-<h2><span class="num">00</span> Picking Up the Previous Note</h2>
-<p>In Note 01, I learned how one network adjusts its weights to solve one problem, and how VAEs and GANs learn to generate. The models I use every day do something that note did not explain: one model answers questions, translates, and summarizes.</p>
-<p>So the question for this note is why one set of trained parameters can serve so many tasks, and how the same family of ideas also produces images.</p>
-<blockquote><p>A foundation model is useful because pretraining learns patterns that transfer. It is a starting point, not a model that can do everything.</p></blockquote>
 <h2><span class="num">01</span> Why Foundation Models Are Useful</h2>
 <p>Traditional machine learning often starts from one clear task. We prepare examples and labels, then train a model to solve that task. For example, the model reads an email and predicts “spam” or “not spam.”</p>
 <p>A <strong>foundation model</strong> takes another route. It first learns transferable patterns from large and broad data, then applies what it learned to many downstream tasks.</p>
@@ -109,14 +101,6 @@ listed: true
 <div class="infra-note infra-note--gpu">
 
 <p class="authorship-note">文章是AI 根据我的原始学习笔记总结、整理而成。</p>
-<div class="series">MIT AI 课程笔记 · 02 / 02</div>
-
-<div class="meta">预训练、Text-to-Text、Embedding、对比学习、扩散模型，以及“像不像”怎么衡量</div>
-<p class="note">这是 MIT 课程笔记的第二篇，跟的是 <a href="https://ocw.mit.edu/courses/6-s087-foundation-models-and-generative-ai-january-iap-2024/" target="_blank" rel="noopener">MIT 6.S087《基础模型与生成式 AI》</a>，接着上一篇 <a href="/posts/mit-6s191-deep-learning">神经网络到底在学什么？</a> 例子里的数字和向量只是示意，不是某个训练好的模型的结果。</p>
-<h2><span class="num">00</span> 接着上一篇的问题</h2>
-<p>在第 01 篇里，我学了一个网络怎样调整权重来解决一个问题，也学了 VAE 和 GAN 怎样学会生成。但我每天用的模型做了一件那篇没解释的事：同一个模型既能问答，又能翻译，还能写摘要。</p>
-<p>所以这一篇要回答：为什么同一套训练好的参数能服务这么多任务？同一族想法又是怎样生成图片的？</p>
-<blockquote><p>基础模型之所以有用，是因为预训练学到了可迁移的模式。它是一个起点，不是一个无所不能的模型。</p></blockquote>
 <h2><span class="num">01</span> Foundation Model 为什么有用？</h2>
 <p>传统机器学习经常从一个明确任务出发：准备训练样本与标签，训练一个模型解决它。例如输入邮件，预测“垃圾邮件 / 正常邮件”。</p>
 <p><strong>Foundation Model（基础模型）</strong>走的是另一条路：先在大量、广泛的数据上学习可迁移的模式，再把获得的能力用于多个下游任务。</p>
