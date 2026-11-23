@@ -136,6 +136,7 @@ describe('build smoke test', () => {
       'inner-scorecard',
       'mit-6s191-deep-learning',
       'mit-ai-courses-review',
+      'mit-6s087-foundation-models',
     ];
     const postsPage = readFileSync(join(dist, 'posts/index.html'), 'utf-8');
     const listed = [...postsPage.matchAll(/href="\/posts\/([^"]+)"/g)].map(m => m[1]);
