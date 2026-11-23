@@ -1,6 +1,6 @@
 ---
-title: "两门 MIT AI 公开课复盘：6.S087 和 6.S191"
-titleEn: "Reviewing Two MIT AI Courses: 6.S087 and 6.S191"
+title: "自学 AI | MIT 课程复盘"
+titleEn: "Teaching Myself AI | MIT Course Review"
 lang: zh
 tags: ["AI"]
 date: 2026-11-23

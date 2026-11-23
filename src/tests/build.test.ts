@@ -135,6 +135,7 @@ describe('build smoke test', () => {
       'study-abroad-agencies-are-not-good-business',
       'inner-scorecard',
       'mit-6s191-deep-learning',
+      'mit-ai-courses-review',
     ];
     const postsPage = readFileSync(join(dist, 'posts/index.html'), 'utf-8');
     const listed = [...postsPage.matchAll(/href="\/posts\/([^"]+)"/g)].map(m => m[1]);
