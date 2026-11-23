@@ -1,11 +1,11 @@
 ---
-title: "我对 AI 的好奇，经历了三个阶段"
-titleEn: "Three Stages of My Curiosity About AI"
+title: "两门 MIT AI 公开课复盘：6.S087 和 6.S191"
+titleEn: "Reviewing Two MIT AI Courses: 6.S087 and 6.S191"
 lang: zh
 tags: ["AI"]
 date: 2026-11-23
 readTime: 5
-slug: three-stages-of-my-curiosity-about-ai
+slug: mit-ai-courses-review
 draft: false
 featured: true
 ---
