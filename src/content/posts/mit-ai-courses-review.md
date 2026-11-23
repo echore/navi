@@ -1,7 +1,7 @@
 ---
-title: "自学 AI | MIT 课程复盘"
-titleEn: "Teaching Myself AI | MIT Course Review"
-lang: zh
+title: "Teaching Myself AI | MIT Course Review"
+titleZh: "自学 AI | MIT 课程复盘"
+lang: en
 tags: ["AI"]
 date: 2026-11-23
 readTime: 5
