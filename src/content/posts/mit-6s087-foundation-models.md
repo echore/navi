@@ -1,6 +1,6 @@
 ---
-title: "Why Can One Model Handle So Many Tasks?"
-titleZh: "为什么一个模型能做这么多任务？"
+title: "MIT 6.S087 Notes"
+titleZh: "MIT 6.S087 Notes"
 lang: en
 tags: ["AI"]
 date: 2026-11-23
@@ -93,7 +93,7 @@ listed: true
 <p class="note">The figures, vectors, and similarity scores explain mechanisms. They are not outputs of a specific model. Real systems differ in data, architecture, training objectives, and post-training.</p>
 <h2>Further Reading and References</h2>
 <ol class="refs"><li><a href="https://ocw.mit.edu/courses/6-s087-foundation-models-and-generative-ai-january-iap-2024/" target="_blank" rel="noopener">MIT 6.S087: Foundation Models and Generative AI (OCW)</a>: The course these notes follow.</li><li><a href="https://arxiv.org/abs/2108.07258" target="_blank" rel="noopener">Bommasani et al. (2021): On the Opportunities and Risks of Foundation Models</a>: Where the term “foundation model” comes from.</li><li><a href="https://arxiv.org/abs/1910.10683" target="_blank" rel="noopener">Raffel et al. (2019): Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer</a>: The T5 paper.</li><li><a href="https://arxiv.org/abs/2203.02155" target="_blank" rel="noopener">Ouyang et al. (2022): Training Language Models to Follow Instructions with Human Feedback</a>: Instruction tuning and preference-based post-training.</li><li><a href="https://arxiv.org/abs/2103.00020" target="_blank" rel="noopener">Radford et al. (2021): Learning Transferable Visual Models from Natural Language Supervision</a>: CLIP and contrastive image-text learning.</li><li><a href="https://arxiv.org/abs/2006.11239" target="_blank" rel="noopener">Ho et al. (2020): Denoising Diffusion Probabilistic Models</a>: Training and sampling in diffusion models.</li><li><a href="https://arxiv.org/abs/1603.08155" target="_blank" rel="noopener">Johnson et al. (2016): Perceptual Losses for Real-Time Style Transfer and Super-Resolution</a>: Comparing images in feature space.</li></ol>
-<div class="next"><a href="/posts/mit-6s191-deep-learning">← Previous · 01: What Does a Neural Network Actually Learn?</a></div>
+<div class="next"><a href="/posts/mit-6s191-deep-learning">← Previous · 01: MIT 6.S191 Notes</a></div>
 </div>
 </div>
 
@@ -176,6 +176,6 @@ listed: true
 <p class="note">图里的向量、相似度和噪声图是用来解释机制的，不是某个具体模型的输出。真实系统在数据、结构、训练目标和后训练上都各不相同。</p>
 <h2>延伸阅读和参考</h2>
 <ol class="refs"><li><a href="https://ocw.mit.edu/courses/6-s087-foundation-models-and-generative-ai-january-iap-2024/" target="_blank" rel="noopener">MIT 6.S087：基础模型与生成式 AI（OCW）</a>：这篇笔记跟的课程。</li><li><a href="https://arxiv.org/abs/2108.07258" target="_blank" rel="noopener">Bommasani 等人（2021）：基础模型的机遇与风险</a>：“foundation model”这个词的出处。</li><li><a href="https://arxiv.org/abs/1910.10683" target="_blank" rel="noopener">Raffel 等人（2019）：统一的 Text-to-Text Transformer</a>：T5 论文。</li><li><a href="https://arxiv.org/abs/2203.02155" target="_blank" rel="noopener">Ouyang 等人（2022）：用人类反馈训练语言模型遵循指令</a>：指令微调和基于偏好的后训练。</li><li><a href="https://arxiv.org/abs/2103.00020" target="_blank" rel="noopener">Radford 等人（2021）：CLIP</a>：图文对比学习。</li><li><a href="https://arxiv.org/abs/2006.11239" target="_blank" rel="noopener">Ho 等人（2020）：去噪扩散概率模型（DDPM）</a>：扩散模型的训练和采样。</li><li><a href="https://arxiv.org/abs/1603.08155" target="_blank" rel="noopener">Johnson 等人（2016）：Perceptual Losses</a>：在特征空间里比较图片。</li></ol>
-<div class="next"><a href="/posts/mit-6s191-deep-learning">← 上一篇 · 01：神经网络到底在学什么？</a></div>
+<div class="next"><a href="/posts/mit-6s191-deep-learning">← 上一篇 · 01：MIT 6.S191 Notes</a></div>
 </div>
 </div>

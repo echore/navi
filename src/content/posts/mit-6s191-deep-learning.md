@@ -1,6 +1,6 @@
 ---
-title: "What Does a Neural Network Actually Learn?"
-titleZh: "神经网络到底在学什么？"
+title: "MIT 6.S191 Notes"
+titleZh: "MIT 6.S191 Notes"
 lang: en
 tags: ["AI"]
 date: 2026-11-23
@@ -116,7 +116,7 @@ listed: true
 <p class="note">The figures, weights, and reward values explain mechanisms. They are not taken from a trained model or a benchmark. Real networks have far more parameters, and their behavior depends on data, architecture, and training details.</p>
 <h2>Further Reading and References</h2>
 <ol class="refs"><li><a href="http://introtodeeplearning.com/" target="_blank" rel="noopener">MIT 6.S191: Introduction to Deep Learning</a>: The course these notes follow, with lecture videos and slides.</li><li><a href="https://arxiv.org/abs/1211.5063" target="_blank" rel="noopener">Pascanu et al. (2013): On the Difficulty of Training Recurrent Neural Networks</a>: Vanishing and exploding gradients in RNNs.</li><li><a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Vaswani et al. (2017): Attention Is All You Need</a>: The Transformer and scaled dot-product attention.</li><li><a href="https://arxiv.org/abs/1603.07285" target="_blank" rel="noopener">Dumoulin and Visin (2016): A Guide to Convolution Arithmetic</a>: How filters, strides, and padding shape a feature map.</li><li><a href="https://arxiv.org/abs/1312.6114" target="_blank" rel="noopener">Kingma and Welling (2013): Auto-Encoding Variational Bayes</a>: The VAE, the ELBO, and the reparameterization trick.</li><li><a href="https://arxiv.org/abs/1406.2661" target="_blank" rel="noopener">Goodfellow et al. (2014): Generative Adversarial Networks</a>: The original GAN formulation.</li><li><a href="http://incompleteideas.net/book/the-book-2nd.html" target="_blank" rel="noopener">Sutton and Barto: Reinforcement Learning, An Introduction</a>: Returns, value functions, and policies.</li></ol>
-<div class="next"><a href="/posts/mit-6s087-foundation-models">Next · 02: Why Can One Model Handle So Many Tasks? →</a></div>
+<div class="next"><a href="/posts/mit-6s087-foundation-models">Next · 02: MIT 6.S087 Notes →</a></div>
 </div>
 </div>
 
@@ -222,6 +222,6 @@ listed: true
 <p class="note">图里的权重、注意力分数和奖励数值是用来解释机制的，不是来自某个训练好的模型或 benchmark。真实网络的参数多得多，表现取决于数据、结构和训练细节。</p>
 <h2>延伸阅读和参考</h2>
 <ol class="refs"><li><a href="http://introtodeeplearning.com/" target="_blank" rel="noopener">MIT 6.S191：深度学习导论</a>：这篇笔记跟的课程，有讲座视频和课件。</li><li><a href="https://arxiv.org/abs/1211.5063" target="_blank" rel="noopener">Pascanu 等人（2013）：训练循环神经网络的困难</a>：RNN 里的梯度消失和梯度爆炸。</li><li><a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Vaswani 等人（2017）：Attention Is All You Need</a>：Transformer 和缩放点积注意力。</li><li><a href="https://arxiv.org/abs/1603.07285" target="_blank" rel="noopener">Dumoulin 和 Visin（2016）：卷积运算指南</a>：过滤器、步长和填充怎样决定特征图。</li><li><a href="https://arxiv.org/abs/1312.6114" target="_blank" rel="noopener">Kingma 和 Welling（2013）：Auto-Encoding Variational Bayes</a>：VAE、ELBO 和 reparameterization trick。</li><li><a href="https://arxiv.org/abs/1406.2661" target="_blank" rel="noopener">Goodfellow 等人（2014）：生成对抗网络</a>：最早的 GAN 论文。</li><li><a href="http://incompleteideas.net/book/the-book-2nd.html" target="_blank" rel="noopener">Sutton 和 Barto：《强化学习导论》</a>：回报、价值函数和策略。</li></ol>
-<div class="next"><a href="/posts/mit-6s087-foundation-models">下一篇 · 02：为什么一个模型能做这么多任务？ →</a></div>
+<div class="next"><a href="/posts/mit-6s087-foundation-models">下一篇 · 02：MIT 6.S087 Notes →</a></div>
 </div>
 </div>
